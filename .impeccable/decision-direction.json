@@ -1,0 +1,219 @@
+{
+  "title": "Choose the visual world",
+  "question": "The roll assigned The Release Log. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Release Log",
+      "kicker": "THE ROLL",
+      "lineage": "best-in-class product changelogs and release histories",
+      "thesis": "Your whole library is one versioned release history: every project ships, and every post is a release note.",
+      "palette": [
+        "#F3F4F6",
+        "#15171C",
+        "#C5CAD3",
+        "#2E46F5"
+      ],
+      "materials": [
+        "hairline date rail",
+        "mono version tags",
+        "inline-expanding release notes"
+      ],
+      "viewport": "Name and a one-line intro, then the log starting at Now, with a dated row for each project and post on one rail.",
+      "risk": "Changelog grammar can read like a product company; the voice and the cross-links have to keep it personal.",
+      "raised": [
+        {
+          "from": "challenger-tensegrity",
+          "raise": "Focusing any entry draws leader lines along the rail to every linked project or post, so the relationships are visible rather than buried in footers."
+        },
+        {
+          "from": "challenger-azulejo",
+          "raise": "Every layout decision snaps to whole rail units; there are no fractional offsets."
+        },
+        {
+          "from": "challenger-vu",
+          "raise": "Motion uses real spring physics with mass and damping for expand and collapse, never linear fades."
+        },
+        {
+          "from": "challenger-ansi",
+          "raise": "Full keyboard operation: j/k walks the log, Enter expands, and / filters."
+        },
+        {
+          "from": "challenger-merz",
+          "raise": "Type-scale courage: the newest entry's title is set an order of magnitude larger than the archive's."
+        }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "The Workspace",
+      "kicker": "IMPECCABLE\u2019S PICK",
+      "lineage": "Linear, Raycast and Things-grade app shells",
+      "thesis": "The library as a calm, keyboard-first app: projects and posts as one database with views.",
+      "palette": [
+        "#0F1012",
+        "#E8E9EC",
+        "#7A7F8A",
+        "#8B7CFF"
+      ],
+      "materials": [
+        "slim nav rail",
+        "database views",
+        "command menu"
+      ],
+      "viewport": "App shell with a rail on the left and a unified library list in the canvas, filters as chips.",
+      "risk": "Familiar: it's close to the Synthesis tile and to where most runs for builder portfolios land."
+    },
+    {
+      "id": "challenger-patent",
+      "label": "Patent Sheet",
+      "verdict": "competitive",
+      "lineage": "utility patent drawing sheets",
+      "thesis": "Each project is a numbered figure; its parts link by leader lines to the writing that explains them.",
+      "palette": [
+        "#FFFFFF",
+        "#111111",
+        "#B3122E"
+      ],
+      "materials": [
+        "india-ink line",
+        "section hatching",
+        "dated margin seal"
+      ],
+      "viewport": "Fig. 1, the library: entries as numbered figures on a ruled sheet, with carmine marking what's under examination.",
+      "case": "Builders identify with technical drawings, and project-to-writing links map cleanly to numerals; it loses on clarity for quick skimming.",
+      "risk": "Without real diagrams for each project it slides into costume, which is gimmick over content.",
+      "hero": "https://impeccable.style/worlds/cards/notation-diagram-systems-patent-drawing-sheet-hero.webp"
+    },
+    {
+      "id": "challenger-tensegrity",
+      "label": "Tensegrity Column",
+      "verdict": "declined",
+      "lineage": "kinetic tensegrity sculpture",
+      "thesis": "A library as a force network of linked works.",
+      "palette": [
+        "#1A1A1A",
+        "#D9D7D2",
+        "#C8261E"
+      ],
+      "materials": [
+        "carbon rods",
+        "red cord"
+      ],
+      "viewport": "A breathing strut network with entries at nodes.",
+      "case": "Fuses poorly: the visitor came to browse and read, not trace loads.",
+      "risk": "Navigation by force diagram hides content.",
+      "kept": "Visible connections between linked entries."
+    },
+    {
+      "id": "challenger-azulejo",
+      "label": "Azulejo Hall",
+      "verdict": "declined",
+      "lineage": "tin-glazed tile station halls",
+      "thesis": "Works as painted tile panels in cobalt.",
+      "palette": [
+        "#F6F6F2",
+        "#1B3FA0",
+        "#D9A21B"
+      ],
+      "materials": [
+        "glaze",
+        "grout grid"
+      ],
+      "viewport": "A framed cobalt panel per project.",
+      "case": "Fuses poorly: no link to the audience's world.",
+      "risk": "Pure costume for a software library.",
+      "kept": "Whole-unit grid discipline."
+    },
+    {
+      "id": "challenger-vu",
+      "label": "VU Meter Bridge",
+      "verdict": "declined",
+      "lineage": "recording desk meter bridges",
+      "thesis": "Entries as channels, with activity as needles.",
+      "palette": [
+        "#EFE6CF",
+        "#111111",
+        "#C62D1F"
+      ],
+      "materials": [
+        "meter glass",
+        "walnut"
+      ],
+      "viewport": "A row of meters, one per project.",
+      "case": "Fuses poorly: there are no real signals to meter.",
+      "risk": "Invents metrics the library doesn't have.",
+      "kept": "True physical ballistics in motion."
+    },
+    {
+      "id": "challenger-ansi",
+      "label": "ANSI Nightboard",
+      "verdict": "declined",
+      "lineage": "1990s dial-up BBS title screens",
+      "thesis": "The library as a text-mode board with numbered exits.",
+      "palette": [
+        "#000000",
+        "#00AAAA",
+        "#AA00AA",
+        "#FFFFFF"
+      ],
+      "materials": [
+        "CP437 blocks",
+        "80\u00d725 grid"
+      ],
+      "viewport": "Title art over numbered menu lines.",
+      "case": "Fuses poorly: nostalgic costume, which you steered away from.",
+      "risk": "Reads as a theme, not a person.",
+      "kept": "Complete keyboard operation."
+    },
+    {
+      "id": "challenger-merz",
+      "label": "Merz Collage",
+      "verdict": "declined",
+      "lineage": "dada assemblage pages",
+      "thesis": "Works as torn scraps pasted at angles.",
+      "palette": [
+        "#E9DFC8",
+        "#8E8E8A",
+        "#9C2B23"
+      ],
+      "materials": [
+        "ticket stock",
+        "newsprint"
+      ],
+      "viewport": "A pinboard of scraps.",
+      "case": "Fuses poorly: gimmick over content.",
+      "risk": "Reading becomes a puzzle.",
+      "kept": "Type-scale courage."
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": false
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "The classic builder portfolio, executed impeccably.",
+    "palette": [
+      "#FFFFFF",
+      "#111827",
+      "#2563EB"
+    ],
+    "materials": [
+      "clean grid",
+      "project cards",
+      "post list"
+    ],
+    "viewport": "Name and intro, a grid of project cards, then recent writing.",
+    "risk": "Indistinguishable from every other dev portfolio by design."
+  },
+  "steer": true,
+  "seedKey": "3bfa8c80"
+}

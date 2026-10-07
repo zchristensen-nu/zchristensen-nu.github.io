@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import EntryHeader from '../../components/EntryHeader.astro';
+import Related from '../../components/Related.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const posts = (await getCollection('posts', ({ data }) => (import.meta.env.DEV || !data.draft) && data.project?.id === project.id))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const status = { active: 'Active', shipped: 'Shipped', archived: 'Archived' }[project.data.status];
+const external = (url: string) => /^https?:/.test(url);
+---
+
+<Base title={project.data.title} description={project.data.description}>
+  <article>
+    <EntryHeader kind="project" id={project.id} title={project.data.title} description={project.data.description}>
+      <span>Project</span>
+      <span>{status}</span>
+      <time datetime={project.data.date.toISOString()}>{project.data.date.getUTCFullYear()}</time>
+      {project.data.link && (
+        <a href={project.data.link} {...(external(project.data.link) ? { rel: 'noopener' } : {})}>
+          Open
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 10.5 10.5 5.5M6 5.5h4.5V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      )}
+      {project.data.repo && (
+        <a href={project.data.repo} rel="noopener">
+          Source
+          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 10.5 10.5 5.5M6 5.5h4.5V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      )}
+    </EntryHeader>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  <Related
+    heading="Writing about this project"
+    items={posts.map((p) => ({ href: `/writing/${p.id}/`, title: p.data.title, description: p.data.description, date: p.data.date }))}
+  />
+</Base>

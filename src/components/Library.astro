@@ -1,0 +1,322 @@
+---
+export interface Entry {
+  kind: 'project' | 'post';
+  id: string;
+  title: string;
+  description: string;
+  date: Date;
+  href: string;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+const month = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const counts = {
+  all: entries.length,
+  project: entries.filter((e) => e.kind === 'project').length,
+  post: entries.filter((e) => e.kind === 'post').length,
+};
+const filters = [
+  { id: 'all', label: 'All' },
+  { id: 'project', label: 'Projects' },
+  { id: 'post', label: 'Writing' },
+] as const;
+---
+
+<section class="library" aria-labelledby="library-heading" data-library>
+  <div class="bar">
+    <h2 id="library-heading">Library</h2>
+    <div class="filters" role="group" aria-label="Filter the library">
+      <span class="indicator" aria-hidden="true"></span>
+      {filters.map((f, i) => (
+        <button type="button" data-filter={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+          {f.label}<span class="count">{counts[f.id]}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="rows">
+  <span class="glide" aria-hidden="true"></span>
+  <ul role="list">
+    {entries.map((e) => (
+      <li class="row" data-kind={e.kind} data-month={month(e.date)}>
+        <a href={e.href}>
+          <time class="year" datetime={e.date.toISOString()}>{month(e.date)}</time>
+          <span class="main">
+            <span class="title" transition:name={`title-${e.kind}-${e.id}`}>{e.title}</span>
+            <span class="desc">{e.description}</span>
+          </span>
+          <span class="kind">{e.kind === 'project' ? 'Project' : 'Writing'}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  </div>
+  <p class="empty" hidden>Nothing here yet.</p>
+</section>
+
+<style>
+  .library { margin-top: 3.5rem; }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  h2 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .filters {
+    position: relative;
+    display: flex;
+    gap: 0.125rem;
+    margin-right: -0.5rem;
+  }
+  .filters button {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font: inherit;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    background: none;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.3rem 0.65rem;
+    cursor: pointer;
+    transition: color 160ms var(--ease-out);
+  }
+  .filters button:hover { color: var(--ink); }
+  .filters button[aria-pressed='true'] { color: var(--accent); }
+  .filters button[aria-pressed='true'] .count { color: inherit; opacity: 0.7; }
+  .count {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--faint);
+  }
+  .indicator {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--accent) 11%, var(--bg));
+    clip-path: inset(0 calc(100% - var(--x, 0px) - var(--w, 0px)) 0 var(--x, 0px) round 999px);
+    transition: clip-path 380ms var(--ease-out);
+  }
+  .indicator[data-instant] { transition: none; }
+
+  .rows {
+    position: relative;
+    margin: 0.5rem -0.75rem 0;
+  }
+  .rows ul { list-style: none; margin: 0; padding: 0; }
+  .glide {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 0;
+    border-radius: 10px;
+    background: var(--hover);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms var(--ease-out);
+    will-change: transform, height;
+  }
+  .glide[data-on] { opacity: 1; }
+
+  .row { position: relative; }
+  .row[hidden] { display: none; }
+  .row a {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4.25rem 1fr auto;
+    align-items: baseline;
+    gap: 0 1rem;
+    padding: 0.8rem 0.75rem;
+    text-decoration: none;
+    border-radius: 10px;
+  }
+  .row a:focus-visible { outline-offset: -2px; }
+
+  .year {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--faint);
+  }
+  .row[data-repeat] .year { visibility: hidden; }
+
+  .main { display: grid; gap: 0.15rem; min-width: 0; }
+  .title {
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    width: fit-content;
+  }
+  .desc {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .kind {
+    font-size: 0.75rem;
+    color: var(--faint);
+    transition: color 160ms var(--ease-out);
+  }
+  .row a:hover .kind,
+  .row a:focus-visible .kind { color: var(--muted); }
+
+  .empty { color: var(--muted); padding: 1rem 0; }
+
+  @media (max-width: 34rem) {
+    .bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .filters { margin-left: -0.65rem; margin-right: 0; }
+    .row a { grid-template-columns: 1fr auto; }
+    .year { grid-column: 1 / -1; margin-bottom: 0.1rem; }
+    .row[data-repeat] .year { display: none; }
+  }
+</style>
+
+<script>
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Damped spring that eases the shared highlight between rows.
+  function glider(el: HTMLElement) {
+    let y = 0, h = 0, vy = 0, vh = 0, ty = 0, th = 0, raf = 0, last = 0, placed = false;
+    const k = 420, d = 34;
+    const paint = () => {
+      el.style.transform = `translateY(${y}px)`;
+      el.style.height = `${h}px`;
+    };
+    const step = (t: number) => {
+      const dt = Math.min((t - last) / 1000, 1 / 30);
+      last = t;
+      vy += ((ty - y) * k - vy * d) * dt;
+      vh += ((th - h) * k - vh * d) * dt;
+      y += vy * dt;
+      h += vh * dt;
+      paint();
+      if (Math.abs(ty - y) + Math.abs(th - h) + Math.abs(vy) + Math.abs(vh) > 0.1) raf = requestAnimationFrame(step);
+      else { y = ty; h = th; paint(); raf = 0; }
+    };
+    return {
+      to(row: HTMLElement) {
+        ty = row.offsetTop;
+        th = row.offsetHeight;
+        if (!placed || reduced()) { y = ty; h = th; vy = vh = 0; placed = true; paint(); }
+        else if (!raf) { last = performance.now(); raf = requestAnimationFrame(step); }
+        el.dataset.on = '';
+      },
+      off() { delete el.dataset.on; },
+    };
+  }
+
+  function markRepeatedYears(rows: HTMLElement[]) {
+    let prev = '';
+    for (const r of rows) {
+      if (r.hidden) continue;
+      r.toggleAttribute('data-repeat', r.dataset.month === prev);
+      prev = r.dataset.month ?? '';
+    }
+  }
+
+  function init() {
+    const root = document.querySelector<HTMLElement>('[data-library]');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = '';
+
+    const list = root.querySelector<HTMLElement>('.rows')!;
+    const rows = [...root.querySelectorAll<HTMLElement>('.row')];
+    const glide = glider(root.querySelector<HTMLElement>('.glide')!);
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const indicator = root.querySelector<HTMLElement>('.indicator')!;
+    const empty = root.querySelector<HTMLElement>('.empty')!;
+
+    markRepeatedYears(rows);
+
+    for (const row of rows) {
+      const a = row.querySelector('a')!;
+      row.addEventListener('pointerenter', () => glide.to(row));
+      a.addEventListener('focus', () => glide.to(row));
+      a.addEventListener('blur', () => glide.off());
+    }
+    list.addEventListener('pointerleave', () => glide.off());
+
+    const placeIndicator = (btn: HTMLElement, instant = false) => {
+      if (instant) indicator.dataset.instant = '';
+      indicator.style.setProperty('--x', `${btn.offsetLeft}px`);
+      indicator.style.setProperty('--w', `${btn.offsetWidth}px`);
+      if (instant) requestAnimationFrame(() => delete indicator.dataset.instant);
+    };
+    placeIndicator(buttons[0], true);
+
+    const apply = (kind: string) => {
+      // FLIP: remember where visible rows were, change the filter, then animate from there.
+      const before = new Map(rows.filter((r) => !r.hidden).map((r) => [r, r.getBoundingClientRect().top]));
+      for (const r of rows) r.hidden = kind !== 'all' && r.dataset.kind !== kind;
+      markRepeatedYears(rows);
+      empty.hidden = rows.some((r) => !r.hidden);
+      glide.off();
+      if (reduced()) return;
+      for (const r of rows) {
+        if (r.hidden) continue;
+        const was = before.get(r);
+        const now = r.getBoundingClientRect().top;
+        if (was === undefined) {
+          r.animate(
+            [{ opacity: 0, transform: 'translateY(6px)', filter: 'blur(3px)' }, { opacity: 1, transform: 'none', filter: 'none' }],
+            { duration: 420, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+          );
+        } else if (was !== now) {
+          r.animate([{ transform: `translateY(${was - now}px)` }, { transform: 'none' }], {
+            duration: 460,
+            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          });
+        }
+      }
+    };
+
+    const select = (btn: HTMLButtonElement, instant = false) => {
+      for (const b of buttons) b.setAttribute('aria-pressed', String(b === btn));
+      placeIndicator(btn, instant);
+      apply(btn.dataset.filter!);
+      const url = new URL(location.href);
+      if (btn.dataset.filter === 'all') url.searchParams.delete('filter');
+      else url.searchParams.set('filter', btn.dataset.filter!);
+      history.replaceState(history.state, '', url);
+    };
+    for (const btn of buttons) btn.addEventListener('click', () => select(btn));
+
+    // Intro links and shared URLs (?filter=project) open the library pre-filtered.
+    const initial = buttons.find((b) => b.dataset.filter === new URLSearchParams(location.search).get('filter'));
+    if (initial) select(initial, true);
+    for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-filter-link]')) {
+      link.addEventListener('click', (ev) => {
+        const btn = buttons.find((b) => b.dataset.filter === link.dataset.filterLink);
+        if (!btn) return;
+        ev.preventDefault();
+        select(btn);
+        root.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+
+    addEventListener('resize', () => {
+      const active = buttons.find((b) => b.getAttribute('aria-pressed') === 'true');
+      if (active) placeIndicator(active, true);
+    });
+  }
+
+  document.addEventListener('astro:page-load', init);
+</script>

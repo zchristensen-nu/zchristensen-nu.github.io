@@ -1,0 +1,60 @@
+---
+interface Props {
+  heading: string;
+  items: { href: string; title: string; description: string; date?: Date }[];
+}
+
+const { heading, items } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+---
+
+{items.length > 0 && (
+  <aside class="related" aria-label={heading}>
+    <h2>{heading}</h2>
+    <ul role="list">
+      {items.map((it) => (
+        <li>
+          <a href={it.href}>
+            <span class="t">{it.title}</span>
+            {it.date && <time datetime={it.date.toISOString()}>{fmt(it.date)}</time>}
+            <span class="d">{it.description}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}
+
+<style>
+  .related {
+    margin-top: 4rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  h2 {
+    margin: 0 0 0.75rem;
+    font-size: inherit;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  ul { list-style: none; margin: 0 -0.75rem; padding: 0; }
+  a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.15rem 1rem;
+    padding: 0.7rem 0.75rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 200ms var(--ease-out);
+  }
+  a:hover { background: var(--hover); }
+  .t { font-weight: 500; letter-spacing: -0.01em; }
+  time {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--faint);
+    align-self: baseline;
+  }
+  .d { grid-column: 1 / -1; font-size: 0.875rem; color: var(--muted); }
+</style>

@@ -1,0 +1,2031 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vintage Aqua</title>
+<meta name="description" content="Style tile 2 of 6 for Z. Christensen's personal site: a working Aqua-era desktop with a Dock, windows, Finder columns and a brushed-metal journal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gel-1:#bfe3ff; --gel-2:#6db4f7; --gel-3:#3a8ee6; --gel-4:#0b5fc9; --gel-edge:#1f5aa8;
+  --sel:#3875d7;
+  --ink:#1d1f22; --ink-2:#4a4f57; --ink-3:#7f8c99;
+  --pin-a:#f3f3f3; --pin-b:#e8e8e8;
+  --red-1:#ffc7bd; --red-2:#ff6b5e; --red-3:#c9231b;
+  --yel-1:#ffe9a8; --yel-2:#f7c13a; --yel-3:#c98a0e;
+  --grn-1:#d5f5b8; --grn-2:#74cf4c; --grn-3:#3a9a22;
+  --wall:#0d3a8c;
+  --font-ui:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+  --font-display:"EB Garamond","Apple Garamond",Garamond,Georgia,serif;
+  --font-mono:Monaco,"DM Mono",Menlo,Consolas,monospace;
+  --menubar:22px;
+  --dock-reserve:84px;
+  --focus:0 0 0 3px rgba(59,153,252,.6);
+  --pinstripe:repeating-linear-gradient(to bottom,var(--pin-a) 0 2px,var(--pin-b) 2px 4px);
+  --gel:linear-gradient(to bottom,var(--gel-1) 0%,var(--gel-2) 46%,var(--gel-3) 52%,var(--gel-4) 84%,var(--gel-2) 100%);
+  --gel-white:linear-gradient(to bottom,#fff 0%,#f3f3f3 44%,#dcdcdc 52%,#e9e9e9 80%,#fbfbfb 100%);
+  --metal-noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.002 0.85' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0 0 0 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --metal:var(--metal-noise),linear-gradient(to bottom,rgba(255,255,255,.55),rgba(255,255,255,0) 30%,rgba(255,255,255,0) 75%,rgba(0,0,0,.08)),linear-gradient(90deg,#c9c9c9,#d9d9d9 30%,#cfcfcf 55%,#dedede 80%,#c6c6c6);
+}
+body.graphite{
+  --gel-1:#e6eaef; --gel-2:#aeb8c4; --gel-3:#7f8c99; --gel-4:#56616e; --gel-edge:#55606c; --sel:#7f8c99;
+  --red-1:#e6ebf0; --red-2:#9aa6b3; --red-3:#5f6b78;
+  --yel-1:#e6ebf0; --yel-2:#9aa6b3; --yel-3:#5f6b78;
+  --grn-1:#e6ebf0; --grn-2:#9aa6b3; --grn-3:#5f6b78;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0;overflow:hidden}
+body{
+  font:13px/1.45 var(--font-ui);color:var(--ink);
+  background:#0d3a8c;
+  -webkit-font-smoothing:antialiased;
+  user-select:none;-webkit-user-select:none;
+}
+button{font:inherit;color:inherit;cursor:default}
+input,select,textarea{font:inherit}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:8px;top:-40px;z-index:10000;background:#fff;padding:6px 10px;border-radius:6px}
+.skip:focus{top:28px}
+:focus-visible{outline:none;box-shadow:var(--focus)}
+.ico{width:1em;height:1em;display:inline-block;vertical-align:middle;flex:none;overflow:visible}
+.ico.xs{width:14px;height:14px}.ico.s{width:16px;height:16px}.ico.m{width:24px;height:24px}.ico.l{width:44px;height:44px}.ico.xl{width:84px;height:84px}
+
+/* ---------- translucent aqua scrollbars ---------- */
+::-webkit-scrollbar{width:15px;height:15px}
+::-webkit-scrollbar-track{border-radius:8px;background:linear-gradient(90deg,#cfcfcf,#efefef 35%,#fafafa 60%,#dedede);box-shadow:inset 1px 0 2px rgba(0,0,0,.25),inset -1px 0 1px rgba(0,0,0,.08)}
+::-webkit-scrollbar-track:horizontal{background:linear-gradient(180deg,#cfcfcf,#efefef 35%,#fafafa 60%,#dedede);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+::-webkit-scrollbar-thumb{border-radius:8px;border:1px solid color-mix(in srgb,var(--gel-edge) 75%,transparent);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--gel-3) 80%,transparent),color-mix(in srgb,var(--gel-1) 90%,transparent) 32%,color-mix(in srgb,var(--gel-3) 82%,transparent) 55%,color-mix(in srgb,var(--gel-4) 88%,transparent) 85%,color-mix(in srgb,var(--gel-2) 85%,transparent));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+::-webkit-scrollbar-thumb:horizontal{background:linear-gradient(180deg,color-mix(in srgb,var(--gel-3) 80%,transparent),color-mix(in srgb,var(--gel-1) 90%,transparent) 32%,color-mix(in srgb,var(--gel-3) 82%,transparent) 55%,color-mix(in srgb,var(--gel-4) 88%,transparent) 85%,color-mix(in srgb,var(--gel-2) 85%,transparent))}
+::-webkit-scrollbar-corner{background:transparent}
+@supports not selector(::-webkit-scrollbar){*{scrollbar-color:var(--gel-3) #e6e6e6}}
+
+/* ---------- desktop ---------- */
+#desktop{position:fixed;inset:0;overflow:hidden;
+  background:
+    radial-gradient(120% 80% at 15% 115%,#58b1ff 0%,rgba(88,177,255,0) 55%),
+    radial-gradient(80% 60% at 90% -10%,#8ccdff 0%,rgba(140,205,255,0) 55%),
+    linear-gradient(160deg,#08286b 0%,#1553b8 48%,#0d3a8c 100%)}
+body.graphite #desktop{background:radial-gradient(120% 80% at 15% 115%,#8a9bb0 0%,rgba(138,155,176,0) 55%),radial-gradient(80% 60% at 90% -10%,#b9c6d6 0%,rgba(185,198,214,0) 55%),linear-gradient(160deg,#2c3542,#51606f 48%,#34404d)}
+.swoosh{position:absolute;inset:-5%;width:110%;height:110%;animation:drift 38s ease-in-out infinite alternate;pointer-events:none}
+@keyframes drift{to{transform:translate3d(-2%,1.5%,0) scale(1.03)}}
+.desk-icons{position:absolute;top:36px;right:14px;display:flex;flex-direction:column;gap:14px;align-items:center;z-index:2}
+.desk-icon{display:flex;flex-direction:column;align-items:center;gap:4px;width:92px;border:0;background:none;padding:4px;border-radius:6px;color:#fff}
+.desk-icon .ico{width:52px;height:52px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45));border-radius:6px}
+.desk-icon span{font:12px/1.25 var(--font-ui);text-shadow:0 1px 2px rgba(0,0,0,.9);padding:1px 5px;border-radius:8px;text-align:center}
+.desk-icon.sel .ico{background:rgba(0,0,0,.3);box-shadow:0 0 0 3px rgba(0,0,0,.3)}
+.desk-icon.sel span{background:var(--sel);text-shadow:none}
+.rubber{position:fixed;border:1px solid rgba(255,255,255,.85);background:rgba(180,210,255,.22);z-index:3;pointer-events:none}
+
+/* ---------- menu bar ---------- */
+#menubar{position:fixed;top:0;left:0;right:0;height:var(--menubar);z-index:6000;display:flex;align-items:stretch;justify-content:space-between;
+  background:repeating-linear-gradient(to bottom,rgba(250,250,250,.93) 0 2px,rgba(238,238,238,.93) 2px 4px);
+  -webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4);
+  box-shadow:0 1px 0 rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.18);font-size:14px}
+#mb-left,#mb-right{display:flex;align-items:stretch}
+.mb-btn{border:0;background:none;padding:0 10px;height:var(--menubar);font:14px/22px var(--font-ui);color:#000;white-space:nowrap}
+.mb-btn:focus-visible{box-shadow:inset 0 0 0 2px rgba(59,153,252,.8)}
+.mb-btn.open,.mb-btn:active{background:var(--gel);color:#fff}
+.mb-btn.bold{font-weight:bold}
+.mb-mark{width:16px;height:16px;margin:0 4px;vertical-align:-3px}
+#clock{padding:0 12px;min-width:92px;text-align:right;font-variant-numeric:tabular-nums}
+#expose-btn svg{width:18px;height:14px;vertical-align:-2px}
+#menu{position:fixed;top:var(--menubar);z-index:6001;min-width:220px;padding:4px 0;border-radius:0 0 6px 6px;
+  background:repeating-linear-gradient(to bottom,rgba(250,250,250,.9) 0 2px,rgba(240,240,240,.9) 2px 4px);
+  -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
+  box-shadow:0 10px 28px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.14);transform-origin:top;animation:menuIn .12s ease-out}
+@keyframes menuIn{from{opacity:0}}
+.mi{display:flex;align-items:center;width:100%;border:0;background:none;text-align:left;padding:2px 20px 2px 24px;font:14px/20px var(--font-ui);color:#000;position:relative;white-space:nowrap}
+.mi .chk{position:absolute;left:8px;width:12px}
+.mi .key{margin-left:auto;padding-left:28px;color:#6b6b6b}
+.mi:hover:not(:disabled),.mi:focus:not(:disabled){background:var(--gel);color:#fff;outline:none;box-shadow:none}
+.mi:hover .key,.mi:focus .key{color:#fff}
+.mi.flash,.mi.flash:hover,.mi.flash:focus{background:none!important;color:#000!important}
+.mi:disabled{color:#a4a4a4}
+.msep{height:1px;margin:5px 0;background:rgba(0,0,0,.12)}
+
+/* ---------- windows ---------- */
+.win{position:fixed;display:flex;flex-direction:column;min-width:280px;min-height:180px;border-radius:7px 7px 5px 5px;
+  box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.28);outline:none;isolation:isolate}
+.win:not(.active){box-shadow:0 6px 20px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.2)}
+.win.aqua{background:var(--pinstripe)}
+.win.metal{background:var(--metal);border-radius:7px}
+.win.rect-anim{transition:left .28s cubic-bezier(.2,.8,.2,1),top .28s cubic-bezier(.2,.8,.2,1),width .28s cubic-bezier(.2,.8,.2,1),height .28s cubic-bezier(.2,.8,.2,1)}
+.titlebar{position:relative;height:22px;flex:none;display:flex;align-items:center;border-radius:7px 7px 0 0;touch-action:none;
+  background:linear-gradient(to bottom,rgba(255,255,255,.75),rgba(255,255,255,.1) 55%,rgba(0,0,0,.03)),var(--pinstripe)}
+.metal .titlebar{background:transparent}
+.wtitle{position:absolute;left:74px;right:74px;margin:0;text-align:center;font:13px/22px var(--font-ui);color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;display:flex;gap:5px;justify-content:center;align-items:center}
+.metal .wtitle{text-shadow:0 1px 0 rgba(255,255,255,.75)}
+.win:not(.active) .wtitle{color:#8a8a8a}
+.lights{display:flex;gap:7px;padding-left:9px;position:relative;z-index:2}
+.light{--c1:var(--red-1);--c2:var(--red-2);--c3:var(--red-3);width:14px;height:14px;padding:0;border:0;border-radius:50%;position:relative;
+  background:radial-gradient(circle at 50% 26%,rgba(255,255,255,.95) 0 16%,rgba(255,255,255,0) 44%),radial-gradient(circle at 50% 92%,var(--c1) 0,var(--c2) 40%,var(--c3) 78%,color-mix(in srgb,var(--c3) 70%,#000) 100%);
+  box-shadow:inset 0 0 0 .6px rgba(0,0,0,.5),0 1px 1px rgba(255,255,255,.7)}
+.light.min{--c1:var(--yel-1);--c2:var(--yel-2);--c3:var(--yel-3)}
+.light.zoom{--c1:var(--grn-1);--c2:var(--grn-2);--c3:var(--grn-3)}
+.win:not(.active) .lights:not(:hover) .light{--c1:#f7f7f7;--c2:#d9d9d9;--c3:#adadad}
+.light svg{position:absolute;inset:1px;width:12px;height:12px;opacity:0;transition:opacity .12s;stroke:rgba(60,0,0,.75);stroke-width:1.6;stroke-linecap:round;fill:none}
+.light.min svg{stroke:rgba(90,50,0,.8)}.light.zoom svg{stroke:rgba(0,60,0,.75)}
+.lights:hover svg,.lights:focus-within svg{opacity:1}
+.light:active{filter:brightness(.8)}
+.tb-pill{position:absolute;right:9px;top:5px;width:22px;height:12px;border-radius:6px;padding:0;border:1px solid #7b7b7b;background:linear-gradient(#fff,#e6e6e6 50%,#d2d2d2 50%,#f5f5f5);z-index:2}
+.tb-pill:active{background:var(--gel)}
+.toolbar{flex:none;display:flex;align-items:center;gap:8px;padding:5px 10px 6px;border-bottom:1px solid #8f8f8f;
+  background:linear-gradient(to bottom,rgba(255,255,255,.2),rgba(0,0,0,.03)),var(--pinstripe);min-width:0}
+.metal .toolbar{background:transparent;border-bottom:0;padding:2px 10px 6px}
+.win.no-toolbar .toolbar{display:none}
+.win.no-toolbar .titlebar{border-bottom:1px solid #8f8f8f}
+.wbody{flex:1;min-height:0;overflow:auto;position:relative}
+.statusbar{flex:none;height:20px;padding:0 14px;font:11px/20px var(--font-ui);color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:1px solid #a3a3a3;background:var(--pinstripe);border-radius:0 0 5px 5px}
+.metal .statusbar{background:transparent;border-top:0;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.resize-grip{position:absolute;right:0;bottom:0;width:15px;height:15px;cursor:nwse-resize;z-index:3;touch-action:none;
+  background:linear-gradient(135deg,transparent 0 45%,#888 45% 52%,transparent 52% 62%,#888 62% 69%,transparent 69% 79%,#888 79% 86%,transparent 86%)}
+.win.dragging{cursor:default}
+
+/* sheets */
+.sheet-wrap{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;overflow:hidden;z-index:30;pointer-events:none}
+.sheet-block{position:absolute;inset:0;pointer-events:auto;background:rgba(255,255,255,.04)}
+.sheet{position:relative;pointer-events:auto;align-self:flex-start;width:min(420px,94%);display:grid;grid-template-columns:52px 1fr;gap:6px 14px;padding:16px 18px 14px;
+  background:repeating-linear-gradient(to bottom,rgba(245,245,245,.97) 0 2px,rgba(235,235,235,.97) 2px 4px);
+  border:1px solid #7f7f7f;border-top:0;border-radius:0 0 7px 7px;box-shadow:0 10px 24px rgba(0,0,0,.4);
+  transform:translateY(-104%);transition:transform .36s cubic-bezier(.2,.9,.25,1)}
+.sheet.in{transform:none}
+.sheet .ico{width:52px;height:52px;grid-row:span 2}
+.sheet h3{margin:0;font:bold 13px/1.35 var(--font-ui)}
+.sheet p{margin:0;font-size:11px;color:#333;line-height:1.5}
+.sheet .sheet-btns{grid-column:1/-1;display:flex;justify-content:flex-end;gap:10px;margin-top:10px}
+.sheet kbd{font:11px var(--font-mono);background:#fff;border:1px solid #aaa;border-radius:3px;padding:0 4px}
+
+/* ---------- gel buttons & controls ---------- */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:22px;padding:2px 18px 3px;border-radius:12px;
+  border:1px solid rgba(0,0,0,.5);background:var(--gel-white);color:#000;font:13px var(--font-ui);white-space:nowrap;
+  box-shadow:0 1px 2px rgba(0,0,0,.25),inset 0 -1px 2px rgba(255,255,255,.8)}
+.btn::before{content:"";position:absolute;left:7%;right:7%;top:1px;height:46%;border-radius:10px 10px 5px 5px;background:linear-gradient(rgba(255,255,255,.95),rgba(255,255,255,.15));pointer-events:none;z-index:1}
+.btn > *{position:relative;z-index:2}
+.btn.default,.btn:active:not(:disabled),.btn.is-pressed{background:var(--gel);border-color:var(--gel-edge)}
+.btn.default::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(to bottom,rgba(255,255,255,.6),rgba(205,236,255,.45) 50%,rgba(255,255,255,.15));opacity:0;animation:pulse 1.7s ease-in-out infinite;pointer-events:none}
+@keyframes pulse{50%{opacity:1}}
+.btn.default:active,.btn.is-pressed{filter:brightness(.82) saturate(1.2)}
+.btn:disabled{color:rgba(0,0,0,.35);border-color:rgba(0,0,0,.25);box-shadow:none;background:linear-gradient(#fafafa,#efefef 50%,#e8e8e8 50%,#f6f6f6)}
+.btn:disabled::after{display:none}
+.btn:focus-visible{box-shadow:var(--focus),0 1px 2px rgba(0,0,0,.25)}
+.btn.mini{min-height:17px;padding:0 11px 1px;font-size:11px;border-radius:9px}
+.btn.round{width:22px;height:22px;min-height:0;padding:0;border-radius:50%;font-weight:bold}
+.btn.metal-btn{border-radius:5px;background:linear-gradient(#fdfdfd,#e2e2e2 50%,#cfcfcf 50%,#ececec);border-color:#6f6f6f}
+.btn.metal-btn::before{display:none}
+.btn.metal-btn:active{background:linear-gradient(#c9c9c9,#b2b2b2 50%,#a3a3a3 50%,#c2c2c2)}
+.seg{display:inline-flex;flex:none;border-radius:12px;border:1px solid #777;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,.8)}
+.seg button{width:30px;height:21px;border:0;padding:0;background:var(--gel-white);display:grid;place-items:center}
+.seg button+button{border-left:1px solid #9a9a9a}
+.seg button svg{width:10px;height:10px;fill:#222}
+.seg button:disabled svg{opacity:.3}
+.seg button:active:not(:disabled){background:var(--gel)}
+.metal .seg{border-radius:5px}
+.metal .seg button{background:linear-gradient(#fdfdfd,#e2e2e2 50%,#cfcfcf 50%,#ececec)}
+.metal .seg button:active:not(:disabled){background:linear-gradient(#bdbdbd,#a8a8a8 50%,#999 50%,#b8b8b8)}
+.mbtn{width:30px;height:23px;flex:none;border:1px solid #6f6f6f;border-radius:5px;background:linear-gradient(#fdfdfd,#e2e2e2 50%,#cfcfcf 50%,#ececec);display:grid;place-items:center;padding:0}
+.mbtn svg{width:13px;height:13px;fill:none;stroke:#222;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mbtn:active{background:linear-gradient(#bdbdbd,#a8a8a8 50%,#999 50%,#b8b8b8)}
+.segc{display:inline-flex;border:1px solid #7a7a7a;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.18)}
+.segc button{border:0;padding:2px 14px 3px;font:12px var(--font-ui);background:var(--gel-white)}
+.segc button+button{border-left:1px solid #9d9d9d}
+.segc button[aria-pressed="true"]{background:var(--gel)}
+.search{display:flex;align-items:center;gap:4px;height:22px;padding:0 8px;background:#fff;border:1px solid #8a8a8a;border-radius:11px;box-shadow:inset 0 1px 2px rgba(0,0,0,.3);flex:0 1 170px;min-width:90px}
+.search:focus-within{box-shadow:var(--focus),inset 0 1px 2px rgba(0,0,0,.3)}
+.search svg{width:12px;height:12px;flex:none;stroke:#666;stroke-width:2;fill:none}
+.search input{border:0;outline:0;background:transparent;font:12px var(--font-ui);width:100%;min-width:0;padding:0}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.aq-check,.aq-radio{-webkit-appearance:none;appearance:none;width:15px;height:15px;margin:0;vertical-align:-3px;border:1px solid #6d6d6d;background:var(--gel-white);box-shadow:0 1px 1px rgba(0,0,0,.2);position:relative;flex:none}
+.aq-check{border-radius:4px}.aq-radio{border-radius:50%}
+.aq-check:checked,.aq-radio:checked{background:var(--gel);border-color:var(--gel-edge)}
+.aq-check:checked::after{content:"";position:absolute;left:4px;top:0;width:5px;height:9px;border:solid #000;border-width:0 2.2px 2.2px 0;transform:rotate(40deg)}
+.aq-radio:checked::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#000}
+.aq-select{-webkit-appearance:none;appearance:none;height:22px;padding:0 30px 0 11px;border-radius:6px;border:1px solid #6d6d6d;font:12px var(--font-ui);color:#000;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12'%3E%3Cpath d='M1 5l3-4 3 4zM1 7l3 4 3-4z' fill='%23fff'/%3E%3C/svg%3E") no-repeat right 6px center,
+  linear-gradient(to right,transparent calc(100% - 20px),rgba(0,0,0,.4) calc(100% - 20px) calc(100% - 19px),transparent calc(100% - 19px)),
+  linear-gradient(to right,transparent calc(100% - 20px),var(--gel-3) calc(100% - 20px)),var(--gel-white)}
+.aq-range{-webkit-appearance:none;appearance:none;width:100%;height:18px;background:transparent}
+.aq-range::-webkit-slider-runnable-track{height:5px;border-radius:3px;background:linear-gradient(#9d9d9d,#dcdcdc);box-shadow:inset 0 1px 2px rgba(0,0,0,.4)}
+.aq-range::-moz-range-track{height:5px;border-radius:3px;background:linear-gradient(#9d9d9d,#dcdcdc)}
+.aq-range::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;margin-top:-6px;border-radius:50%;border:1px solid var(--gel-edge);background:radial-gradient(circle at 50% 25%,#fff 0 18%,transparent 45%),radial-gradient(circle at 50% 95%,var(--gel-1),var(--gel-3) 55%,var(--gel-4));box-shadow:0 1px 2px rgba(0,0,0,.4)}
+.aq-range::-moz-range-thumb{width:16px;height:16px;border-radius:50%;border:1px solid var(--gel-edge);background:radial-gradient(circle at 50% 95%,var(--gel-1),var(--gel-3) 55%,var(--gel-4))}
+.prog{height:13px;border-radius:7px;border:1px solid #7c7c7c;overflow:hidden;background:linear-gradient(#bdbdbd,#e9e9e9 40%,#f7f7f7);box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
+.prog > span{display:block;height:100%;width:62%;border-radius:6px 0 0 6px;background:linear-gradient(to bottom,rgba(255,255,255,.7),rgba(255,255,255,0) 50%),repeating-linear-gradient(-45deg,var(--gel-3) 0 7px,var(--gel-2) 7px 14px);box-shadow:inset 0 -1px 2px rgba(0,0,0,.2)}
+.barber{height:13px;border-radius:7px;border:1px solid var(--gel-edge);
+  background:linear-gradient(to bottom,rgba(255,255,255,.75),rgba(255,255,255,0) 50%,rgba(0,0,0,.08)),repeating-linear-gradient(-45deg,var(--gel-3) 0 8px,#d9ecff 8px 16px);
+  background-size:100% 100%,auto;animation:barber .55s linear infinite}
+@keyframes barber{to{background-position:0 0,22.63px 0}}
+
+/* ---------- chips, links, quote, code ---------- */
+.chips{display:inline-flex;gap:5px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;font:11px/1 var(--font-ui);padding:3px 9px 4px;border-radius:10px;color:#123f73;background:linear-gradient(#f2f8ff,#d5e8fc);border:1px solid #8fb6e3;box-shadow:inset 0 1px 0 #fff}
+button.chip{cursor:default}
+button.chip[aria-pressed="true"]{background:var(--gel);color:#000;border-color:var(--gel-edge)}
+.lnk,.site a.lnk{color:#0b4fb0;text-decoration:none;border-bottom:1px dotted currentColor;padding:0 2px;margin:0 -2px;border-radius:3px;
+  background-image:var(--gel);background-size:0% 100%;background-repeat:no-repeat;transition:background-size .28s cubic-bezier(.2,.8,.2,1),color .2s,border-color .2s}
+.lnk:hover,.lnk:focus-visible{background-size:100% 100%;color:#fff;border-bottom-color:transparent}
+.quote{margin:22px 0;padding:14px 18px 14px 26px;position:relative;border:1px solid #d3d3d3;border-radius:8px;
+  background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.1)),repeating-linear-gradient(to bottom,#f7f7f7 0 2px,#efefef 2px 4px)}
+.quote::before{content:"";position:absolute;left:8px;top:12px;bottom:12px;width:6px;border-radius:3px;background:linear-gradient(90deg,var(--gel-4),var(--gel-2) 45%,var(--gel-1) 60%,var(--gel-3))}
+.quote p{margin:0;font:italic 21px/1.35 var(--font-display);color:#1b2433}
+.quote cite{display:block;margin-top:8px;font:normal 11px var(--font-ui);color:var(--ink-3)}
+.code{margin:18px 0;border:1px solid #a9a9a9;border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.code figcaption{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 6px 3px 10px;font:11px var(--font-ui);color:#333;border-bottom:1px solid #b9b9b9;
+  background:linear-gradient(rgba(255,255,255,.6),rgba(0,0,0,.03)),var(--pinstripe)}
+.code-name{display:flex;align-items:center;gap:5px}
+.code pre{margin:0;padding:12px 14px;overflow:auto;font:11.5px/1.65 var(--font-mono);color:#1d1d1d;background:linear-gradient(#fff,#fafcff);user-select:text;-webkit-user-select:text}
+.c-com{color:#007400}.c-str{color:#c41a16}.c-kw{color:#aa0d91}.c-num{color:#1c00cf}
+code.inline{font:12px var(--font-mono);background:#eef3fa;border:1px solid #d3deec;border-radius:4px;padding:0 4px}
+
+/* ---------- journal (brushed metal browser) ---------- */
+.addr{flex:1 1 auto;min-width:0;position:relative;display:flex;align-items:center;gap:5px;height:23px;padding:0 3px 0 6px;background:#fff;border:1px solid #6f6f6f;border-radius:3px;box-shadow:inset 0 1px 2px rgba(0,0,0,.35);overflow:hidden}
+.addr:focus-within{box-shadow:var(--focus),inset 0 1px 2px rgba(0,0,0,.35)}
+.addr-prog{position:absolute;left:0;top:0;bottom:0;width:0;opacity:0;background:linear-gradient(to bottom,#e3f1ff,#a9d4ff 50%,#86c0fb 50%,#c3e2ff);pointer-events:none}
+body.graphite .addr-prog{background:linear-gradient(#eef1f5,#c3cbd5 50%,#b2bcc8 50%,#dbe1e8)}
+.addr .ico,.addr input,.addr .rss{position:relative}
+.addr input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:12px var(--font-ui);color:#111;padding:0;user-select:text;-webkit-user-select:text}
+.rss{flex:none;border:1px solid #1d5bb0;border-radius:4px;padding:0 5px;height:15px;font:bold 9px/13px var(--font-ui);color:#fff;background:linear-gradient(#8cc6ff,#3a8ee6 50%,#1d6fd0 50%,#4a9df0);letter-spacing:.04em}
+.rss:active{filter:brightness(.8)}
+.bookmarks{flex:none;display:flex;align-items:center;gap:2px;padding:0 8px 5px;overflow-x:auto;scrollbar-width:none}
+.bookmarks::-webkit-scrollbar{display:none}
+.bm{border:0;background:none;padding:2px 10px;border-radius:9px;font:11px var(--font-ui);color:#111;text-shadow:0 1px 0 rgba(255,255,255,.6);white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.bm:hover{background:rgba(0,0,0,.12)}
+.bm[aria-current="page"]{background:rgba(0,0,0,.2);box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+.bm-sep{width:1px;height:14px;background:rgba(0,0,0,.25);margin:0 4px}
+#win-journal .wbody{margin:0 8px;border:1px solid #5f5f5f;background:#fff;box-shadow:0 1px 0 rgba(255,255,255,.6)}
+.site{min-height:100%;background:#fff;font:13px/1.65 var(--font-ui);color:var(--ink);user-select:text;-webkit-user-select:text}
+.site-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:20px 28px 16px;border-bottom:1px solid #d2d2d2;background:linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,0)),var(--pinstripe)}
+.site-head .ico{width:40px;height:40px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
+.site-name{margin:0;font:500 29px/1 var(--font-display);letter-spacing:-.01em}
+.site-tag{margin:3px 0 0;font-size:11px;color:var(--ink-3)}
+.site-nav{margin-left:auto;display:inline-flex;border:1px solid #8a8a8a;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.site-nav a{padding:2px 14px 3px;font:12px var(--font-ui);color:#111;text-decoration:none;background:var(--gel-white)}
+.site-nav a+a{border-left:1px solid #a0a0a0}
+.site-nav a:hover:not([aria-current]){background:linear-gradient(#fff,#e7f2fe 50%,#d4e7fb 50%,#eaf4ff)}
+.site-nav a[aria-current="page"]{background:var(--gel)}
+.site-main{padding:22px 28px 36px;max-width:660px}
+.site-main h1{margin:4px 0 6px;font:500 36px/1.08 var(--font-display);letter-spacing:-.01em}
+.site-main h2{margin:28px 0 6px;font:600 21px/1.2 var(--font-display)}
+.site-main p{margin:0 0 12px}
+.site-kicker{font:11px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px!important}
+.post-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--ink-3)}
+.dek{font:italic 19px/1.4 var(--font-display);color:var(--ink-2);margin:10px 0 18px!important}
+.post-item{position:relative;display:grid;grid-template-columns:74px 1fr;gap:14px;padding:14px 12px;margin:0 -12px;border-radius:8px;transition:background .2s,box-shadow .2s}
+.post-item+.post-item{border-top:1px solid #ececec}
+.post-item:hover{background:linear-gradient(#f5faff,#e4f0fd);box-shadow:inset 0 0 0 1px #b9d6f5;border-top-color:transparent}
+.post-date{font:11px/1.2 var(--font-mono);color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;padding-top:7px}
+.post-title{margin:0;font:500 22px/1.2 var(--font-display)}
+.post-title a{color:var(--ink);text-decoration:none}
+.post-title a::after{content:"";position:absolute;inset:0;border-radius:8px}
+.post-item:hover .post-title a{color:#0b4fb0}
+.post-dek{margin:4px 0 8px!important;color:var(--ink-2);font-size:12px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin:14px 0}
+.pcard{border:1px solid #b5b5b5;border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.14);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s;display:flex;flex-direction:column}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.pcard-top{height:86px;display:grid;place-items:center;border-bottom:1px solid #d9d9d9;background:linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)),var(--pinstripe)}
+.pcard-top .ico{width:56px;height:56px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.3));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.pcard:hover .pcard-top .ico{transform:translateY(-5px) scale(1.08)}
+.pcard-body{padding:11px 13px 12px;display:flex;flex-direction:column;gap:7px;flex:1}
+.pcard h3{margin:0;font:500 20px/1.1 var(--font-display)}
+.pcard p{margin:0;font-size:11.5px;line-height:1.5;color:var(--ink-2)}
+.pcard-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding-top:4px}
+.status-dot{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--ink-3)}
+.status-dot i{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#e8ffd8,#5cb847 60%,#2f7d1f);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+.site-foot{padding:14px 28px 22px;border-top:1px solid #e3e3e3;font-size:11px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.post-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;padding-top:14px;border-top:1px solid #e6e6e6;font-size:12px;flex-wrap:wrap}
+.related{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #cfdff2;border-radius:8px;background:linear-gradient(#f7fbff,#eaf3fd);margin-top:22px}
+.related .ico{width:40px;height:40px}
+.related p{margin:0!important;font-size:12px}
+.err{text-align:center;padding:60px 20px}
+.err .ico{width:72px;height:72px;opacity:.85}
+.err h1{font:bold 15px var(--font-ui)!important;margin:16px 0 6px!important}
+.no-results{padding:16px 0;color:var(--ink-3);font-style:italic}
+mark{background:#fff3a3;border-radius:2px;color:inherit;padding:0 1px}
+
+/* ---------- finder ---------- */
+.f-toolbar .tbtn{display:flex;flex-direction:column;align-items:center;gap:1px;border:0;background:none;padding:1px 5px;border-radius:6px;font:11px var(--font-ui);color:#222;flex:none}
+.f-toolbar .tbtn .ico{width:28px;height:28px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.f-toolbar .tbtn:active .ico{filter:brightness(.6) drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.f-toolbar .grow{flex:1}
+.f-body{display:flex;background:#fff;overflow:hidden}
+.f-side{flex:0 0 132px;overflow-y:auto;padding:8px 0;background:linear-gradient(90deg,#e7edf5,#dfe7f1);border-right:1px solid #b5bfcc}
+.f-side h4{margin:4px 12px 2px;font:bold 10px var(--font-ui);color:#6c7a8c;text-transform:uppercase;letter-spacing:.06em}
+.side-item{display:flex;align-items:center;gap:6px;width:100%;border:0;background:none;padding:3px 12px;font:12px var(--font-ui);text-align:left}
+.side-item.sel{background:linear-gradient(#7fb0ec,#4d8ad8);color:#fff}
+body.graphite .side-item.sel{background:linear-gradient(#a8b3c0,#7f8c99)}
+.f-cols{flex:1;display:flex;overflow-x:auto;overflow-y:hidden;outline:none;scroll-behavior:auto}
+.f-cols:focus-visible{box-shadow:inset 0 0 0 3px rgba(59,153,252,.5)}
+.fcol{flex:0 0 172px;overflow-y:auto;border-right:1px solid #d0d0d0;padding:1px 0;animation:colIn .22s cubic-bezier(.2,.8,.2,1)}
+@keyframes colIn{from{opacity:0;transform:translateX(-10px)}}
+.fitem{display:flex;align-items:center;gap:6px;width:100%;border:0;background:none;padding:2px 8px 2px 6px;font:12px/18px var(--font-ui);text-align:left;white-space:nowrap}
+.fitem .nm{overflow:hidden;text-overflow:ellipsis;flex:1}
+.fitem .arr{flex:none;width:0;height:0;border-left:6px solid #555;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.fitem.sel{background:#d4d4d4}
+.fcol.focus .fitem.sel{background:var(--sel);color:#fff}
+.fcol.focus .fitem.sel .arr{border-left-color:#fff}
+.fpreview{flex:0 0 262px;padding:18px 16px 20px;overflow-y:auto;text-align:center;background:linear-gradient(#fff,#f7f9fc);animation:colIn .25s cubic-bezier(.2,.8,.2,1)}
+.fpreview .big{width:92px;height:92px;filter:drop-shadow(0 4px 5px rgba(0,0,0,.3));animation:pop .45s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.fpreview h3{margin:10px 0 4px;font:500 22px/1.15 var(--font-display);word-break:break-word}
+.fpreview .pv-blurb{font-size:11.5px;color:var(--ink-2);line-height:1.55;text-align:left;margin:6px 0 10px}
+.pv-meta{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:10px 0 14px;text-align:left;font-size:11px}
+.pv-meta dt{color:#777;text-align:right}
+.pv-meta dd{margin:0}
+.pv-actions{display:flex;flex-direction:column;gap:8px;align-items:center}
+.pv-code{margin:10px 0 0;text-align:left;font:10.5px/1.55 var(--font-mono);background:#fff;border:1px solid #cfcfcf;border-radius:5px;padding:9px 10px;overflow:auto;white-space:pre;box-shadow:inset 0 1px 2px rgba(0,0,0,.08);user-select:text;-webkit-user-select:text}
+
+/* ---------- trash ---------- */
+.t-grid{list-style:none;margin:0;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:14px 8px;background:#fff;min-height:100%}
+.t-item{display:flex;flex-direction:column;align-items:center;gap:5px;width:100%;border:0;background:none;padding:6px 2px;border-radius:6px}
+.t-item .ico{width:46px;height:46px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.t-item span{font:11px/1.3 var(--font-ui);text-align:center;word-break:break-all;padding:1px 4px;border-radius:6px}
+.t-item.sel .ico{background:rgba(0,0,0,.12);border-radius:6px}
+.t-item.sel span{background:var(--sel);color:#fff}
+.t-empty{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#fff;padding:24px;text-align:center;color:var(--ink-3)}
+.t-empty .ico{width:84px;height:84px}
+.t-empty p{margin:0}
+
+/* ---------- info (about this site) ---------- */
+.info-body{padding:16px 18px 26px;font-size:12px}
+.info-head{display:flex;gap:14px;align-items:center}
+.info-head .ico{width:66px;height:66px;filter:drop-shadow(0 4px 5px rgba(0,0,0,.3))}
+.info-head h3{margin:0;font:500 30px/1 var(--font-display)}
+.info-head p{margin:3px 0 0;font-size:11px;color:#555}
+.info-actions{display:flex;gap:8px;margin:14px 0 6px;flex-wrap:wrap}
+.disc{border-top:1px solid rgba(0,0,0,.14);margin-top:8px;padding-top:4px}
+.disc h4{margin:0}
+.disc-toggle{display:flex;align-items:center;gap:7px;border:0;background:none;padding:4px 2px;font:bold 12px var(--font-ui);width:100%;text-align:left}
+.tri{width:0;height:0;border-left:7px solid #4f4f4f;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;transition:transform .2s ease}
+[aria-expanded="true"] > .tri{transform:rotate(90deg)}
+.disc-toggle small{margin-left:auto;font:normal 10px var(--font-mono);color:#888}
+.disc-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows .32s cubic-bezier(.2,.8,.2,1)}
+.disc-body.collapsed{grid-template-rows:0fr}
+.disc-inner{overflow:hidden;min-height:0}
+.gbox{margin:6px 0 4px;padding:12px;border-radius:7px;border:1px solid rgba(0,0,0,.14);background:rgba(0,0,0,.035);box-shadow:inset 0 1px 2px rgba(0,0,0,.07)}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lbl{font:10px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:#7a8594;margin:12px 0 6px}
+.lbl:first-child{margin-top:0}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px;margin-top:10px}
+.swatch{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;padding:4px 0;border-radius:8px}
+.swatch:hover .orb{transform:translateY(-3px) scale(1.08)}
+.orb{width:40px;height:40px;border-radius:50%;transition:transform .25s cubic-bezier(.3,1.6,.5,1);
+  background:radial-gradient(circle at 50% 24%,rgba(255,255,255,.9) 0 16%,rgba(255,255,255,0) 44%),radial-gradient(circle at 50% 100%,color-mix(in srgb,var(--c) 55%,#fff),var(--c) 58%,color-mix(in srgb,var(--c) 72%,#000));
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.25)}
+.sw-name{font-size:11px}
+.swatch code{font:10px var(--font-mono);color:#555}
+.spec{padding:9px 0;border-bottom:1px dashed rgba(0,0,0,.12)}
+.spec:last-child{border-bottom:0}
+.spec-meta{display:flex;justify-content:space-between;gap:8px;font:10px var(--font-mono);color:#7a8594;margin-bottom:3px}
+.spec-display{font:500 var(--spec,40px)/1.05 var(--font-display);letter-spacing:-.01em;transition:font-size .1s}
+.spec-display em{font-weight:400}
+.scale{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;margin-top:8px}
+.scale span{font-family:var(--font-display);color:#333;padding:0 6px;border-radius:5px;background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.1)}
+.textures{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tx-tile{display:flex;flex-direction:column;gap:4px;font-size:11px}
+.tx{height:64px;border-radius:6px;border:1px solid rgba(0,0,0,.28);position:relative;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.5);transition:transform .25s}
+.tx-tile:hover .tx{transform:scale(1.04)}
+.tx.pin{background:var(--pinstripe)}
+.tx.metal{background:var(--metal)}
+.tx.gelt{background:var(--gel);border-color:var(--gel-edge)}
+.tx.gelt::before{content:"";position:absolute;left:8%;right:8%;top:2px;height:44%;border-radius:10px;background:linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,.1))}
+.tx.wall{background:radial-gradient(120% 90% at 10% 120%,#58b1ff 0%,rgba(88,177,255,0) 55%),linear-gradient(160deg,#08286b,#1553b8 50%,#0d3a8c)}
+.tx.glass{background:linear-gradient(160deg,#08286b,#1553b8 50%,#58b1ff)}
+.tx.glass::after{content:"Open…";position:absolute;left:12px;right:12px;top:10px;bottom:10px;border-radius:0 0 5px 5px;padding:4px 8px;font-size:11px;color:#000;
+  background:repeating-linear-gradient(to bottom,rgba(250,250,250,.78) 0 2px,rgba(236,236,236,.78) 2px 4px);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);box-shadow:0 3px 8px rgba(0,0,0,.35)}
+.tx.barb{border:0}
+.tx.barb .barber{height:100%;border-radius:6px}
+.cmp{margin:0 0 14px}
+.cmp:last-child{margin-bottom:0}
+.cmp .post-item{margin:0;background:#fff;border:1px solid #e1e1e1}
+.cmp .pcard{max-width:250px}
+.cmp .code{margin:0}
+.cmp .quote{margin:0}
+.link-demo{background:#fff;border:1px solid #e1e1e1;border-radius:6px;padding:10px 12px;margin:0;font-size:12px;line-height:1.6}
+
+/* ---------- dock ---------- */
+#dock{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:5000;max-width:calc(100vw - 8px);pointer-events:none}
+.dock-shelf{position:absolute;left:0;right:0;bottom:0;height:62px;border-radius:12px 12px 0 0;
+  background:linear-gradient(to bottom,rgba(255,255,255,.55),rgba(255,255,255,.28) 45%,rgba(220,235,255,.22));
+  border:1px solid rgba(255,255,255,.65);border-bottom:0;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 -2px 12px rgba(0,0,0,.2);pointer-events:none}
+.dock-row{position:relative;display:flex;align-items:flex-end;gap:4px;padding:0 10px 6px;pointer-events:auto}
+.dock-item{--s:50px;position:relative;width:var(--s);height:var(--s);flex:none;padding:0;border:0;background:none;border-radius:10px}
+.dock-item:focus-visible{box-shadow:none}
+.dock-item:focus-visible .dock-icon{filter:drop-shadow(0 0 6px rgba(120,190,255,1))}
+.dock-icon{position:absolute;inset:0;display:block;filter:drop-shadow(0 3px 3px rgba(0,0,0,.35))}
+.dock-icon > svg{width:100%;height:100%;display:block}
+.dock-item:active .dock-icon{filter:brightness(.55) drop-shadow(0 3px 3px rgba(0,0,0,.35))}
+.dock-label{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);padding:2px 12px 3px;border-radius:12px;font:13px var(--font-ui);color:#fff;white-space:nowrap;
+  background:rgba(20,20,20,.72);box-shadow:0 2px 6px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .12s}
+.dock-item:hover .dock-label,.dock-item:focus-visible .dock-label{opacity:1}
+.dock-run{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:5px solid #111;opacity:0;transition:opacity .2s}
+.dock-item.running .dock-run{opacity:.9}
+.dock-sep{flex:none;align-self:stretch;width:1px;margin:6px 5px 0;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.35) 30%,rgba(0,0,0,.35));box-shadow:1px 0 0 rgba(255,255,255,.5);max-height:56px;align-self:flex-end;height:50px}
+.mini-frame{position:absolute;inset:0;overflow:visible;pointer-events:none}
+.mini-frame > .win{position:absolute!important;left:0!important;top:0!important;width:var(--mw)!important;height:var(--mh)!important;transform-origin:0 0;box-shadow:0 4px 12px rgba(0,0,0,.5)!important}
+.dock-item.mini-tile .dock-icon{filter:none}
+
+/* ---------- exposé ---------- */
+#expose-dim{position:fixed;inset:0;z-index:9;background:rgba(0,10,30,.45);opacity:0;transition:opacity .35s}
+#expose-dim.on{opacity:1}
+body.exposing .win{transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .2s;cursor:pointer}
+body.exposing .win *{pointer-events:none!important}
+body.expose-anim .win{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.win.xp-hover{box-shadow:0 0 0 5px rgba(110,180,255,.95),0 20px 50px rgba(0,0,0,.6)!important}
+.xp-label{position:fixed;z-index:4999;transform:translate(-50%,0);padding:2px 12px 3px;border-radius:11px;background:rgba(20,20,20,.75);color:#fff;font:12px var(--font-ui);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .25s .2s}
+.xp-label.on{opacity:1}
+.xp-label.hot{background:var(--gel);color:#000}
+
+/* ---------- boot, sleep, label ---------- */
+#boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(circle at 50% 42%,#fafafa,#d6d9de 70%,#c3c7cd);transition:opacity .55s ease}
+#boot.out{opacity:0;pointer-events:none}
+.boot-card{text-align:center;width:min(300px,80vw)}
+.boot-card .ico{width:92px;height:92px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.3))}
+.boot-card h1{margin:16px 0 2px;font:500 34px/1 var(--font-display);color:#222}
+.boot-card p{margin:0 0 18px;font-size:12px;color:#555}
+.boot-bar{position:relative;height:13px;border-radius:7px;overflow:hidden;border:1px solid #7c7c7c;background:linear-gradient(#bdbdbd,#e9e9e9 40%,#f7f7f7)}
+.boot-bar > span{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:6px}
+.boot-bar .barber{border:0;border-radius:0}
+.boot-skip{margin-top:14px;font-size:10px;color:#888}
+#sleep{position:fixed;inset:0;z-index:9998;background:#000;display:grid;place-items:end center;padding-bottom:18vh;cursor:pointer;animation:fadeIn .8s ease}
+@keyframes fadeIn{from{opacity:0}}
+.sleep-led{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px rgba(255,255,255,.7);animation:breathe 5s ease-in-out infinite;margin:0 auto 14px}
+@keyframes breathe{0%,100%{opacity:.08}45%{opacity:1}}
+#sleep p{margin:0;color:#555;font-size:11px;text-align:center}
+#tile-label{position:fixed;left:10px;bottom:10px;z-index:7000;padding:3px 11px 4px;border-radius:11px;font:11px var(--font-ui);color:#111;text-decoration:none;
+  background:rgba(255,255,255,.78);border:1px solid rgba(0,0,0,.3);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 2px 6px rgba(0,0,0,.25)}
+#tile-label:hover,#tile-label:focus-visible{background:var(--gel);border-color:var(--gel-edge)}
+
+/* ---------- phone ---------- */
+@media (max-width:700px){
+  :root{--dock-reserve:62px}
+  .hide-phone{display:none!important}
+  .mb-btn{padding:0 8px}
+  #clock{min-width:0}
+  .desk-icons{display:none}
+  .win{left:0!important;top:var(--menubar)!important;width:100vw!important;height:calc(100vh - var(--menubar) - var(--dock-reserve))!important;height:calc(100dvh - var(--menubar) - var(--dock-reserve))!important;border-radius:0!important;min-width:0}
+  .titlebar{border-radius:0}
+  .resize-grip{display:none}
+  .toolbar{gap:6px;padding:4px 8px 5px}
+  #win-journal .search{display:none}
+  #j-home{display:none}
+  .f-side{display:none}
+  .f-toolbar .tbtn span{display:none}
+  .f-toolbar .search{flex-basis:110px}
+  .fcol{flex-basis:150px}
+  .fpreview{flex-basis:250px}
+  .site-head{padding:16px 16px 12px}
+  .site-nav{margin-left:0}
+  .site-main{padding:18px 16px 30px}
+  .site-main h1{font-size:30px}
+  .post-item{grid-template-columns:1fr;gap:2px}
+  .post-date{padding-top:0}
+  .swatches{grid-template-columns:repeat(3,1fr)}
+  .textures{grid-template-columns:repeat(2,1fr)}
+  #dock{max-width:100vw}
+  .dock-row{overflow-x:auto;overflow-y:hidden;padding-top:26px;margin-top:-26px;scrollbar-width:none}
+  .dock-row::-webkit-scrollbar{display:none}
+  .dock-shelf{height:52px}
+  .dock-label{display:none}
+  #tile-label{bottom:calc(var(--dock-reserve) + 6px);left:auto;right:8px}
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .btn.default::after{opacity:.5}
+  .barber{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#dock">Skip to the Dock</a>
+
+<!-- ============ icon sprite (original artwork) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="g-gel" cx=".5" cy=".9" r=".85"><stop offset="0" stop-color="#c8ecff"/><stop offset=".45" stop-color="#3a8ee6"/><stop offset="1" stop-color="#0a4aa8"/></radialGradient>
+    <linearGradient id="g-gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity=".08"/></linearGradient>
+    <linearGradient id="g-folder" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe1ff"/><stop offset=".5" stop-color="#7cbcf7"/><stop offset="1" stop-color="#3f8fe0"/></linearGradient>
+    <linearGradient id="g-folder-back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8cc4f7"/><stop offset="1" stop-color="#4a92dc"/></linearGradient>
+    <linearGradient id="g-paper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#e2e2e2"/></linearGradient>
+    <linearGradient id="g-steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f4"/><stop offset=".5" stop-color="#c9c9c9"/><stop offset=".52" stop-color="#b3b3b3"/><stop offset="1" stop-color="#dcdcdc"/></linearGradient>
+    <linearGradient id="g-sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe082"/><stop offset="1" stop-color="#ff8a3d"/></linearGradient>
+    <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fc3ff"/><stop offset="1" stop-color="#ffd8a8"/></linearGradient>
+    <linearGradient id="g-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4fa" stop-opacity=".9"/><stop offset="1" stop-color="#c3ccd6" stop-opacity=".55"/></linearGradient>
+    <radialGradient id="g-pin" cx=".45" cy=".35" r=".7"><stop offset="0" stop-color="#ffb4ab"/><stop offset=".6" stop-color="#e0443e"/><stop offset="1" stop-color="#9e1d17"/></radialGradient>
+  </defs>
+  <symbol id="ic-mark" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="29" fill="url(#g-gel)" stroke="#0a3f8f" stroke-width="1.5"/>
+    <path d="M20.5 22.5h23l-22 20h23" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="32" cy="16.5" rx="20" ry="10.5" fill="url(#g-gloss)"/>
+  </symbol>
+  <symbol id="ic-folder" viewBox="0 0 64 64">
+    <path d="M5 15a3 3 0 0 1 3-3h15.5l5 5H56a3 3 0 0 1 3 3v8H5z" fill="url(#g-folder-back)" stroke="#2a6db6" stroke-width="1.2"/>
+    <path d="M3 24.5a3 3 0 0 1 3-3h52a3 3 0 0 1 3 3l-2.2 27a3 3 0 0 1-3 2.8H8.2a3 3 0 0 1-3-2.8z" fill="url(#g-folder)" stroke="#2a6db6" stroke-width="1.2"/>
+    <path d="M5.5 24h53" stroke="#fff" stroke-opacity=".85" stroke-width="1.2"/>
+    <path d="M4.5 25h55l-.8 10.5c-18 3-36 3-53.4 0z" fill="#fff" opacity=".28"/>
+  </symbol>
+  <symbol id="ic-posts" viewBox="0 0 64 64">
+    <g transform="rotate(-7 30 33)">
+      <rect x="11" y="6" width="38" height="52" rx="2.5" fill="url(#g-paper)" stroke="#8d8d8d"/>
+      <rect x="11" y="6" width="38" height="10" rx="2.5" fill="#3a8ee6"/>
+      <rect x="11" y="12" width="38" height="4" fill="#3a8ee6"/>
+      <path d="M16 23h28M16 29h28M16 35h21M16 41h25M16 47h15" stroke="#a9b8c8" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(38 47 36)">
+      <rect x="43" y="8" width="8.5" height="32" rx="2.5" fill="#232323"/>
+      <rect x="44.3" y="9.5" width="2.4" height="29" rx="1.2" fill="#6d6d6d"/>
+      <rect x="43" y="33" width="8.5" height="3" fill="#c9a33c"/>
+      <path d="M43 40h8.5l-4.25 12z" fill="#d9b44a" stroke="#8a6c1c" stroke-width=".8"/>
+    </g>
+  </symbol>
+  <symbol id="ic-info" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="29" fill="url(#g-gel)" stroke="#0a3f8f" stroke-width="1.5"/>
+    <circle cx="32" cy="19" r="4.6" fill="#fff"/>
+    <path d="M26 28h9.5v17H39v4H25v-4h3.5V32H26z" fill="#fff"/>
+    <ellipse cx="32" cy="16.5" rx="20" ry="10" fill="url(#g-gloss)" opacity=".85"/>
+  </symbol>
+  <symbol id="ic-trash" viewBox="0 0 64 64">
+    <path d="M11 14l5 42.5c.4 2.6 7.3 4.5 16 4.5s15.6-1.9 16-4.5L53 14" fill="url(#g-glass)" stroke="#7d8793" stroke-width="2"/>
+    <path d="M17.5 17l4.4 41.5M24.5 18.5l2.6 41.5M32 19v41.8M39.5 18.5l-2.6 41.5M46.5 17l-4.4 41.5" stroke="#98a3ae" stroke-width="1.3" fill="none"/>
+    <path d="M13 28q19 7 38 0M14.6 41q17.4 6.5 34.8 0M16.1 52q15.9 6 31.8 0" stroke="#98a3ae" stroke-width="1.3" fill="none"/>
+    <ellipse cx="32" cy="14" rx="21" ry="5.5" fill="none" stroke="#6f7984" stroke-width="2.6"/>
+    <ellipse cx="32" cy="13.4" rx="19.5" ry="4.4" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>
+  </symbol>
+  <symbol id="ic-trash-full" viewBox="0 0 64 64">
+    <use href="#ic-trash" width="64" height="64"/>
+    <path d="M17 14c1-6 7-9 12-6 3-4 11-4 13 1 5-1 9 3 7 7-1 2-4 2-6 1-3 2-8 2-11 0-4 2-10 2-13-1-1 0-2-1-2-2z" fill="#f7f7f7" stroke="#9aa0a6" stroke-width="1.1"/>
+    <path d="M23 11l4 3M34 8l1 5M41 11l-3 4" stroke="#b9bec4" stroke-width="1"/>
+    <path d="M40 6c4-3 10-1 10 4s-7 6-10 3-3-5 0-7z" fill="#fff8e1" stroke="#b8a77a" stroke-width="1"/>
+  </symbol>
+  <symbol id="ic-hd" viewBox="0 0 64 64">
+    <rect x="5" y="18" width="54" height="30" rx="5" fill="url(#g-steel)" stroke="#6b6b6b" stroke-width="1.2"/>
+    <rect x="5" y="40" width="54" height="8" rx="3" fill="#8e8e8e" opacity=".55"/>
+    <path d="M9 21h46" stroke="#fff" stroke-opacity=".9"/>
+    <circle cx="51" cy="44" r="2" fill="#6ee06a" stroke="#2d7a2a" stroke-width=".6"/>
+    <path d="M12 28h20M12 32h14" stroke="#9a9a9a" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ic-doc" viewBox="0 0 64 64">
+    <path d="M14 5h26l12 12v42H14z" fill="url(#g-paper)" stroke="#8d8d8d" stroke-width="1.2"/>
+    <path d="M40 5v12h12" fill="#e6e6e6" stroke="#8d8d8d" stroke-width="1.2"/>
+    <path d="M20 25h24M20 31h24M20 37h18M20 43h22M20 49h12" stroke="#a9b8c8" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ic-code" viewBox="0 0 64 64">
+    <path d="M14 5h26l12 12v42H14z" fill="url(#g-paper)" stroke="#8d8d8d" stroke-width="1.2"/>
+    <path d="M40 5v12h12" fill="#e6e6e6" stroke="#8d8d8d" stroke-width="1.2"/>
+    <path d="M27 29l-7 7 7 7M39 29l7 7-7 7" fill="none" stroke="#3a8ee6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M35 27l-4 18" stroke="#aa0d91" stroke-width="2.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ic-feedback" viewBox="0 0 64 64">
+    <path d="M8 12a6 6 0 0 1 6-6h36a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H28l-12 12v-12h-2a6 6 0 0 1-6-6z" fill="url(#g-gel)" stroke="#0a3f8f" stroke-width="1.4"/>
+    <path d="M10 13a5 5 0 0 1 5-5h34a5 5 0 0 1 5 5v7c-14 4-30 4-44 0z" fill="url(#g-gloss)" opacity=".8"/>
+    <path d="M32 16c-5 0-8.5 3.5-8.5 8 0 6 8.5 13 8.5 13s8.5-7 8.5-13c0-4.5-3.5-8-8.5-8z" fill="url(#g-pin)" stroke="#7a130e" stroke-width="1"/>
+    <circle cx="32" cy="24" r="3" fill="#fff"/>
+  </symbol>
+  <symbol id="ic-briefing" viewBox="0 0 64 64">
+    <rect x="6" y="8" width="52" height="36" rx="4" fill="url(#g-sky)" stroke="#8a7a66" stroke-width="1"/>
+    <circle cx="32" cy="40" r="15" fill="url(#g-sun)"/>
+    <path d="M32 18v-6M18 26l-4-4M46 26l4-4" stroke="#ffb347" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M8 30h48v26a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3z" fill="url(#g-paper)" stroke="#8d8d8d" stroke-width="1.2"/>
+    <path d="M13 36h38" stroke="#1d1f22" stroke-width="3"/>
+    <path d="M13 42h17M13 46h17M13 50h17M35 42h16M35 46h16M35 50h11" stroke="#a9b8c8" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ic-tiles" viewBox="0 0 64 64">
+    <rect x="5" y="9" width="17" height="20" rx="4" fill="#3a8ee6"/>
+    <rect x="24" y="9" width="17" height="20" rx="4" fill="#e0443e"/>
+    <rect x="43" y="9" width="17" height="20" rx="4" fill="#f2b233"/>
+    <rect x="5" y="33" width="17" height="20" rx="4" fill="#5cb847"/>
+    <rect x="24" y="33" width="17" height="20" rx="4" fill="#1d1f22"/>
+    <rect x="43" y="33" width="17" height="20" rx="4" fill="#bdbdbd"/>
+    <g fill="url(#g-gloss)" opacity=".75"><rect x="6.5" y="10" width="14" height="8" rx="3"/><rect x="25.5" y="10" width="14" height="8" rx="3"/><rect x="44.5" y="10" width="14" height="8" rx="3"/><rect x="6.5" y="34" width="14" height="8" rx="3"/><rect x="25.5" y="34" width="14" height="8" rx="3"/><rect x="44.5" y="34" width="14" height="8" rx="3"/></g>
+    <rect x="23" y="8" width="19" height="22" rx="5" fill="none" stroke="#fff" stroke-width="2"/>
+  </symbol>
+</svg>
+
+<!-- ============ desktop ============ -->
+<div id="desktop" aria-hidden="false">
+  <svg class="swoosh" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sw1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".45" stop-color="#bfe3ff" stop-opacity=".32"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="sw2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cc4ff" stop-opacity=".0"/><stop offset=".5" stop-color="#9fd6ff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>
+      <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+    </defs>
+    <path d="M-100 720C260 520 640 920 1040 640S1640 420 1760 520V1100H-100Z" fill="url(#sw2)" filter="url(#soft)"/>
+    <path d="M-100 610C300 470 700 840 1090 590S1600 380 1760 460" fill="none" stroke="url(#sw1)" stroke-width="120" stroke-linecap="round" filter="url(#soft)"/>
+    <path d="M-100 650C320 500 690 860 1080 610S1610 400 1760 490" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M-100 690C330 540 700 890 1090 650S1610 450 1760 540" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="1.5"/>
+    <path d="M200 -50C420 160 380 320 640 380S1180 260 1400 -40" fill="none" stroke="url(#sw1)" stroke-width="60" opacity=".6" filter="url(#soft)"/>
+  </svg>
+  <div class="desk-icons" role="group" aria-label="Desktop">
+    <button class="desk-icon" type="button" data-desk="hd"><svg class="ico" aria-hidden="true"><use href="#ic-hd"/></svg><span>Z's HD</span></button>
+    <button class="desk-icon" type="button" data-desk="tiles"><svg class="ico" aria-hidden="true"><use href="#ic-folder"/></svg><span>Style Tiles</span></button>
+    <button class="desk-icon" type="button" data-desk="readme"><svg class="ico" aria-hidden="true"><use href="#ic-doc"/></svg><span>Read Me.txt</span></button>
+  </div>
+</div>
+
+<!-- ============ menu bar ============ -->
+<header id="menubar">
+  <div id="mb-left" role="menubar" aria-label="Menu bar"></div>
+  <div id="mb-right">
+    <button class="mb-btn" id="expose-btn" type="button" aria-label="Exposé: show all windows (F9)" title="Exposé (F9)"><svg viewBox="0 0 18 14" aria-hidden="true"><rect x=".5" y=".5" width="7.5" height="5.5" rx="1" fill="#3a8ee6" stroke="#1f5aa8"/><rect x="10" y=".5" width="7.5" height="5.5" rx="1" fill="#fff" stroke="#555"/><rect x=".5" y="8" width="7.5" height="5.5" rx="1" fill="#fff" stroke="#555"/><rect x="10" y="8" width="7.5" height="5.5" rx="1" fill="#fff" stroke="#555"/></svg></button>
+    <button class="mb-btn" id="clock" type="button" aria-label="Clock. Click to toggle the date.">--</button>
+  </div>
+</header>
+<div id="menu" role="menu" hidden></div>
+<div id="expose-dim" hidden></div>
+<div id="expose-labels" aria-hidden="true"></div>
+
+<!-- ============ journal window (brushed metal browser) ============ -->
+<section class="win metal" id="win-journal" data-win="journal" aria-labelledby="t-journal" tabindex="-1" hidden>
+  <div class="titlebar"><h2 class="wtitle" id="t-journal"><svg class="ico xs" aria-hidden="true"><use href="#ic-posts"/></svg><span>Journal</span></h2></div>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="History">
+      <button type="button" id="j-back" aria-label="Back"><svg viewBox="0 0 10 10"><path d="M7.5 1L2 5l5.5 4z"/></svg></button>
+      <button type="button" id="j-fwd" aria-label="Forward"><svg viewBox="0 0 10 10"><path d="M2.5 1L8 5 2.5 9z"/></svg></button>
+    </div>
+    <button type="button" class="mbtn" id="j-reload" aria-label="Reload page"><svg viewBox="0 0 14 14"><path d="M11.5 7A4.5 4.5 0 1 1 9.8 3.5"/><path d="M10 1v3H7"/></svg></button>
+    <button type="button" class="mbtn" id="j-home" aria-label="Home"><svg viewBox="0 0 14 14"><path d="M2 7l5-4.5L12 7M3.5 6v6h7V6"/></svg></button>
+    <div class="addr">
+      <span class="addr-prog" id="j-prog"></span>
+      <svg class="ico xs" aria-hidden="true"><use href="#ic-mark"/></svg>
+      <input id="j-addr" type="text" aria-label="Address" spellcheck="false" autocomplete="off">
+      <button type="button" class="rss" id="j-rss" aria-label="Subscribe to the posts feed">RSS</button>
+    </div>
+    <label class="search"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="5" cy="5" r="3.6"/><path d="M7.7 7.7L11 11"/></svg><input id="j-search" type="search" placeholder="Search posts" aria-label="Search posts" autocomplete="off"></label>
+  </div>
+  <nav class="bookmarks" aria-label="Bookmarks">
+    <a class="bm" href="#/" data-route="/">Posts</a>
+    <a class="bm" href="#/projects" data-route="/projects">Projects</a>
+    <a class="bm" href="#/about" data-route="/about">About</a>
+    <span class="bm-sep" aria-hidden="true"></span>
+    <a class="bm" href="index.html">All Style Tiles</a>
+  </nav>
+  <div class="wbody" id="j-page" tabindex="0" aria-label="Page content"></div>
+  <div class="statusbar" id="j-status" aria-live="polite"></div>
+  <div class="resize-grip" aria-hidden="true"></div>
+</section>
+
+<!-- ============ finder window (column view) ============ -->
+<section class="win aqua" id="win-finder" data-win="finder" aria-labelledby="t-finder" tabindex="-1" hidden>
+  <div class="titlebar"><h2 class="wtitle" id="t-finder"><svg class="ico xs" aria-hidden="true"><use href="#ic-folder"/></svg><span>Projects</span></h2>
+    <button type="button" class="tb-pill" id="f-pill" aria-label="Hide or show the toolbar" aria-pressed="true"></button></div>
+  <div class="toolbar f-toolbar">
+    <div class="seg" role="group" aria-label="History">
+      <button type="button" id="f-back" aria-label="Back"><svg viewBox="0 0 10 10"><path d="M7.5 1L2 5l5.5 4z"/></svg></button>
+      <button type="button" id="f-fwd" aria-label="Forward"><svg viewBox="0 0 10 10"><path d="M2.5 1L8 5 2.5 9z"/></svg></button>
+    </div>
+    <button type="button" class="tbtn" data-fgo="hd"><svg class="ico" aria-hidden="true"><use href="#ic-hd"/></svg><span>Home</span></button>
+    <button type="button" class="tbtn" data-fgo="projects"><svg class="ico" aria-hidden="true"><use href="#ic-folder"/></svg><span>Projects</span></button>
+    <button type="button" class="tbtn" data-fgo="posts"><svg class="ico" aria-hidden="true"><use href="#ic-posts"/></svg><span>Posts</span></button>
+    <button type="button" class="tbtn" data-open="info"><svg class="ico" aria-hidden="true"><use href="#ic-info"/></svg><span>Get Info</span></button>
+    <span class="grow"></span>
+    <label class="search"><svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="5" cy="5" r="3.6"/><path d="M7.7 7.7L11 11"/></svg><input id="f-search" type="search" placeholder="Search" aria-label="Search files" autocomplete="off"></label>
+  </div>
+  <div class="wbody f-body">
+    <aside class="f-side" aria-label="Places">
+      <h4>Places</h4>
+      <button type="button" class="side-item" data-side="hd"><svg class="ico s" aria-hidden="true"><use href="#ic-hd"/></svg>Z's HD</button>
+      <button type="button" class="side-item" data-side="projects"><svg class="ico s" aria-hidden="true"><use href="#ic-folder"/></svg>Projects</button>
+      <button type="button" class="side-item" data-side="posts"><svg class="ico s" aria-hidden="true"><use href="#ic-folder"/></svg>Posts</button>
+      <button type="button" class="side-item" data-side="trash"><svg class="ico s" aria-hidden="true"><use href="#ic-trash"/></svg>Trash</button>
+    </aside>
+    <div class="f-cols" id="f-cols" tabindex="0" aria-label="Column view. Use arrow keys to browse, Return to open."></div>
+  </div>
+  <div class="statusbar" id="f-status" style="text-align:center"></div>
+  <div class="resize-grip" aria-hidden="true"></div>
+</section>
+
+<!-- ============ about this site (the style tile proper) ============ -->
+<section class="win aqua" id="win-info" data-win="info" aria-labelledby="t-info" tabindex="-1" hidden>
+  <div class="titlebar"><h2 class="wtitle" id="t-info"><span>About This Site</span></h2></div>
+  <div class="wbody info-body">
+    <div class="info-head">
+      <svg class="ico" role="img" aria-label="Z. Christensen mark: a blue gel orb with a white z"><use href="#ic-mark"/></svg>
+      <div>
+        <h3>Z. Christensen</h3>
+        <p>Projects I've built, and notes on building them.</p>
+        <p>Version 2.6 · Style tile 2 of 6 · Vintage Aqua (2001–2005)</p>
+      </div>
+    </div>
+    <div class="info-actions">
+      <button type="button" class="btn default" data-route="/">Read the Journal</button>
+      <button type="button" class="btn" data-open="finder">Browse Projects</button>
+    </div>
+
+    <section class="disc">
+      <h4><button type="button" class="disc-toggle" aria-expanded="true"><span class="tri"></span>Palette<small>12 colors</small></button></h4>
+      <div class="disc-body"><div class="disc-inner"><div class="gbox">
+        <div class="row"><span style="font-size:11px">Appearance:</span>
+          <div class="segc" role="group" aria-label="Appearance">
+            <button type="button" data-appearance="blue" aria-pressed="true">Blue</button>
+            <button type="button" data-appearance="graphite" aria-pressed="false">Graphite</button>
+          </div>
+        </div>
+        <div class="swatches" id="swatches"></div>
+        <p style="margin:10px 0 0;font-size:10.5px;color:#666">Click a gel to copy its hex value.</p>
+      </div></div></div>
+    </section>
+
+    <section class="disc">
+      <h4><button type="button" class="disc-toggle" aria-expanded="true"><span class="tri"></span>Typography<small>3 families</small></button></h4>
+      <div class="disc-body"><div class="disc-inner"><div class="gbox">
+        <div class="spec">
+          <div class="spec-meta"><span>Display · EB Garamond 500 / Italic</span><span id="spec-size-out">40/44</span></div>
+          <div class="spec-display" id="spec-display">Notes on <em>designing</em> for motion</div>
+          <label class="row" style="margin-top:6px;font-size:11px;flex-wrap:nowrap">Size <input class="aq-range" id="spec-range" type="range" min="22" max="64" value="40" aria-label="Display type size"></label>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>Title · Lucida Grande Bold</span><span>13/18</span></div>
+          <div style="font:bold 13px/18px var(--font-ui)">Building a comment overlay for prototypes</div>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>Body · Lucida Grande Regular</span><span>13/21</span></div>
+          <div style="font:13px/1.65 var(--font-ui)">The proxy forwards every request untouched except HTML responses, which get one script tag injected just before the body closes.</div>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>Caption · Lucida Grande</span><span>11/16</span></div>
+          <div style="font:11px/16px var(--font-ui);color:#555">Sep 2026 · 6 min read · Filed under tools</div>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>Mono · Monaco (DM Mono fallback)</span><span>11.5/19</span></div>
+          <div style="font:11.5px/19px var(--font-mono)">open http://localhost:4599/3000/</div>
+        </div>
+        <div class="scale" aria-label="Type scale">
+          <span style="font-size:40px">40</span><span style="font-size:29px">29</span><span style="font-size:21px">21</span><span style="font-size:15px;font-family:var(--font-ui)">13</span><span style="font-size:12px;font-family:var(--font-ui)">11</span><span style="font-size:11px;font-family:var(--font-mono)">10</span>
+        </div>
+      </div></div></div>
+    </section>
+
+    <section class="disc">
+      <h4><button type="button" class="disc-toggle" aria-expanded="true"><span class="tri"></span>Textures<small>6 surfaces</small></button></h4>
+      <div class="disc-body"><div class="disc-inner"><div class="gbox">
+        <div class="textures">
+          <div class="tx-tile"><div class="tx pin"></div>Pinstripe</div>
+          <div class="tx-tile"><div class="tx metal"></div>Brushed metal</div>
+          <div class="tx-tile"><div class="tx gelt"></div>Aqua gel</div>
+          <div class="tx-tile"><div class="tx wall"></div>Wallpaper</div>
+          <div class="tx-tile"><div class="tx glass"></div>Translucent menu</div>
+          <div class="tx-tile"><div class="tx barb"><div class="barber"></div></div>Barber pole</div>
+        </div>
+      </div></div></div>
+    </section>
+
+    <section class="disc">
+      <h4><button type="button" class="disc-toggle" aria-expanded="true"><span class="tri"></span>Components<small>10 parts</small></button></h4>
+      <div class="disc-body"><div class="disc-inner"><div class="gbox" id="components"></div></div></div>
+    </section>
+  </div>
+  <div class="resize-grip" aria-hidden="true"></div>
+</section>
+
+<!-- ============ trash ============ -->
+<section class="win aqua" id="win-trash" data-win="trash" aria-labelledby="t-trash" tabindex="-1" hidden>
+  <div class="titlebar"><h2 class="wtitle" id="t-trash"><svg class="ico xs" aria-hidden="true"><use href="#ic-trash"/></svg><span>Trash</span></h2></div>
+  <div class="toolbar">
+    <span style="font-size:11px;color:#444" id="t-count"></span>
+    <span style="flex:1"></span>
+    <button type="button" class="btn" id="t-empty">Empty Trash</button>
+  </div>
+  <div class="wbody" id="t-body"></div>
+  <div class="statusbar" id="t-status" aria-live="polite"></div>
+  <div class="resize-grip" aria-hidden="true"></div>
+</section>
+
+<!-- ============ dock ============ -->
+<nav id="dock" aria-label="Dock" tabindex="-1">
+  <div class="dock-shelf"></div>
+  <div class="dock-row" id="dock-row">
+    <button type="button" class="dock-item" data-dock="posts" data-win="journal" aria-label="Posts"><span class="dock-icon"><svg aria-hidden="true"><use href="#ic-posts"/></svg></span><span class="dock-label">Posts</span><span class="dock-run" aria-hidden="true"></span></button>
+    <button type="button" class="dock-item" data-dock="projects" data-win="finder" aria-label="Projects"><span class="dock-icon"><svg aria-hidden="true"><use href="#ic-folder"/></svg></span><span class="dock-label">Projects</span><span class="dock-run" aria-hidden="true"></span></button>
+    <button type="button" class="dock-item" data-dock="about" data-win="info" aria-label="About This Site"><span class="dock-icon"><svg aria-hidden="true"><use href="#ic-info"/></svg></span><span class="dock-label">About</span><span class="dock-run" aria-hidden="true"></span></button>
+    <span class="dock-sep" aria-hidden="true"></span>
+    <button type="button" class="dock-item" data-dock="trash" data-win="trash" aria-label="Trash"><span class="dock-icon"><svg aria-hidden="true"><use id="trash-use" href="#ic-trash-full"/></svg></span><span class="dock-label">Trash</span><span class="dock-run" aria-hidden="true"></span></button>
+  </div>
+</nav>
+
+<a id="tile-label" href="index.html">Style tile 2/6 · Vintage Aqua</a>
+
+<div id="boot" role="status" aria-label="Starting up">
+  <div class="boot-card">
+    <svg class="ico" aria-hidden="true"><use href="#ic-mark"/></svg>
+    <h1>Z. Christensen</h1>
+    <p id="boot-msg">Starting up…</p>
+    <div class="boot-bar"><span class="barber" id="boot-fill"></span></div>
+    <div class="boot-skip">Click or press any key to skip</div>
+  </div>
+</div>
+<div id="sleep" hidden role="button" tabindex="0" aria-label="Sleeping. Click or press any key to wake."><div><div class="sleep-led"></div><p>Click or press any key to wake</p></div></div>
+<div id="live" class="sr-only" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ================= helpers ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+const phoneMQ = matchMedia('(max-width: 700px)');
+const reduced = () => reduceMQ.matches;
+const isPhone = () => phoneMQ.matches;
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const icon = (id, cls = '') => `<svg class="ico ${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+const say = (msg) => { const l = $('#live'); l.textContent = ''; setTimeout(() => { l.textContent = msg; }, 30); };
+const copyText = (t) => { try { return navigator.clipboard.writeText(t).catch(() => {}); } catch (e) { return Promise.resolve(); } };
+
+const HL = {
+  com: { js: /\/\/[^\n]*|\/\*[\s\S]*?\*\//, css: /\/\*[\s\S]*?\*\//, yaml: /#[^\n]*/, html: /<!--[\s\S]*?-->/ },
+  kw: {
+    js: /\b(?:const|let|return|if|else|function|await|async|new|import|from|export|true|false|null)\b/,
+    json: /\b(?:true|false|null)\b/,
+    css: /@media|@keyframes|\b(?:animation|cubic-bezier|ease-out)\b/,
+    yaml: /\b[a-z_]+(?=:)/,
+    html: /<\/?[a-z]+/,
+    md: /^#{1,3} [^\n]*/
+  }
+};
+function hl(src, lang) {
+  if (lang === 'text') return esc(src);
+  const NEVER = /(?!)/;
+  const str = (lang === 'md') ? NEVER : /'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*"/;
+  const num = (lang === 'md') ? NEVER : /\b\d+(?:\.\d+)?(?:ms|px)?\b/;
+  const re = new RegExp(`(${(HL.com[lang] || NEVER).source})|(${str.source})|(${(HL.kw[lang] || NEVER).source})|(${num.source})`, 'gm');
+  let out = '', last = 0, m;
+  while ((m = re.exec(src))) {
+    if (m[0] === '') { re.lastIndex++; continue; }
+    const cls = m[1] ? 'c-com' : m[2] ? 'c-str' : m[3] ? 'c-kw' : 'c-num';
+    out += esc(src.slice(last, m.index)) + `<span class="${cls}">${esc(m[0])}</span>`;
+    last = m.index + m[0].length;
+  }
+  return out + esc(src.slice(last));
+}
+const codeBlock = (name, src, lang) => `<figure class="code"><figcaption><span class="code-name">${icon('ic-code', 'xs')}${esc(name)}</span><button type="button" class="btn mini copy">Copy</button></figcaption><pre><code>${hl(src, lang)}</code></pre></figure>`;
+
+/* ================= content ================= */
+const SRC = {
+  proxy: `// inject the overlay into HTML responses only
+proxy.on('proxyRes', (res, req, out) => {
+  const type = res.headers['content-type'] || '';
+  if (!type.includes('text/html')) return res.pipe(out);
+  collect(res).then((html) => {
+    out.end(html.replace('<\/body>', OVERLAY_TAG + '<\/body>'));
+  });
+});`,
+  overlay: `// Option-click anywhere to drop a pin
+document.addEventListener('click', (e) => {
+  if (!e.altKey) return;
+  e.preventDefault();
+  const pin = dropPin(e.pageX, e.pageY);
+  pin.open({ selector: cssPath(e.target) });
+});`,
+  comments: `{
+  "url": "/5173/checkout",
+  "selector": "form > button.primary",
+  "note": "Label says Submit. Should say Pay $24.",
+  "screenshot": "shots/0142.png",
+  "resolved": false
+}`,
+  schedule: `schedule: "0 6 * * 1-5"    # weekdays, 6:00
+steps:
+  - read: outlets.yml       # fixed order, no skipping
+  - follow: threads.yml     # running stories
+  - write: style.md         # the house rules
+  - send: inbox`,
+  outlets: `outlets:
+  - wire services           # first, always
+  - national papers
+  - trade press
+  - regional desks
+threads: threads.yml
+skip_paywalled: false`,
+  motion: `/* fast in, slow settle */
+.window.opening {
+  animation: genie 520ms cubic-bezier(.2, .8, .2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .window.opening { animation: fade 120ms ease-out; }
+}`,
+  aquaCss: `/* 2 of 6: Vintage Aqua */
+:root {
+  --gel: #3a8ee6;
+  --pinstripe: #ededed;
+  --steel: #bdbdbd;
+}`,
+  index: `<!-- six directions, one site -->
+<ol>
+  <li><a href="swiss.html">1 · Swiss</a></li>
+  <li><a href="aqua.html">2 · Vintage Aqua</a></li>
+</ol>`
+};
+
+const POSTS = [
+  { id: 'comment-overlay', title: 'Building a comment overlay for prototypes', date: 'Sep 2026', iso: '2026-09-14', read: '6 min', tags: ['tools', 'prototyping', 'agents'], project: 'claude-feedback',
+    dek: 'Pinning feedback to the exact pixel, then handing it to an agent as one plain JSON file.' },
+  { id: 'news-digest', title: 'What I learned shipping a daily news digest agent', date: 'Aug 2026', iso: '2026-08-21', read: '8 min', tags: ['agents', 'automation', 'writing'], project: 'morning-briefing',
+    dek: 'Six months of 6 a.m. briefings taught me that protocols beat prompts, and that a short day deserves a short briefing.' },
+  { id: 'motion-notes', title: 'Notes on designing for motion', date: 'Jun 2026', iso: '2026-06-03', read: '5 min', tags: ['design', 'motion'], project: 'style-tiles',
+    dek: 'If you can’t say what a transition explains, it’s decoration.' }
+];
+
+const BODY = {
+  'comment-overlay': () => `
+<p>Reviewing a prototype usually means a screenshot pasted into chat, an arrow drawn on top of it, and a paragraph explaining which button I meant. By the time it reaches whoever is fixing it (lately, an agent), half the context has fallen off.</p>
+<p><a class="lnk" href="#/projects" data-route="/projects">claude-feedback</a> is my fix. It’s a small Node proxy that sits in front of any local dev server. Visit <code class="inline">localhost:4599/3000/</code> instead of <code class="inline">localhost:3000/</code> and the page loads exactly as before, except now Option-clicking anywhere drops a pin.</p>
+<h2>How it works</h2>
+<p>The proxy forwards every request untouched except HTML responses. Those get one script tag injected just before the body closes. That script draws the pins, the comment popover, and a screenshot of the viewport at the moment you press Save.</p>
+${codeBlock('proxy.js', SRC.proxy, 'js')}
+<h2>Comments are a file, not a service</h2>
+<p>Every comment lands in one JSON file: the page URL, the selector it’s pinned to, the note, and a path to the screenshot. No database, no accounts, no sync. That file is the entire API. When I say “address my feedback,” the agent reads it, opens each screenshot to see what I saw, makes the fix, and flips <code class="inline">resolved</code> to true.</p>
+<blockquote class="quote"><p>Point at the thing. Say what’s wrong. Let the file carry the context.</p><cite>From the brief I wrote myself on day one</cite></blockquote>
+<h2>What I’d do differently</h2>
+<p>Screenshots are captured inside the page, so cross-origin images sometimes come out blank. The next version captures on the proxy side with a headless browser, which also lets pins survive a hard refresh. I’d also tie each comment to a git commit, so a resolved note stays resolved after the layout moves.</p>`,
+  'news-digest': () => `
+<p>For six months, an agent has written me a news briefing every weekday at 6 a.m. The first week it was confidently wrong twice, padded a quiet Tuesday into nine paragraphs, and put a columnist’s opinion in the lede. Almost none of the fixes were about the model.</p>
+<h2>Protocols beat prompts</h2>
+<p>The breakthrough wasn’t a cleverer instruction. It was a checklist: which outlets to read, in which order, and which running stories to check on even when nothing looks new. Once the search was a protocol instead of a mood, the misses stopped.</p>
+${codeBlock('schedule.yml', SRC.schedule, 'yaml')}
+<h2>Style is a spec</h2>
+<p>No bullets. No bold summaries. Op-eds labeled as op-eds. Writing the house style down as rules, with examples of what to leave out, made the output consistent in a way “be concise” never did.</p>
+<blockquote class="quote"><p>A briefing that pads a slow news day is worse than one that admits it.</p><cite>Note taped above my desk, August</cite></blockquote>
+<h2>Silence is a valid output</h2>
+<p>Some mornings nothing moved. Teaching the agent that four sentences can be the correct briefing took longer than anything else, and it’s the change readers noticed most. The <a class="lnk" href="#/projects" data-route="/projects">Morning Briefing</a> still runs every weekday.</p>`,
+  'motion-notes': () => `
+<p>Motion is the part of an interface people feel before they read anything. These are the notes I keep returning to while building the style tiles for this site, one of which you’re reading inside right now.</p>
+<h2>1. Motion should explain where something came from</h2>
+<p>A window that grows out of the icon you clicked needs no label. Try it: close this window with the red button, then click Posts in the Dock.</p>
+<h2>2. Fast in, slow settle</h2>
+<p>Things should arrive quickly and ease into place. Leaving should be quicker still. Nobody wants to watch a dialog say goodbye.</p>
+${codeBlock('motion.css', SRC.motion, 'css')}
+<h2>3. Reduced motion is a design constraint</h2>
+<p><code class="inline">prefers-reduced-motion</code> isn’t an edge case. Designing the calm version first often turns up a better default for everyone.</p>
+<blockquote class="quote"><p>If you can’t say what a transition explains, it’s decoration.</p><cite>Margin note, June</cite></blockquote>
+<h2>4. Delight has a budget</h2>
+<p>One pulsing button per screen. The moment two things pulse, neither means anything.</p>`
+};
+
+const PROJECTS = [
+  { id: 'claude-feedback', name: 'claude-feedback', icon: 'ic-feedback', kind: 'Node proxy', started: 'Jul 2026', status: 'In daily use', post: 'comment-overlay', stack: ['Node', 'http-proxy', 'JSON'],
+    short: 'A comment-overlay proxy for reviewing local prototypes. Option-click to pin a note; an agent reads them back.',
+    blurb: 'A comment-overlay proxy for reviewing local prototypes. Put it in front of any localhost port and it injects a pin-and-comment layer, captures a screenshot of what you were looking at, and writes everything to one JSON file an agent can read, fix, and mark resolved.',
+    files: [
+      { name: 'README.md', kind: 'Markdown document', size: '2 KB', lang: 'md', text: '# claude-feedback\nA comment-overlay proxy for reviewing\nlocal prototypes.\n\n## Use\nnpm start, then open\nlocalhost:4599/<port>/<path>\nOption-click to pin a comment.' },
+      { name: 'proxy.js', kind: 'JavaScript source', size: '4 KB', lang: 'js', text: SRC.proxy },
+      { name: 'overlay.js', kind: 'JavaScript source', size: '11 KB', lang: 'js', text: SRC.overlay },
+      { name: 'comments.json', kind: 'JSON document', size: '1 KB', lang: 'json', text: SRC.comments }
+    ] },
+  { id: 'morning-briefing', name: 'Morning Briefing', icon: 'ic-briefing', kind: 'Scheduled agent', started: 'Feb 2026', status: 'Runs weekdays at 6:00', post: 'news-digest', stack: ['Agent', 'Search', 'Email'],
+    short: 'An automated daily news digest, researched and written by an agent before the coffee’s ready.',
+    blurb: 'An automated daily news digest. A scheduled agent reads a fixed list of outlets in a fixed order, checks on running stories, and writes a briefing in a strict house style: paragraphs instead of bullets, and opinion labeled as opinion.',
+    files: [
+      { name: 'README.md', kind: 'Markdown document', size: '1 KB', lang: 'md', text: '# Morning Briefing\nA daily news digest, written by a\nscheduled agent, delivered weekdays\nat 6:00.\n\nNo bullets. No bold summaries.\nOp-eds labeled.' },
+      { name: 'schedule.yml', kind: 'YAML document', size: '1 KB', lang: 'yaml', text: SRC.schedule },
+      { name: 'outlets.yml', kind: 'YAML document', size: '1 KB', lang: 'yaml', text: SRC.outlets },
+      { name: 'style.md', kind: 'Markdown document', size: '3 KB', lang: 'md', text: '## House style\nWrite in paragraphs, never bullets.\nLead with what changed since yesterday.\nLabel opinion as opinion.\nA slow day gets a short briefing.' }
+    ] },
+  { id: 'style-tiles', name: 'Style Tiles', icon: 'ic-tiles', kind: 'Design exploration', started: 'Sep 2026', status: 'Tile 2 of 6 (you are here)', post: 'motion-notes', stack: ['HTML', 'CSS', 'SVG'],
+    short: 'Six competing visual directions for this site, each one a single self-contained HTML file.',
+    blurb: 'This exploration. Six competing directions for this site, each built as one self-contained HTML file and pushed as far as it will go before choosing. This one is Vintage Aqua: pinstripes, gel buttons, and a Dock that still bounces.',
+    files: [
+      { name: 'index.html', kind: 'HTML document', size: '2 KB', lang: 'html', text: SRC.index },
+      { name: 'aqua.html', kind: 'HTML document', size: '96 KB', lang: 'css', text: SRC.aquaCss },
+      { name: 'rules.txt', kind: 'Plain text', size: '1 KB', lang: 'text', text: 'Every tile shows:\n  palette with hex values\n  display, body and mono type\n  textures and core components\n  real interactions, real copy' }
+    ] }
+];
+
+const README = { name: 'Read Me.txt', kind: 'Plain text', size: '1 KB', lang: 'text', text: 'Welcome to Z. Christensen’s desktop.\n\nThe Dock opens Posts, Projects and\nAbout. Press F9 for Exposé. Drag\nwindows by their title bars. Try\nemptying the Trash.' };
+
+const projNode = (p) => ({ name: p.name, type: 'project', icon: 'ic-folder', project: p,
+  children: p.files.map((f) => ({ name: f.name, type: 'file', icon: (f.lang === 'text' || f.lang === 'md') ? 'ic-doc' : 'ic-code', file: f, project: p })) });
+const FS = { name: 'Z’s HD', type: 'root', icon: 'ic-hd', children: [
+  { name: 'Projects', type: 'folder', icon: 'ic-folder', children: PROJECTS.map(projNode) },
+  { name: 'Posts', type: 'folder', icon: 'ic-folder', children: POSTS.map((p) => ({ name: p.title + '.html', type: 'post', icon: 'ic-doc', post: p })) },
+  { name: 'About This Site', type: 'app', icon: 'ic-info' },
+  { name: 'Read Me.txt', type: 'file', icon: 'ic-doc', file: README }
+] };
+
+const TRASH = [
+  { name: 'carousel-hero-FINAL-final.psd', icon: 'ic-doc', note: 'Nobody ever saw slide three.' },
+  { name: 'skip-intro.swf', icon: 'ic-code', note: 'The only button anyone clicked was Skip.' },
+  { name: 'parallax-everything.css', icon: 'ic-code', note: 'Scroll-jacking, in retrospect, was a choice.' },
+  { name: 'under-construction.gif', icon: 'ic-doc', note: 'Every site is under construction. No need to announce it.' },
+  { name: 'hit-counter.cgi', icon: 'ic-code', note: 'You are visitor 000,042.' }
+];
+
+const SWATCHES = [
+  ['Aqua', '#3A8EE6'], ['Deep Gel', '#0B5FC9'], ['Gel Light', '#BFE3FF'], ['Selection', '#3875D7'],
+  ['Wallpaper', '#0D3A8C'], ['Close', '#E0443E'], ['Minimize', '#F2B233'], ['Zoom', '#5CB847'],
+  ['Pinstripe', '#EDEDED'], ['Brushed Steel', '#BDBDBD'], ['Graphite', '#7F8C99'], ['Ink', '#1D1F22']
+];
+
+/* ================= shared renderers ================= */
+const markQ = (text, q) => {
+  if (!q) return esc(text);
+  const i = text.toLowerCase().indexOf(q.toLowerCase());
+  if (i < 0) return esc(text);
+  return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+};
+const postItem = (p, q) => `<article class="post-item">
+  <div class="post-date"><time datetime="${p.iso}">${p.date}</time></div>
+  <div><h3 class="post-title"><a href="#/posts/${p.id}" data-route="/posts/${p.id}">${markQ(p.title, q)}</a></h3>
+  <p class="post-dek">${markQ(p.dek, q)}</p>
+  <div class="post-meta"><span class="chips">${p.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</span><span>${p.read} read</span></div></div>
+</article>`;
+const projectCard = (p) => `<article class="pcard">
+  <div class="pcard-top">${icon(p.icon)}</div>
+  <div class="pcard-body"><h3>${esc(p.name)}</h3><p>${esc(p.short)}</p>
+  <div class="chips">${p.stack.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</div>
+  <div class="pcard-foot"><span class="status-dot"><i></i>${esc(p.status)}</span><button type="button" class="btn mini" data-reveal="${p.id}">Reveal in Finder</button></div></div>
+</article>`;
+
+/* ================= window manager ================= */
+const WINS = {
+  journal: { title: 'Journal', app: 'Journal', dock: 'posts' },
+  finder: { title: 'Projects', app: 'Finder', dock: 'projects' },
+  info: { title: 'About This Site', app: 'Site Info', dock: 'about' },
+  trash: { title: 'Trash', app: 'Finder', dock: 'trash' }
+};
+const state = { z: 10, active: null, exposing: false, magnify: true, trashFull: true, sheet: null, booting: false };
+Object.keys(WINS).forEach((id) => {
+  const w = WINS[id];
+  w.id = id; w.el = $('#win-' + id); w.open = false; w.min = false; w.rect = null; w.zoomed = false;
+  const tb = $('.titlebar', w.el);
+  tb.insertAdjacentHTML('afterbegin', `<div class="lights">
+    <button type="button" class="light close" data-act="close" aria-label="Close ${w.title}"><svg viewBox="0 0 12 12"><path d="M3.6 3.6l4.8 4.8M8.4 3.6l-4.8 4.8"/></svg></button>
+    <button type="button" class="light min" data-act="min" aria-label="Minimize ${w.title}"><svg viewBox="0 0 12 12"><path d="M2.8 6h6.4"/></svg></button>
+    <button type="button" class="light zoom" data-act="zoom" aria-label="Zoom ${w.title}"><svg viewBox="0 0 12 12"><path d="M6 2.8v6.4M2.8 6h6.4"/></svg></button></div>`);
+});
+const dockItem = (dockId) => $(`.dock-item[data-dock="${dockId}"]`);
+
+function defaultRect(id) {
+  const vw = innerWidth, vh = innerHeight, top = 30, bottom = vh - 84;
+  const clampR = (r) => {
+    r.w = Math.min(r.w, vw - 16); r.h = Math.max(200, Math.min(r.h, bottom - top));
+    r.x = Math.max(8, Math.min(r.x, vw - r.w - 8)); r.y = Math.max(top, Math.min(r.y, bottom - r.h));
+    return r;
+  };
+  if (id === 'journal') { const w = Math.min(690, Math.max(440, vw * 0.47)); return clampR({ x: 20, y: top + 4, w, h: Math.min(bottom - top - 8, 780) }); }
+  if (id === 'finder') { const w = Math.min(800, vw - 80), h = Math.min(450, bottom - top - 40); return clampR({ x: Math.max(20, Math.min(vw * 0.3, vw - w - 20)), y: bottom - h - 8, w, h }); }
+  if (id === 'info') { const w = Math.min(470, vw - 40); return clampR({ x: vw - w - 118, y: top, w, h: Math.min(bottom - top - 4, 720) }); }
+  const w = Math.min(540, vw - 40); return clampR({ x: (vw - w) / 2, y: top + 90, w, h: 340 });
+}
+function applyRect(w) {
+  const s = w.el.style, r = w.rect;
+  s.left = r.x + 'px'; s.top = r.y + 'px'; s.width = r.w + 'px'; s.height = r.h + 'px';
+}
+function focusWin(id) {
+  const w = WINS[id];
+  if (!w || !w.open || w.min) return;
+  w.el.style.zIndex = ++state.z;
+  Object.values(WINS).forEach((o) => o.el.classList.toggle('active', o === w));
+  state.active = id;
+  updateAppName();
+}
+function focusTop() {
+  const list = Object.values(WINS).filter((w) => w.open && !w.min).sort((a, b) => (+b.el.style.zIndex) - (+a.el.style.zIndex));
+  if (list.length) focusWin(list[0].id);
+  else { state.active = null; Object.values(WINS).forEach((o) => o.el.classList.remove('active')); updateAppName(); }
+}
+function updateAppName() {
+  const b = $('#mb-app');
+  if (b) b.textContent = state.active ? WINS[state.active].app : 'Finder';
+}
+function setRunning(id, on) { const it = dockItem(WINS[id].dock); if (it) it.classList.toggle('running', on); }
+
+function genie(el, from, out) {
+  if (reduced()) {
+    return el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 140, direction: out ? 'reverse' : 'normal', fill: out ? 'forwards' : 'none' }).finished;
+  }
+  const r = el.getBoundingClientRect();
+  const dx = (from.left + from.width / 2) - (r.left + r.width / 2);
+  const dy = (from.top + from.height / 2) - (r.top + r.height);
+  const sx = Math.max(from.width / r.width, 0.02), sy = Math.max(from.height / r.height, 0.02);
+  const frames = [
+    { transform: `translate(${dx}px,${dy}px) scale(${sx},${sy})`, clipPath: 'polygon(30% 0%,70% 0%,53% 100%,47% 100%)', opacity: 0.15, offset: 0 },
+    { transform: `translate(${dx * 0.5}px,${dy * 0.32}px) scale(${Math.min(1, sx * 4 + 0.35)},0.72)`, clipPath: 'polygon(3% 0%,97% 0%,64% 100%,36% 100%)', opacity: 1, offset: 0.5 },
+    { transform: 'translate(0px,0px) scale(1,1)', clipPath: 'polygon(0% 0%,100% 0%,100% 100%,0% 100%)', opacity: 1, offset: 1 }
+  ];
+  el.style.transformOrigin = '50% 100%';
+  const kf = out ? frames.slice().reverse().map((f) => Object.assign({}, f, { offset: 1 - f.offset })) : frames;
+  const a = el.animate(kf, { duration: out ? 430 : 560, easing: out ? 'cubic-bezier(.55,0,.8,.4)' : 'cubic-bezier(.2,.75,.25,1)', fill: out ? 'forwards' : 'none' });
+  return a.finished.then(() => { el.style.transformOrigin = ''; return a; });
+}
+function bounce(item) {
+  if (reduced() || !item) return;
+  item.querySelector('.dock-icon').animate([
+    { transform: 'translateY(0)' }, { transform: 'translateY(-30px)', offset: 0.22 }, { transform: 'translateY(0)', offset: 0.44 },
+    { transform: 'translateY(-14px)', offset: 0.64 }, { transform: 'translateY(0)', offset: 0.82 }, { transform: 'translateY(-4px)', offset: 0.91 }, { transform: 'translateY(0)' }
+  ], { duration: 1050, easing: 'ease-in-out' });
+}
+
+async function openWin(id) {
+  const w = WINS[id];
+  if (w.min) return restoreWin(id);
+  if (w.open) { focusWin(id); return; }
+  w.open = true;
+  if (!w.rect) w.rect = defaultRect(id);
+  applyRect(w);
+  w.el.hidden = false;
+  focusWin(id);
+  setRunning(id, true);
+  const it = dockItem(w.dock);
+  const from = it ? it.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight, width: 40, height: 40 };
+  await genie(w.el, from, false);
+}
+async function launch(id, opts = {}) {
+  if (state.exposing) expose(false);
+  const w = WINS[id];
+  if (!w.open && !w.min) {
+    bounce(dockItem(w.dock));
+    if (!reduced()) await wait(300);
+  }
+  await openWin(id);
+  if (id === 'finder') fCols.scrollTo({ left: fCols.scrollWidth, behavior: reduced() ? 'auto' : 'smooth' });
+  if (opts.focusEl !== false) w.el.focus({ preventScroll: true });
+}
+async function closeWin(id) {
+  const w = WINS[id];
+  if (!w || !w.open) return;
+  if (state.sheet && state.sheet.id === id) state.sheet.dismiss(true);
+  if (w.min) { const t = $(`.mini-tile[data-mini="${id}"]`); if (t) t.remove(); w.min = false; dockTick(true); }
+  else {
+    const a = w.el.animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.95)' }], { duration: reduced() ? 1 : 170, easing: 'ease-in', fill: 'forwards' });
+    await a.finished; w.el.hidden = true; a.cancel();
+  }
+  w.open = false; w.zoomed = false;
+  setRunning(id, false);
+  focusTop();
+}
+async function minimizeWin(id) {
+  const w = WINS[id];
+  if (!w.open || w.min) return;
+  if (state.exposing) expose(false);
+  w.min = true;
+  const tile = addMiniTile(id);
+  dockTick(true);
+  const from = tile.querySelector('.dock-icon').getBoundingClientRect();
+  const a = await genie(w.el, from, true);
+  w.el.hidden = true;
+  if (a && a.cancel) a.cancel();
+  focusTop();
+  say(`${w.title} minimized to the Dock`);
+}
+async function restoreWin(id) {
+  const w = WINS[id];
+  if (!w.min) return focusWin(id);
+  if (state.exposing) expose(false);
+  const tile = $(`.mini-tile[data-mini="${id}"]`);
+  const from = tile ? tile.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight, width: 40, height: 40 };
+  if (tile) tile.remove();
+  dockTick(true);
+  w.min = false; w.el.hidden = false;
+  focusWin(id);
+  await genie(w.el, from, false);
+  w.el.focus({ preventScroll: true });
+}
+function zoomWin(id) {
+  const w = WINS[id];
+  if (!w.open || w.min || isPhone()) return;
+  if (!w.zoomed) { w.prev = Object.assign({}, w.rect); w.rect = { x: 8, y: 30, w: innerWidth - 16, h: innerHeight - 30 - 88 }; }
+  else { w.rect = w.prev || defaultRect(id); }
+  w.zoomed = !w.zoomed;
+  w.el.classList.add('rect-anim'); applyRect(w);
+  setTimeout(() => w.el.classList.remove('rect-anim'), 320);
+  focusWin(id);
+}
+function addMiniTile(id) {
+  const w = WINS[id];
+  const r = { w: w.el.offsetWidth, h: w.el.offsetHeight };
+  const tile = document.createElement('button');
+  tile.type = 'button'; tile.className = 'dock-item mini-tile running';
+  tile.dataset.mini = id; tile.dataset.w = r.w; tile.dataset.h = r.h;
+  tile.setAttribute('aria-label', `Restore ${w.title}`);
+  tile.innerHTML = `<span class="dock-icon"><span class="mini-frame"></span></span><span class="dock-label">${esc(w.title)}</span>`;
+  const clone = w.el.cloneNode(true);
+  clone.removeAttribute('id');
+  $$('[id]', clone).forEach((n) => n.removeAttribute('id'));
+  clone.setAttribute('aria-hidden', 'true'); clone.inert = true; clone.removeAttribute('tabindex');
+  clone.style.setProperty('--mw', r.w + 'px'); clone.style.setProperty('--mh', r.h + 'px');
+  clone.style.zIndex = ''; clone.classList.add('active');
+  $('.mini-frame', tile).appendChild(clone);
+  const trash = dockItem('trash');
+  trash.parentNode.insertBefore(tile, trash);
+  return tile;
+}
+function fitMini(tile, s) {
+  const c = $('.mini-frame > .win', tile);
+  if (!c) return;
+  const w = +tile.dataset.w, h = +tile.dataset.h, k = (s * 0.9) / Math.max(w, h);
+  c.style.transform = `translate(${(s - w * k) / 2}px,${(s - h * k) / 2}px) scale(${k})`;
+}
+
+/* window chrome interactions: lights, drag, resize, focus, exposé pick */
+Object.values(WINS).forEach((w) => {
+  const el = w.el, tb = $('.titlebar', el), grip = $('.resize-grip', el);
+  el.addEventListener('pointerdown', (e) => {
+    if (state.exposing) { e.preventDefault(); expose(false); focusWin(w.id); return; }
+    if (state.active !== w.id) focusWin(w.id);
+  }, true);
+  el.addEventListener('mouseenter', () => { if (state.exposing) xpHover(w.id); });
+  el.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-act]');
+    if (!b || !el.contains(b)) return;
+    e.stopPropagation();
+    if (b.dataset.act === 'close') closeWin(w.id);
+    else if (b.dataset.act === 'min') minimizeWin(w.id);
+    else zoomWin(w.id);
+  });
+  tb.addEventListener('dblclick', (e) => { if (!e.target.closest('button')) minimizeWin(w.id); });
+  let drag = null;
+  tb.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 || e.target.closest('button,input,a') || isPhone() || state.exposing) return;
+    drag = { x: e.clientX, y: e.clientY, l: w.rect.x, t: w.rect.y };
+    tb.setPointerCapture(e.pointerId); el.classList.add('dragging');
+  });
+  tb.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    w.rect.x = Math.max(-w.rect.w + 80, Math.min(innerWidth - 80, drag.l + e.clientX - drag.x));
+    w.rect.y = Math.max(22, Math.min(innerHeight - 40, drag.t + e.clientY - drag.y));
+    w.zoomed = false; applyRect(w);
+  });
+  const endDrag = () => { drag = null; el.classList.remove('dragging'); };
+  tb.addEventListener('pointerup', endDrag); tb.addEventListener('pointercancel', endDrag);
+  let rs = null;
+  grip.addEventListener('pointerdown', (e) => {
+    if (isPhone()) return;
+    e.stopPropagation();
+    rs = { x: e.clientX, y: e.clientY, w: w.rect.w, h: w.rect.h };
+    grip.setPointerCapture(e.pointerId);
+  });
+  grip.addEventListener('pointermove', (e) => {
+    if (!rs) return;
+    w.rect.w = Math.max(320, rs.w + e.clientX - rs.x);
+    w.rect.h = Math.max(220, rs.h + e.clientY - rs.y);
+    w.zoomed = false; applyRect(w);
+  });
+  grip.addEventListener('pointerup', () => { rs = null; });
+});
+
+/* ================= dock ================= */
+const dockRow = $('#dock-row');
+const dockSizes = new Map();
+let dockMX = null, dockRaf = 0;
+const baseSize = () => (isPhone() ? 40 : 50);
+const maxSize = () => 92;
+function dockTick(immediate) {
+  if (dockRaf) { cancelAnimationFrame(dockRaf); dockRaf = 0; }
+  const items = $$('.dock-item', dockRow);
+  const base = baseSize();
+  const max = (state.magnify && !isPhone() && dockMX !== null) ? maxSize() : base;
+  const rects = items.map((it) => it.getBoundingClientRect());
+  let moving = false;
+  items.forEach((it, i) => {
+    const cx = rects[i].left + rects[i].width / 2;
+    let t = base;
+    if (max > base) { const d = dockMX - cx; t = base + (max - base) * Math.exp(-(d * d) / (2 * 78 * 78)); }
+    const cur = dockSizes.has(it) ? dockSizes.get(it) : base;
+    let n = (immediate || reduced()) ? t : cur + (t - cur) * 0.32;
+    if (Math.abs(t - n) < 0.4) n = t; else moving = true;
+    dockSizes.set(it, n);
+    it.style.setProperty('--s', n.toFixed(2) + 'px');
+    if (it.dataset.mini) fitMini(it, n);
+  });
+  $('.dock-shelf').style.height = (base + 12) + 'px';
+  if (moving) dockRaf = requestAnimationFrame(() => dockTick(false));
+}
+dockRow.addEventListener('pointermove', (e) => { if (e.pointerType !== 'mouse') return; dockMX = e.clientX; dockTick(false); });
+dockRow.addEventListener('pointerleave', () => { dockMX = null; dockTick(false); });
+dockRow.addEventListener('click', (e) => {
+  const it = e.target.closest('.dock-item');
+  if (!it) return;
+  if (it.dataset.mini) restoreWin(it.dataset.mini);
+  else launch(it.dataset.win);
+});
+function setTrashIcon() {
+  $('#trash-use').setAttribute('href', state.trashFull ? '#ic-trash-full' : '#ic-trash');
+}
+
+/* ================= exposé ================= */
+const xpDim = $('#expose-dim'), xpLabels = $('#expose-labels');
+let xpList = [], xpSel = -1;
+function expose(on) {
+  if (on === undefined) on = !state.exposing;
+  closeMenus();
+  if (on === state.exposing) return;
+  const list = Object.values(WINS).filter((w) => w.open && !w.min);
+  if (on && !list.length) { say('No open windows for Exposé'); return; }
+  state.exposing = on;
+  document.body.classList.add('expose-anim');
+  document.body.classList.toggle('exposing', on);
+  if (on) {
+    xpDim.hidden = false;
+    requestAnimationFrame(() => xpDim.classList.add('on'));
+    xpList = list.sort((a, b) => a.el.offsetLeft - b.el.offsetLeft);
+    xpSel = xpList.findIndex((w) => w.id === state.active);
+    layoutExpose();
+    say('Exposé. Use arrow keys and Return to pick a window, Escape to cancel.');
+  } else {
+    xpDim.classList.remove('on');
+    Object.values(WINS).forEach((w) => { w.el.style.transform = ''; w.el.classList.remove('xp-hover'); });
+    xpLabels.innerHTML = '';
+    setTimeout(() => { if (!state.exposing) { xpDim.hidden = true; document.body.classList.remove('expose-anim'); } }, 460);
+  }
+}
+function layoutExpose() {
+  const n = xpList.length, top = 44, bottom = innerHeight - (isPhone() ? 80 : 110), left = 24, right = innerWidth - 24;
+  const cols = Math.ceil(Math.sqrt(n)), rows = Math.ceil(n / cols);
+  const cw = (right - left) / cols, ch = (bottom - top) / rows;
+  xpLabels.innerHTML = '';
+  xpList.forEach((w, i) => {
+    const col = i % cols, row = Math.floor(i / cols);
+    const inRow = Math.min(cols, n - row * cols);
+    const rowOffset = (cols - inRow) * cw / 2;
+    const cx = left + rowOffset + cw * (col + 0.5), cy = top + ch * (row + 0.5) - 10;
+    const ow = w.el.offsetWidth, oh = w.el.offsetHeight, ol = w.el.offsetLeft, ot = w.el.offsetTop;
+    const s = Math.min((cw * 0.86) / ow, ((ch - 30) * 0.86) / oh, 1);
+    w.el.style.transformOrigin = '50% 50%';
+    w.el.style.transform = `translate(${cx - (ol + ow / 2)}px,${cy - (ot + oh / 2)}px) scale(${s})`;
+    const lab = document.createElement('div');
+    lab.className = 'xp-label'; lab.dataset.id = w.id; lab.textContent = w.title === 'Journal' ? $('#t-journal span').textContent : $(`#t-${w.id} span`).textContent;
+    lab.style.left = cx + 'px'; lab.style.top = (cy + (oh * s) / 2 + 8) + 'px';
+    xpLabels.appendChild(lab);
+    requestAnimationFrame(() => lab.classList.add('on'));
+  });
+  if (xpSel >= 0) xpHover(xpList[xpSel].id);
+}
+function xpHover(id) {
+  xpSel = xpList.findIndex((w) => w.id === id);
+  Object.values(WINS).forEach((w) => w.el.classList.toggle('xp-hover', w.id === id));
+  $$('.xp-label', xpLabels).forEach((l) => l.classList.toggle('hot', l.dataset.id === id));
+}
+xpDim.addEventListener('click', () => expose(false));
+$('#expose-btn').addEventListener('click', () => expose());
+
+/* ================= sheets ================= */
+async function sheet(id, opts) {
+  const w = WINS[id];
+  if (!w.open || w.min) await launch(id);
+  if (state.sheet) state.sheet.dismiss(true);
+  focusWin(id);
+  const anchor = $('.toolbar', w.el);
+  const tb = $('.titlebar', w.el);
+  const topEl = (anchor && anchor.offsetParent !== null && !w.el.classList.contains('no-toolbar')) ? anchor : tb;
+  const top = topEl.offsetTop + topEl.offsetHeight;
+  const wrap = document.createElement('div');
+  wrap.className = 'sheet-wrap'; wrap.style.top = top + 'px';
+  const hid = 'sheet-h-' + Date.now();
+  wrap.innerHTML = `<div class="sheet-block"></div><div class="sheet" role="alertdialog" aria-modal="true" aria-labelledby="${hid}">
+    ${icon(opts.icon || 'ic-mark')}<h3 id="${hid}">${opts.title}</h3><p>${opts.text || ''}</p>
+    <div class="sheet-btns">${opts.buttons.map((b, i) => `<button type="button" class="btn${b.primary ? ' default' : ''}" data-i="${i}">${esc(b.label)}</button>`).join('')}</div></div>`;
+  w.el.appendChild(wrap);
+  const sh = $('.sheet', wrap);
+  const prevFocus = document.activeElement;
+  const dismiss = (instant) => {
+    if (state.sheet && state.sheet.wrap === wrap) state.sheet = null;
+    sh.classList.remove('in');
+    const done = () => { wrap.remove(); };
+    if (instant || reduced()) done(); else setTimeout(done, 300);
+    if (prevFocus && prevFocus.focus && document.contains(prevFocus)) prevFocus.focus({ preventScroll: true });
+  };
+  const run = (i) => { const b = opts.buttons[i]; dismiss(false); if (b && b.action) b.action(); };
+  sh.addEventListener('click', (e) => { const b = e.target.closest('[data-i]'); if (b) run(+b.dataset.i); });
+  sh.addEventListener('keydown', (e) => {
+    const btns = $$('button', sh);
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); const c = opts.buttons.findIndex((b) => b.cancel); run(c >= 0 ? c : 0); }
+    else if (e.key === 'Tab') {
+      e.preventDefault();
+      const i = btns.indexOf(document.activeElement);
+      btns[(i + (e.shiftKey ? -1 : 1) + btns.length) % btns.length].focus();
+    }
+  });
+  state.sheet = { id, wrap, dismiss, cancel: () => { const c = opts.buttons.findIndex((b) => b.cancel); run(c >= 0 ? c : 0); } };
+  requestAnimationFrame(() => requestAnimationFrame(() => sh.classList.add('in')));
+  const def = $('.btn.default', sh) || $('button', sh);
+  setTimeout(() => def.focus({ preventScroll: true }), reduced() ? 0 : 120);
+}
+function shortcutsSheet() {
+  const id = state.active || 'info';
+  sheet(id, {
+    icon: 'ic-info', title: 'Keyboard shortcuts',
+    text: '<kbd>F9</kbd> Exposé: tile every open window. <kbd>Esc</kbd> leaves Exposé and closes menus and sheets. Arrow keys move through menus, Exposé and Finder columns; <kbd>Return</kbd> opens the selection. Double-click a title bar to minimize.',
+    buttons: [{ label: 'OK', primary: true, cancel: true }]
+  });
+}
+
+/* ================= menu bar ================= */
+const SEP = '-';
+const MENUS = [
+  { id: 'mark', aria: 'Site menu', items: () => [
+    { label: 'About This Site', action: () => launch('info') }, SEP,
+    { label: 'Exposé', key: 'F9', action: () => expose(true) },
+    { label: 'Dock Magnification', check: () => state.magnify, action: () => { state.magnify = !state.magnify; say('Dock magnification ' + (state.magnify ? 'on' : 'off')); } },
+    { label: 'Graphite Appearance', check: () => document.body.classList.contains('graphite'), action: () => setAppearance(document.body.classList.contains('graphite') ? 'blue' : 'graphite') }, SEP,
+    { label: 'Sleep', action: sleep },
+    { label: 'Restart…', action: () => sheet(state.active || 'info', { icon: 'ic-mark', title: 'Are you sure you want to restart?', text: 'Every window closes and the desktop starts up again. Nothing is lost; this is a style tile.', buttons: [{ label: 'Cancel', cancel: true }, { label: 'Restart', primary: true, action: restart }] }) }
+  ] },
+  { id: 'app', bold: true, label: () => (state.active ? WINS[state.active].app : 'Finder'), items: () => [
+    { label: 'About This Site', action: () => launch('info') }, SEP,
+    { label: 'Hide Others', disabled: () => !state.active, action: hideOthers },
+    { label: 'Show All', disabled: () => !Object.values(WINS).some((w) => w.min), action: showAll }
+  ] },
+  { id: 'file', label: 'File', items: () => [
+    { label: 'New Finder Window', action: () => launch('finder') },
+    { label: 'Open Journal', action: () => launch('journal') }, SEP,
+    { label: 'Close Window', disabled: () => !state.active, action: () => closeWin(state.active) }
+  ] },
+  { id: 'view', label: 'View', cls: 'hide-phone', items: () => [
+    { label: 'as Columns', check: () => true, action: () => launch('finder') },
+    { label: () => ($('#win-finder').classList.contains('no-toolbar') ? 'Show Toolbar' : 'Hide Toolbar'), action: toggleFinderToolbar }, SEP,
+    { label: 'Exposé', key: 'F9', action: () => expose(true) }
+  ] },
+  { id: 'go', label: 'Go', cls: 'hide-phone', items: () => [
+    { label: 'Posts', action: () => routeTo('/') },
+    { label: 'Projects', action: () => finderAt([0]) },
+    { label: 'About This Site', action: () => launch('info') },
+    { label: 'Trash', action: () => launch('trash') }, SEP,
+    { label: 'All Style Tiles', action: () => { location.href = 'index.html'; } }
+  ] },
+  { id: 'window', label: 'Window', items: () => {
+    const open = Object.values(WINS).filter((w) => w.open);
+    const list = open.map((w) => ({ label: (w.min ? '◆ ' : '') + w.title, check: () => state.active === w.id, action: () => (w.min ? restoreWin(w.id) : (focusWin(w.id), w.el.focus({ preventScroll: true }))) }));
+    return [
+      { label: 'Minimize', disabled: () => !state.active, action: () => minimizeWin(state.active) },
+      { label: 'Zoom', disabled: () => !state.active || isPhone(), action: () => zoomWin(state.active) }, SEP,
+      { label: 'Bring All to Front', disabled: () => !open.length, action: () => open.filter((w) => !w.min).forEach((w) => focusWin(w.id)) }
+    ].concat(list.length ? [SEP].concat(list) : []);
+  } },
+  { id: 'help', label: 'Help', cls: 'hide-phone', items: () => [
+    { label: 'Keyboard Shortcuts', action: shortcutsSheet },
+    { label: 'What Is This?', action: () => launch('info') }
+  ] }
+];
+const mbLeft = $('#mb-left'), menuEl = $('#menu');
+let openIdx = -1;
+MENUS.forEach((m, i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'mb-btn' + (m.cls ? ' ' + m.cls : '') + (m.bold ? ' bold' : '');
+  b.setAttribute('role', 'menuitem'); b.setAttribute('aria-haspopup', 'true'); b.setAttribute('aria-expanded', 'false');
+  if (m.id === 'mark') { b.innerHTML = icon('ic-mark', 'mb-mark'); b.setAttribute('aria-label', 'Site menu'); }
+  else b.textContent = typeof m.label === 'function' ? m.label() : m.label;
+  if (m.id === 'app') b.id = 'mb-app';
+  b.addEventListener('click', () => { if (openIdx === i) closeMenus(); else openMenu(i, false); });
+  b.addEventListener('mouseenter', () => { if (openIdx >= 0 && openIdx !== i) openMenu(i, false); });
+  b.addEventListener('keydown', (e) => {
+    const btns = visibleTopBtns();
+    const k = btns.indexOf(b);
+    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMenu(i, true); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const nb = btns[(k + (e.key === 'ArrowRight' ? 1 : -1) + btns.length) % btns.length];
+      nb.focus(); if (openIdx >= 0) openMenu(+nb.dataset.idx, false);
+    }
+  });
+  b.dataset.idx = i;
+  mbLeft.appendChild(b);
+});
+const visibleTopBtns = () => $$('.mb-btn', mbLeft).filter((b) => b.offsetParent !== null);
+function openMenu(i, focusFirst) {
+  const m = MENUS[i], btns = $$('.mb-btn', mbLeft), b = btns[i];
+  btns.forEach((x) => { x.classList.remove('open'); x.setAttribute('aria-expanded', 'false'); });
+  b.classList.add('open'); b.setAttribute('aria-expanded', 'true');
+  menuEl.innerHTML = '';
+  menuEl.setAttribute('aria-label', m.aria || (typeof m.label === 'function' ? m.label() : m.label));
+  m.items().forEach((it) => {
+    if (it === SEP) { const s = document.createElement('div'); s.className = 'msep'; s.setAttribute('role', 'separator'); menuEl.appendChild(s); return; }
+    const mi = document.createElement('button');
+    mi.type = 'button'; mi.className = 'mi';
+    const checked = it.check ? !!it.check() : false;
+    mi.setAttribute('role', it.check ? 'menuitemcheckbox' : 'menuitem');
+    if (it.check) mi.setAttribute('aria-checked', String(checked));
+    const label = typeof it.label === 'function' ? it.label() : it.label;
+    mi.innerHTML = `<span class="chk" aria-hidden="true">${checked ? '✓' : ''}</span><span>${esc(label)}</span>${it.key ? `<span class="key">${it.key}</span>` : ''}`;
+    if (it.disabled && it.disabled()) mi.disabled = true;
+    mi.addEventListener('click', () => activate(mi, it.action));
+    menuEl.appendChild(mi);
+  });
+  menuEl.hidden = false;
+  const r = b.getBoundingClientRect();
+  menuEl.style.left = Math.max(0, Math.min(r.left, innerWidth - menuEl.offsetWidth)) + 'px';
+  openIdx = i;
+  if (focusFirst) { const f = $('.mi:not(:disabled)', menuEl); if (f) f.focus(); }
+}
+function closeMenus(returnFocus) {
+  if (openIdx < 0) return;
+  const b = $$('.mb-btn', mbLeft)[openIdx];
+  $$('.mb-btn', mbLeft).forEach((x) => { x.classList.remove('open'); x.setAttribute('aria-expanded', 'false'); });
+  menuEl.hidden = true; openIdx = -1;
+  if (returnFocus && b) b.focus();
+}
+function activate(mi, fn) {
+  if (reduced()) { closeMenus(); if (fn) fn(); return; }
+  mi.classList.add('flash');
+  setTimeout(() => mi.classList.remove('flash'), 60);
+  setTimeout(() => mi.classList.add('flash'), 120);
+  setTimeout(() => { closeMenus(); if (fn) fn(); }, 190);
+}
+menuEl.addEventListener('keydown', (e) => {
+  const items = $$('.mi:not(:disabled)', menuEl);
+  const i = items.indexOf(document.activeElement);
+  const tops = visibleTopBtns();
+  const cur = tops.indexOf($$('.mb-btn', mbLeft)[openIdx]);
+  if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+  else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    const nb = tops[(cur + (e.key === 'ArrowRight' ? 1 : -1) + tops.length) % tops.length];
+    openMenu(+nb.dataset.idx, true);
+  } else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeMenus(true); }
+  else if (e.key === 'Tab') closeMenus();
+});
+document.addEventListener('pointerdown', (e) => {
+  if (openIdx >= 0 && !e.target.closest('#menu') && !e.target.closest('.mb-btn')) closeMenus();
+});
+function hideOthers() {
+  Object.values(WINS).forEach((w, i) => { if (w.open && !w.min && w.id !== state.active) setTimeout(() => minimizeWin(w.id), i * 90); });
+}
+function showAll() {
+  Object.values(WINS).forEach((w, i) => { if (w.min) setTimeout(() => restoreWin(w.id), i * 90); });
+}
+
+/* clock */
+const clockBtn = $('#clock');
+let clockDate = false;
+function tickClock() {
+  const d = new Date();
+  clockBtn.textContent = clockDate
+    ? d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })
+    : d.toLocaleDateString([], { weekday: 'short' }) + ' ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+clockBtn.addEventListener('click', () => { clockDate = !clockDate; tickClock(); });
+tickClock(); setInterval(tickClock, 1000);
+
+/* ================= journal (browser) ================= */
+const ORIGIN = 'http://z-christensen.local';
+const J = { hist: [], i: -1, query: '', route: '/' };
+const jPage = $('#j-page'), jAddr = $('#j-addr'), jStatus = $('#j-status'), jProg = $('#j-prog');
+const siteHead = (active) => `<header class="site-head">${icon('ic-mark')}<div><p class="site-name">Z. Christensen</p><p class="site-tag">Projects I’ve built, and notes on building them.</p></div>
+  <nav class="site-nav" aria-label="Site">${[['/', 'Posts'], ['/projects', 'Projects'], ['/about', 'About']].map(([r, l]) => `<a href="#${r}" data-route="${r}"${active === r ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav></header>`;
+const siteFoot = () => `<footer class="site-foot"><span>© 2026 Z. Christensen</span><span>Drawn by hand in CSS and SVG. No pixels were licensed.</span></footer>`;
+function indexHTML(q) {
+  const list = POSTS.filter((p) => !q || (p.title + ' ' + p.dek + ' ' + p.tags.join(' ')).toLowerCase().includes(q.toLowerCase()));
+  return `<p class="site-kicker">${q ? `Posts matching “${esc(q)}”` : 'Writing'}</p>
+  <h1>Posts</h1>
+  <div role="list">${list.map((p) => postItem(p, q)).join('') || `<p class="no-results">No posts match “${esc(q)}”. Try “agents” or “motion”.</p>`}</div>
+  <h2>Recent projects</h2>
+  <div class="pgrid">${PROJECTS.map(projectCard).join('')}</div>`;
+}
+function postHTML(p) {
+  const i = POSTS.indexOf(p), prev = POSTS[i + 1], next = POSTS[i - 1];
+  const proj = PROJECTS.find((x) => x.id === p.project);
+  return `<p class="site-kicker"><a class="lnk" href="#/" data-route="/">All posts</a> · ${p.date}</p>
+  <h1>${esc(p.title)}</h1>
+  <div class="post-meta"><time datetime="${p.iso}">${p.date}</time><span>·</span><span>${p.read} read</span><span class="chips">${p.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</span></div>
+  <p class="dek">${esc(p.dek)}</p>
+  ${BODY[p.id]()}
+  <div class="related">${icon(proj.icon)}<p>Related project: <strong>${esc(proj.name)}</strong>. ${esc(proj.status)}.</p><button type="button" class="btn mini" data-reveal="${proj.id}">Reveal in Finder</button></div>
+  <nav class="post-nav" aria-label="More posts">
+    <span>${prev ? `Older: <a class="lnk" href="#/posts/${prev.id}" data-route="/posts/${prev.id}">${esc(prev.title)}</a>` : ''}</span>
+    <span>${next ? `Newer: <a class="lnk" href="#/posts/${next.id}" data-route="/posts/${next.id}">${esc(next.title)}</a>` : ''}</span>
+  </nav>`;
+}
+const projectsHTML = () => `<p class="site-kicker">Things I’ve built</p><h1>Projects</h1>
+  <p>Small tools, mostly made for my own workflow first. Each one has a post about what building it taught me.</p>
+  <div class="pgrid">${PROJECTS.map(projectCard).join('')}</div>`;
+const aboutHTML = () => `<p class="site-kicker">Hello</p><h1>About</h1>
+  <p class="dek">I’m Z. Christensen. I build small tools and write about what I learned building them.</p>
+  <p>Lately that means agents that do real chores, like the <a class="lnk" href="#/posts/news-digest" data-route="/posts/news-digest">news digest</a> that reads the papers before I’m up; proxies that make reviewing prototypes less painful, like <a class="lnk" href="#/posts/comment-overlay" data-route="/posts/comment-overlay">claude-feedback</a>; and interfaces that move with a reason.</p>
+  <p>This site is being designed in public. You’re looking at direction 2 of 6, a love letter to the pinstriped desktops of 2001–2005. The others are one click away in <a class="lnk" href="index.html">the style tile index</a>.</p>
+  <blockquote class="quote"><p>Make the small thing, then write down what it taught you.</p><cite>The whole editorial policy</cite></blockquote>`;
+const errHTML = (route) => `<div class="err">${icon('ic-info')}<h1>Journal can’t open the page “${esc(ORIGIN + route)}”</h1>
+  <p>There’s nothing at that address on this site. Try <a class="lnk" href="#/" data-route="/">the post list</a> instead.</p></div>`;
+function renderRoute(route) {
+  let title, body, active = null;
+  const m = route.match(/^\/posts\/([\w-]+)\/?$/);
+  const post = m && POSTS.find((p) => p.id === m[1]);
+  if (route === '/' || route === '') { title = 'Posts'; body = indexHTML(J.query); active = '/'; }
+  else if (post) { title = post.title; body = postHTML(post); active = '/'; }
+  else if (route === '/projects') { title = 'Projects'; body = projectsHTML(); active = '/projects'; }
+  else if (route === '/about') { title = 'About'; body = aboutHTML(); active = '/about'; }
+  else { title = 'Page not found'; body = errHTML(route); }
+  J.route = route;
+  jPage.innerHTML = `<div class="site">${siteHead(active)}<main class="site-main">${body}</main>${siteFoot()}</div>`;
+  jPage.scrollTop = 0;
+  jAddr.value = ORIGIN + route;
+  $('#t-journal span').textContent = title;
+  $$('.bookmarks .bm[data-route]').forEach((b) => { if (b.dataset.route === active) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+  $('#j-back').disabled = J.i <= 0;
+  $('#j-fwd').disabled = J.i >= J.hist.length - 1;
+}
+let loadTimer = 0;
+function jLoad(route, instant) {
+  clearTimeout(loadTimer);
+  if (instant || reduced()) { renderRoute(route); jStatus.textContent = ''; return; }
+  jStatus.textContent = `Contacting “z-christensen.local”…`;
+  jAddr.value = ORIGIN + route;
+  jProg.getAnimations().forEach((a) => a.cancel());
+  jProg.animate([{ width: '0%', opacity: 1 }, { width: '70%', opacity: 1, offset: 0.55 }, { width: '100%', opacity: 1, offset: 0.9 }, { width: '100%', opacity: 0 }], { duration: 700, easing: 'ease-out' });
+  loadTimer = setTimeout(() => {
+    renderRoute(route);
+    jStatus.textContent = 'Done';
+    loadTimer = setTimeout(() => { jStatus.textContent = ''; }, 900);
+  }, 360);
+}
+function jNav(route, opts = {}) {
+  J.hist = J.hist.slice(0, J.i + 1); J.hist.push(route); J.i = J.hist.length - 1;
+  jLoad(route, opts.instant);
+}
+async function routeTo(route) {
+  const w = WINS.journal;
+  if (!w.open || w.min) { jNav(route, { instant: true }); await launch('journal'); }
+  else { focusWin('journal'); jNav(route); }
+}
+$('#j-back').addEventListener('click', () => { if (J.i > 0) { J.i--; jLoad(J.hist[J.i]); } });
+$('#j-fwd').addEventListener('click', () => { if (J.i < J.hist.length - 1) { J.i++; jLoad(J.hist[J.i]); } });
+$('#j-reload').addEventListener('click', () => jLoad(J.route));
+$('#j-home').addEventListener('click', () => jNav('/'));
+jAddr.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  let v = jAddr.value.trim().replace(/^https?:\/\/z-christensen\.local/i, '');
+  if (!v.startsWith('/')) v = '/' + v;
+  jNav(v); jPage.focus({ preventScroll: true });
+});
+$('#j-search').addEventListener('input', (e) => {
+  J.query = e.target.value.trim();
+  if (J.route !== '/') jNav('/', { instant: true }); else renderRoute('/');
+});
+$('#j-rss').addEventListener('click', () => sheet('journal', {
+  icon: 'ic-posts', title: 'Subscribe to “Z. Christensen: Posts”?',
+  text: 'The feed has 3 posts, newest first: comment overlays, news digests, and motion. Copy its address into any feed reader.',
+  buttons: [{ label: 'Cancel', cancel: true }, { label: 'Copy Feed Address', primary: true, action: () => { copyText(ORIGIN + '/feed.xml'); jStatus.textContent = `Copied “${ORIGIN}/feed.xml”`; say('Feed address copied'); } }]
+}));
+const statusFor = (a) => {
+  if (a.dataset.route) return `Go to “${ORIGIN}${a.dataset.route}”`;
+  if (a.dataset.reveal) return `Reveal “${a.dataset.reveal}” in Finder`;
+  const h = a.getAttribute('href');
+  return h ? `Open “${h}”` : '';
+};
+$('#win-journal').addEventListener('mouseover', (e) => {
+  const a = e.target.closest('a,[data-reveal]');
+  if (a && !loadTimer) jStatus.textContent = statusFor(a);
+  else if (a) jStatus.textContent = statusFor(a);
+});
+$('#win-journal').addEventListener('mouseout', (e) => { if (e.target.closest('a,[data-reveal]')) jStatus.textContent = ''; });
+
+/* ================= finder ================= */
+const F = { path: [0, 0], hist: [], hi: -1, query: '', sidx: 0 };
+const fCols = $('#f-cols'), fStatus = $('#f-status');
+function colsFor(path) {
+  const cols = [FS.children]; let nodes = FS.children;
+  for (let k = 0; k < path.length; k++) { const n = nodes[path[k]]; if (n && n.children) { cols.push(n.children); nodes = n.children; } else break; }
+  return cols;
+}
+function nodeAt(path) { let n = FS; for (const i of path) n = n.children[i]; return n; }
+function flatten(n, trail, out) { (n.children || []).forEach((c, i) => { const p = trail.concat(i); out.push({ node: c, path: p }); flatten(c, p, out); }); return out; }
+const metaDL = (rows) => `<dl class="pv-meta">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+function preview(n, path) {
+  if (!n) return '';
+  switch (n.type) {
+    case 'root': return `${icon('ic-hd', 'big')}<h3>${esc(n.name)}</h3>${metaDL([['Kind', 'Volume'], ['Format', 'Pinstripe Extended'], ['Capacity', '80 GB'], ['Available', '42.1 GB']])}`;
+    case 'folder': return `${icon('ic-folder', 'big')}<h3>${esc(n.name)}</h3>${metaDL([['Kind', 'Folder'], ['Contains', n.children.length + ' items'], ['Modified', 'Sep 29, 2026']])}`;
+    case 'project': { const p = n.project, post = POSTS.find((x) => x.id === p.post);
+      return `${icon(p.icon, 'big')}<h3>${esc(p.name)}</h3><p class="pv-blurb">${esc(p.blurb)}</p>
+      ${metaDL([['Kind', esc(p.kind)], ['Status', esc(p.status)], ['Started', p.started], ['Stack', `<span class="chips">${p.stack.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</span>`]])}
+      <div class="pv-actions"><button type="button" class="btn default" data-route="/posts/${post.id}">Read the Post</button><button type="button" class="btn" data-fpath="${(path || F.path).concat(0).join(',')}">Show README</button></div>`; }
+    case 'post': { const p = n.post;
+      return `${icon('ic-posts', 'big')}<h3>${esc(p.title)}</h3>${metaDL([['Kind', 'Journal post'], ['Published', p.date], ['Length', p.read + ' read'], ['Tags', `<span class="chips">${p.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</span>`]])}
+      <p class="pv-blurb">${esc(p.dek)}</p><div class="pv-actions"><button type="button" class="btn default" data-route="/posts/${p.id}">Open in Journal</button></div>`; }
+    case 'app': return `${icon('ic-info', 'big')}<h3>About This Site</h3>${metaDL([['Kind', 'Application'], ['Version', '2.6 (Aqua)'], ['Contents', 'Palette, type, textures, components']])}<div class="pv-actions"><button type="button" class="btn default" data-open="info">Open</button></div>`;
+    case 'file': { const f = n.file;
+      return `${icon(n.icon, 'big')}<h3>${esc(f.name)}</h3>${metaDL([['Kind', esc(f.kind)], ['Size', f.size], ['Where', esc(n.project ? n.project.name : 'Z’s HD')]])}<pre class="pv-code">${hl(f.text, f.lang)}</pre>`; }
+  }
+  return '';
+}
+const fitemHTML = (n, sel, col, i) => `<button type="button" role="option" tabindex="-1" class="fitem${sel ? ' sel' : ''}" aria-selected="${sel}" data-col="${col}" data-idx="${i}">${icon(n.icon, 's')}<span class="nm">${esc(n.name)}</span>${n.children ? '<span class="arr" aria-hidden="true"></span>' : ''}</button>`;
+function renderFinder(keepScroll) {
+  let html = '', node, count, folderName;
+  if (F.query) {
+    const res = flatten(FS, [], []).filter((r) => r.node.name.toLowerCase().includes(F.query.toLowerCase()));
+    F.sidx = Math.min(F.sidx, Math.max(0, res.length - 1));
+    html = `<div class="fcol focus" role="listbox" aria-label="Search results">${res.map((r, i) => fitemHTML(r.node, i === F.sidx, 's', i)).join('') || '<p style="padding:10px;color:#888;font-size:11px">No matches</p>'}</div>`;
+    node = res[F.sidx] && res[F.sidx].node; F.pvPath = res[F.sidx] && res[F.sidx].path; count = res.length; folderName = `Searching “${F.query}”`;
+    F.results = res;
+  } else {
+    const cols = colsFor(F.path);
+    html = cols.map((items, k) => `<div class="fcol${k === F.path.length - 1 ? ' focus' : ''}" role="listbox" aria-label="${esc(k === 0 ? FS.name : nodeAt(F.path.slice(0, k)).name)}">${items.map((n, i) => fitemHTML(n, F.path[k] === i, k, i)).join('')}</div>`).join('');
+    node = nodeAt(F.path); F.pvPath = F.path; count = cols[cols.length - 1].length;
+    const folder = !F.path.length ? FS : (node.children ? node : nodeAt(F.path.slice(0, -1)));
+    folderName = folder.name;
+  }
+  html += `<div class="fpreview">${preview(node, F.pvPath)}</div>`;
+  const prevLeft = fCols.scrollLeft;
+  fCols.innerHTML = html;
+  fCols.scrollLeft = prevLeft;
+  $$('.fcol', fCols).forEach((c) => { const s = $('.sel', c); if (s) { const top = s.offsetTop, bot = top + s.offsetHeight; if (top < c.scrollTop || bot > c.scrollTop + c.clientHeight) c.scrollTop = top - c.clientHeight / 2; } });
+  if (!keepScroll) requestAnimationFrame(() => fCols.scrollTo({ left: fCols.scrollWidth, behavior: reduced() ? 'auto' : 'smooth' }));
+  $('#t-finder span').textContent = folderName;
+  WINS.finder.title = folderName;
+  fStatus.textContent = `${count} item${count === 1 ? '' : 's'}, 42.1 GB available`;
+  const side = F.query ? '' : !F.path.length ? 'hd' : F.path[0] === 0 ? 'projects' : F.path[0] === 1 ? 'posts' : 'hd';
+  $$('.side-item').forEach((b) => b.classList.toggle('sel', b.dataset.side === side));
+  $('#f-back').disabled = F.hi <= 0; $('#f-fwd').disabled = F.hi >= F.hist.length - 1;
+}
+function fPush() {
+  const cur = F.hist[F.hi];
+  if (cur && cur.join() === F.path.join()) return;
+  F.hist = F.hist.slice(0, F.hi + 1); F.hist.push(F.path.slice()); F.hi = F.hist.length - 1;
+}
+function fSet(path) { F.query = ''; $('#f-search').value = ''; F.path = path.slice(); fPush(); renderFinder(); }
+async function finderAt(path) { fSet(path); await launch('finder'); fCols.focus({ preventScroll: true }); }
+function openNode(n) {
+  if (!n) return;
+  if (n.type === 'post') routeTo('/posts/' + n.post.id);
+  else if (n.type === 'app') launch('info');
+  else if (n.type === 'project' && n.project.post) routeTo('/posts/' + n.project.post);
+}
+fCols.addEventListener('click', (e) => {
+  const b = e.target.closest('.fitem');
+  if (!b) return;
+  if (b.dataset.col === 's') { F.sidx = +b.dataset.idx; renderFinder(true); }
+  else { F.path = F.path.slice(0, +b.dataset.col).concat(+b.dataset.idx); fPush(); renderFinder(); }
+  fCols.focus({ preventScroll: true });
+});
+fCols.addEventListener('dblclick', (e) => {
+  const b = e.target.closest('.fitem');
+  if (!b) return;
+  openNode(b.dataset.col === 's' ? F.results[+b.dataset.idx].node : nodeAt(F.path));
+});
+fCols.addEventListener('keydown', (e) => {
+  const k = e.key;
+  if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(k)) return;
+  e.preventDefault();
+  if (F.query) {
+    const n = (F.results || []).length;
+    if (k === 'ArrowDown') F.sidx = Math.min(n - 1, F.sidx + 1);
+    else if (k === 'ArrowUp') F.sidx = Math.max(0, F.sidx - 1);
+    else if (k === 'Enter' && F.results[F.sidx]) { const r = F.results[F.sidx]; if (r.node.children) { fSet(r.path); return; } openNode(r.node); return; }
+    renderFinder(true); return;
+  }
+  const cols = colsFor(F.path), last = F.path.length - 1;
+  if (k === 'ArrowDown' || k === 'ArrowUp') {
+    if (last < 0) F.path = [0];
+    else { const len = cols[last].length; F.path[last] = Math.max(0, Math.min(len - 1, F.path[last] + (k === 'ArrowDown' ? 1 : -1))); F.path = F.path.slice(0, last + 1); }
+  } else if (k === 'ArrowRight') {
+    const n = F.path.length ? nodeAt(F.path) : FS;
+    if (n.children && n.children.length) F.path.push(0); else return;
+  } else if (k === 'ArrowLeft') {
+    if (F.path.length > 1) F.path.pop(); else return;
+  } else if (k === 'Enter') { openNode(nodeAt(F.path)); return; }
+  fPush(); renderFinder();
+});
+$('#f-search').addEventListener('input', (e) => { F.query = e.target.value.trim(); F.sidx = 0; renderFinder(); });
+$('#f-search').addEventListener('keydown', (e) => { if (e.key === 'Escape' && F.query) { e.stopPropagation(); e.target.value = ''; F.query = ''; renderFinder(); } if (e.key === 'ArrowDown') { e.preventDefault(); fCols.focus(); } });
+$('#f-back').addEventListener('click', () => { if (F.hi > 0) { F.hi--; F.path = F.hist[F.hi].slice(); F.query = ''; renderFinder(); } });
+$('#f-fwd').addEventListener('click', () => { if (F.hi < F.hist.length - 1) { F.hi++; F.path = F.hist[F.hi].slice(); F.query = ''; renderFinder(); } });
+const goPlace = (p) => { if (p === 'trash') launch('trash'); else fSet(p === 'hd' ? [] : p === 'projects' ? [0] : [1]); };
+$$('[data-side]').forEach((b) => b.addEventListener('click', () => goPlace(b.dataset.side)));
+$$('[data-fgo]').forEach((b) => b.addEventListener('click', () => goPlace(b.dataset.fgo)));
+function toggleFinderToolbar() {
+  const el = $('#win-finder');
+  const hide = !el.classList.contains('no-toolbar');
+  el.classList.toggle('no-toolbar', hide);
+  $('#f-pill').setAttribute('aria-pressed', String(!hide));
+}
+$('#f-pill').addEventListener('click', toggleFinderToolbar);
+
+/* ================= trash ================= */
+const tBody = $('#t-body'), tStatus = $('#t-status');
+function renderTrash() {
+  tBody.innerHTML = state.trashFull
+    ? `<ul class="t-grid">${TRASH.map((t, i) => `<li><button type="button" class="t-item" data-i="${i}" title="${esc(t.note)}">${icon(t.icon)}<span>${esc(t.name)}</span></button></li>`).join('')}</ul>`
+    : `<div class="t-empty">${icon('ic-trash')}<p>The Trash is empty. Every one of those ideas is gone.</p><button type="button" class="btn" id="t-restore">Put Back the Old Ideas</button></div>`;
+  $('#t-count').textContent = state.trashFull ? `${TRASH.length} items: ideas this site will not be using` : '0 items';
+  $('#t-empty').disabled = !state.trashFull;
+  tStatus.textContent = state.trashFull ? 'Select an item to read why it was thrown out.' : '';
+  setTrashIcon();
+}
+tBody.addEventListener('click', (e) => {
+  const it = e.target.closest('.t-item');
+  if (it) { $$('.t-item', tBody).forEach((x) => x.classList.toggle('sel', x === it)); tStatus.textContent = TRASH[+it.dataset.i].note; return; }
+  if (e.target.closest('#t-restore')) { state.trashFull = true; renderTrash(); bounce(dockItem('trash')); }
+});
+$('#t-empty').addEventListener('click', () => sheet('trash', {
+  icon: 'ic-trash-full',
+  title: 'Are you sure you want to remove the items in the Trash permanently?',
+  text: 'You can’t undo this action. (You can, actually. This is a style tile.)',
+  buttons: [{ label: 'Cancel', cancel: true }, { label: 'OK', primary: true, action: emptyTrash }]
+}));
+async function emptyTrash() {
+  const items = $$('.t-grid li', tBody);
+  if (!reduced()) {
+    await Promise.all(items.map((li, i) => li.animate([
+      { transform: 'none', opacity: 1 },
+      { transform: `translate(${(i - 2) * -14}px, 60px) rotate(${(i % 2 ? 1 : -1) * 40}deg) scale(.2)`, opacity: 0 }
+    ], { duration: 420, delay: i * 55, easing: 'cubic-bezier(.5,0,.8,.4)', fill: 'forwards' }).finished));
+    const t = dockItem('trash');
+    if (t) t.querySelector('.dock-icon').animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-8deg)' }, { transform: 'rotate(7deg)' }, { transform: 'rotate(-4deg)' }, { transform: 'rotate(0)' }], { duration: 420 });
+  }
+  state.trashFull = false; renderTrash(); say('Trash emptied');
+}
+
+/* ================= info window ================= */
+$('#swatches').innerHTML = SWATCHES.map(([n, h]) => `<button type="button" class="swatch" data-hex="${h}" style="--c:${h}" aria-label="${n}, ${h}. Copy hex."><span class="orb"></span><span class="sw-name">${n}</span><code>${h}</code></button>`).join('');
+$('#swatches').addEventListener('click', (e) => {
+  const s = e.target.closest('.swatch'); if (!s) return;
+  copyText(s.dataset.hex);
+  const c = $('code', s); c.textContent = 'Copied!';
+  if (!reduced()) $('.orb', s).animate([{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 380, easing: 'cubic-bezier(.3,1.6,.5,1)' });
+  setTimeout(() => { c.textContent = s.dataset.hex; }, 1100);
+  say(`Copied ${s.dataset.hex}`);
+});
+function setAppearance(v) {
+  document.body.classList.toggle('graphite', v === 'graphite');
+  $$('[data-appearance]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.appearance === v)));
+  say(v === 'graphite' ? 'Graphite appearance' : 'Blue appearance');
+}
+$$('[data-appearance]').forEach((b) => b.addEventListener('click', () => setAppearance(b.dataset.appearance)));
+$('#spec-range').addEventListener('input', (e) => {
+  const v = +e.target.value;
+  $('#spec-display').style.setProperty('--spec', v + 'px');
+  $('#spec-size-out').textContent = `${v}/${Math.round(v * 1.1)}`;
+});
+$$('.disc-toggle').forEach((b) => b.addEventListener('click', () => {
+  const open = b.getAttribute('aria-expanded') !== 'true';
+  b.setAttribute('aria-expanded', String(open));
+  b.closest('.disc').querySelector('.disc-body').classList.toggle('collapsed', !open);
+}));
+$('#components').innerHTML = `
+  <div class="cmp"><div class="lbl">Site nav</div><div class="site-nav" style="margin:0" role="group" aria-label="Site nav sample"><a href="#/" data-route="/" aria-current="page">Posts</a><a href="#/projects" data-route="/projects">Projects</a><a href="#/about" data-route="/about">About</a></div></div>
+  <div class="cmp"><div class="lbl">Buttons · default · normal · pressed · disabled</div><div class="row">
+    <button type="button" class="btn default" data-sheet-demo>Default</button><button type="button" class="btn">Normal</button><button type="button" class="btn is-pressed" aria-pressed="true">Pressed</button><button type="button" class="btn" disabled>Disabled</button></div>
+    <div class="row" style="margin-top:8px"><button type="button" class="btn mini">Mini</button><button type="button" class="btn metal-btn">Metal</button><button type="button" class="btn round" aria-label="Help" data-help>?</button>
+    <div class="segc" role="group" aria-label="Segmented sample"><button type="button" aria-pressed="false">Icons</button><button type="button" aria-pressed="false">List</button><button type="button" aria-pressed="true">Columns</button></div></div></div>
+  <div class="cmp"><div class="lbl">Controls</div><div class="row">
+    <label class="row" style="gap:5px"><input type="checkbox" class="aq-check" checked> Pinstripes</label>
+    <label class="row" style="gap:5px"><input type="radio" name="rsz" class="aq-radio" checked> Genie</label>
+    <label class="row" style="gap:5px"><input type="radio" name="rsz" class="aq-radio"> Scale</label>
+    <select class="aq-select" aria-label="Sort posts"><option>Newest first</option><option>Oldest first</option><option>By tag</option></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><div class="prog" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="Determinate progress"><span></span></div><div class="barber" role="progressbar" aria-label="Indeterminate progress"></div></div></div>
+  <div class="cmp"><div class="lbl">Tags · toggle</div><div class="chips">${['agents', 'tools', 'prototyping', 'motion', 'design'].map((t, i) => `<button type="button" class="chip" aria-pressed="${i === 0}">${t}</button>`).join('')}</div></div>
+  <div class="cmp"><div class="lbl">Post list item</div>${postItem(POSTS[0])}</div>
+  <div class="cmp"><div class="lbl">Project card</div>${projectCard(PROJECTS[0])}</div>
+  <div class="cmp"><div class="lbl">Code block</div>${codeBlock('overlay.js', SRC.overlay, 'js')}</div>
+  <div class="cmp"><div class="lbl">Quote</div><blockquote class="quote"><p>Point at the thing. Say what’s wrong.</p><cite>Building a comment overlay, Sep 2026</cite></blockquote></div>
+  <div class="cmp"><div class="lbl">Link hover</div><p class="link-demo">Hover over <a class="lnk" href="#/posts/motion-notes" data-route="/posts/motion-notes">this link to a post</a> and a gel highlight sweeps in behind it.</p></div>`;
+$('#components').addEventListener('click', (e) => {
+  const chip = e.target.closest('button.chip');
+  if (chip) chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true'));
+  const seg = e.target.closest('.segc button');
+  if (seg && !seg.dataset.appearance) $$('button', seg.parentNode).forEach((b) => b.setAttribute('aria-pressed', String(b === seg)));
+  if (e.target.closest('[data-sheet-demo]')) sheet('info', { icon: 'ic-mark', title: 'This is a sheet.', text: 'It slides out of the title bar and stays attached to its window, so you always know which window is asking. Press Return for the pulsing default button, or Escape to cancel.', buttons: [{ label: 'Cancel', cancel: true }, { label: 'Lovely', primary: true }] });
+  if (e.target.closest('[data-help]')) shortcutsSheet();
+});
+
+/* ================= global delegation ================= */
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-route],[data-open],[data-reveal],[data-fpath],.copy');
+  if (!t || state.exposing) return;
+  if (t.classList.contains('copy')) {
+    const code = t.closest('.code').querySelector('code');
+    copyText(code.textContent); t.textContent = 'Copied'; setTimeout(() => { t.textContent = 'Copy'; }, 1200); say('Code copied');
+    return;
+  }
+  e.preventDefault();
+  if (t.dataset.route !== undefined) routeTo(t.dataset.route);
+  else if (t.dataset.open) launch(t.dataset.open);
+  else if (t.dataset.reveal) { const i = PROJECTS.findIndex((p) => p.id === t.dataset.reveal); finderAt([0, i]); }
+  else if (t.dataset.fpath) { fSet(t.dataset.fpath.split(',').map(Number)); fCols.focus({ preventScroll: true }); }
+});
+
+/* desktop icons + rubber-band selection */
+let lastPointer = 'mouse';
+document.addEventListener('pointerdown', (e) => { lastPointer = e.pointerType; }, true);
+const deskOpen = { hd: () => finderAt([]), tiles: () => finderAt([0, 2]), readme: () => finderAt([3]) };
+$$('.desk-icon').forEach((b) => {
+  b.addEventListener('click', () => {
+    $$('.desk-icon').forEach((x) => x.classList.toggle('sel', x === b));
+    if (lastPointer === 'touch') deskOpen[b.dataset.desk]();
+  });
+  b.addEventListener('dblclick', () => deskOpen[b.dataset.desk]());
+  b.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); deskOpen[b.dataset.desk](); } });
+});
+const desktop = $('#desktop');
+let band = null;
+desktop.addEventListener('pointerdown', (e) => {
+  if (e.target.closest('.desk-icon') || e.button !== 0) return;
+  $$('.desk-icon').forEach((x) => x.classList.remove('sel'));
+  const el = document.createElement('div'); el.className = 'rubber'; document.body.appendChild(el);
+  band = { x: e.clientX, y: e.clientY, el };
+  desktop.setPointerCapture(e.pointerId);
+});
+desktop.addEventListener('pointermove', (e) => {
+  if (!band) return;
+  const l = Math.min(band.x, e.clientX), t = Math.min(band.y, e.clientY), w = Math.abs(e.clientX - band.x), h = Math.abs(e.clientY - band.y);
+  Object.assign(band.el.style, { left: l + 'px', top: t + 'px', width: w + 'px', height: h + 'px' });
+  $$('.desk-icon').forEach((ic) => { const r = ic.getBoundingClientRect(); ic.classList.toggle('sel', r.left < l + w && r.right > l && r.top < t + h && r.bottom > t); });
+});
+const endBand = () => { if (band) { band.el.remove(); band = null; } };
+desktop.addEventListener('pointerup', endBand); desktop.addEventListener('pointercancel', endBand);
+
+/* ================= keyboard ================= */
+document.addEventListener('keydown', (e) => {
+  if (state.booting) return;
+  if (e.key === 'F9') { e.preventDefault(); expose(); return; }
+  if (state.exposing) {
+    if (e.key === 'Escape') { e.preventDefault(); expose(false); return; }
+    if (['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(e.key)) {
+      e.preventDefault();
+      const d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : -1;
+      xpSel = ((xpSel < 0 ? 0 : xpSel + d) + xpList.length) % xpList.length;
+      xpHover(xpList[xpSel].id); return;
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const w = xpList[Math.max(0, xpSel)];
+      expose(false); focusWin(w.id); w.el.focus({ preventScroll: true }); return;
+    }
+    return;
+  }
+  if (e.key === 'Escape') {
+    if (openIdx >= 0) { closeMenus(true); return; }
+    if (state.sheet) { state.sheet.cancel(); }
+  }
+});
+
+/* ================= sleep / boot / restart ================= */
+const sleepEl = $('#sleep');
+function sleep() {
+  sleepEl.hidden = false; sleepEl.focus();
+  const wake = (e) => { if (e) e.preventDefault(); sleepEl.hidden = true; sleepEl.removeEventListener('click', wake); sleepEl.removeEventListener('keydown', wake); say('Awake'); };
+  setTimeout(() => { sleepEl.addEventListener('click', wake); sleepEl.addEventListener('keydown', wake); }, 400);
+}
+function boot() {
+  const bootEl = $('#boot');
+  return new Promise((resolve) => {
+    if (reduced()) { bootEl.hidden = true; resolve(); return; }
+    state.booting = true;
+    bootEl.hidden = false; bootEl.classList.remove('out');
+    const fill = $('#boot-fill'), msg = $('#boot-msg');
+    const steps = ['Starting up…', 'Polishing gel buttons…', 'Drawing pinstripes…', 'Waking the Dock…'];
+    let done = false, si = 0;
+    const iv = setInterval(() => { si = Math.min(steps.length - 1, si + 1); msg.textContent = steps[si]; }, 380);
+    const anim = fill.animate([{ width: '0%' }, { width: '35%', offset: 0.3 }, { width: '48%', offset: 0.55 }, { width: '100%' }], { duration: 1500, easing: 'ease-in-out', fill: 'forwards' });
+    const finish = () => {
+      if (done) return; done = true; clearInterval(iv); anim.finish();
+      bootEl.classList.add('out'); state.booting = false;
+      window.removeEventListener('keydown', finish, true); bootEl.removeEventListener('click', finish);
+      setTimeout(() => { bootEl.hidden = true; }, 560);
+      resolve();
+    };
+    anim.finished.then(finish);
+    bootEl.addEventListener('click', finish);
+    window.addEventListener('keydown', finish, true);
+  });
+}
+async function openInitial() {
+  const seq = isPhone() ? ['journal'] : ['journal', 'finder', 'info'];
+  for (const id of seq) { launch(id, { focusEl: false }); await wait(reduced() ? 0 : 280); }
+}
+async function restart() {
+  if (state.exposing) expose(false);
+  $$('.mini-tile').forEach((t) => t.remove());
+  Object.values(WINS).forEach((w) => { w.el.hidden = true; w.open = false; w.min = false; w.zoomed = false; w.rect = null; setRunning(w.id, false); });
+  focusTop(); dockTick(true);
+  await boot();
+  openInitial();
+}
+
+/* ================= resize handling ================= */
+let rT = 0;
+addEventListener('resize', () => {
+  clearTimeout(rT);
+  rT = setTimeout(() => {
+    Object.values(WINS).forEach((w) => {
+      if (!w.rect) return;
+      if (w.zoomed) w.rect = { x: 8, y: 30, w: innerWidth - 16, h: innerHeight - 30 - 88 };
+      w.rect.w = Math.min(w.rect.w, innerWidth - 16);
+      w.rect.x = Math.max(8, Math.min(w.rect.x, innerWidth - w.rect.w - 8));
+      w.rect.y = Math.max(24, Math.min(w.rect.y, innerHeight - 120));
+      applyRect(w);
+    });
+    if (state.exposing) layoutExpose();
+    dockTick(true);
+  }, 80);
+});
+
+/* ================= start ================= */
+renderTrash();
+jNav('/posts/comment-overlay', { instant: true });
+fPush(); renderFinder(true);
+dockTick(true);
+updateAppName();
+boot().then(openInitial);
+})();
+</script>
+</body>
+</html>

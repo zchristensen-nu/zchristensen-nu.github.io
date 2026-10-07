@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Library, { type Entry } from '../components/Library.astro';
+
+const projects = await getCollection('projects');
+const posts = await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft);
+
+const entries: Entry[] = [
+  ...projects.map((p) => ({
+    kind: 'project' as const,
+    id: p.id,
+    title: p.data.title,
+    description: p.data.description,
+    date: p.data.date,
+    href: `/projects/${p.id}/`,
+  })),
+  ...posts.map((p) => ({
+    kind: 'post' as const,
+    id: p.id,
+    title: p.data.title,
+    description: p.data.description,
+    date: p.data.date,
+    href: `/writing/${p.id}/`,
+  })),
+].sort((a, b) => b.date.valueOf() - a.date.valueOf());
+---
+
+<Base>
+  <h1 class="visually-hidden">Zach Christensen</h1>
+  <p class="intro">
+    I build small <a href="/?filter=project" data-filter-link="project">tools</a>, most of them fixes for my own workflow,
+    and <a href="/?filter=post" data-filter-link="post">write</a> about what making them taught me. This page is the library
+    of both, and each piece of writing links to the project it came from.
+  </p>
+  <Library entries={entries} />
+</Base>
+
+<style>
+  .intro {
+    margin: 0;
+    max-width: 34rem;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .intro a { color: var(--ink); text-decoration-color: var(--faint); }
+</style>

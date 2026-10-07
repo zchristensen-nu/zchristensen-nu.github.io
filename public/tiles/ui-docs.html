@@ -1,0 +1,2361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Z. Christensen — Docs</title>
+<meta name="description" content="Projects and writing by Z. Christensen, organized like documentation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('zc-docs-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<style>
+:root {
+  --font-ui: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-read: "Newsreader", "Iowan Old Style", "Charter", Georgia, serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --bg: #ffffff;
+  --bg-subtle: #fafafa;
+  --bg-muted: #f4f4f5;
+  --bg-elev: #ffffff;
+  --bg-blur: rgba(255,255,255,.82);
+  --border: #e8e8eb;
+  --border-strong: #d6d6da;
+  --fg: #18181b;
+  --fg-body: #3f3f46;
+  --fg-muted: #52525b;
+  --fg-subtle: #6b6b74;
+  --accent: #3b50d6;
+  --accent-hover: #3143bd;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(59,80,214,.075);
+  --accent-line: rgba(59,80,214,.32);
+  --node-on: #eef0fd;
+  --note: #2563eb;  --note-bg: rgba(37,99,235,.055);  --note-line: rgba(37,99,235,.22);
+  --tip: #15803d;   --tip-bg: rgba(21,128,61,.055);   --tip-line: rgba(21,128,61,.22);
+  --warn: #b45309;  --warn-bg: rgba(217,119,6,.07);   --warn-line: rgba(217,119,6,.28);
+  --danger: #dc2626;--danger-bg: rgba(220,38,38,.055);--danger-line: rgba(220,38,38,.24);
+  --code-bg: #fafafa;
+  --term-bg: #0f0f12;
+  --term-fg: #e4e4e7;
+  --tk-k: #7c3aed; --tk-s: #0f7a55; --tk-c: #8a8a93; --tk-n: #b45309; --tk-f: #2350c8;
+  --shadow-sm: 0 1px 2px rgba(16,16,24,.04);
+  --shadow-md: 0 1px 2px rgba(16,16,24,.04), 0 6px 16px -4px rgba(16,16,24,.07);
+  --shadow-lg: 0 2px 4px rgba(16,16,24,.04), 0 16px 40px -8px rgba(16,16,24,.16);
+  --shadow-xl: 0 0 0 1px rgba(16,16,24,.06), 0 24px 64px -12px rgba(16,16,24,.28);
+  --dot: rgba(24,24,27,.13);
+  --gridline: rgba(24,24,27,.055);
+  --r-sm: 6px; --r: 8px; --r-lg: 12px; --r-xl: 16px;
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --topbar: 56px;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #0a0a0b;
+  --bg-subtle: #0f0f11;
+  --bg-muted: #18181b;
+  --bg-elev: #121214;
+  --bg-blur: rgba(10,10,11,.8);
+  --border: #232327;
+  --border-strong: #34343a;
+  --fg: #ededef;
+  --fg-body: #c9c9cf;
+  --fg-muted: #a1a1aa;
+  --fg-subtle: #8b8b94;
+  --accent: #8b9cff;
+  --accent-hover: #a3b1ff;
+  --accent-fg: #0a0a0b;
+  --accent-soft: rgba(139,156,255,.1);
+  --accent-line: rgba(139,156,255,.4);
+  --node-on: #171b35;
+  --note: #60a5fa;  --note-bg: rgba(96,165,250,.07);  --note-line: rgba(96,165,250,.25);
+  --tip: #4ade80;   --tip-bg: rgba(74,222,128,.06);   --tip-line: rgba(74,222,128,.22);
+  --warn: #fbbf24;  --warn-bg: rgba(251,191,36,.06);  --warn-line: rgba(251,191,36,.24);
+  --danger: #f87171;--danger-bg: rgba(248,113,113,.07);--danger-line: rgba(248,113,113,.26);
+  --code-bg: #0f0f11;
+  --term-bg: #0c0c0e;
+  --tk-k: #c4b5fd; --tk-s: #86efac; --tk-c: #7c7c86; --tk-n: #fcd34d; --tk-f: #93c5fd;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-md: 0 1px 2px rgba(0,0,0,.3), 0 6px 16px -4px rgba(0,0,0,.4);
+  --shadow-lg: 0 2px 4px rgba(0,0,0,.3), 0 16px 40px -8px rgba(0,0,0,.55);
+  --shadow-xl: 0 0 0 1px rgba(255,255,255,.07), 0 24px 64px -12px rgba(0,0,0,.7);
+  --dot: rgba(237,237,239,.12);
+  --gridline: rgba(237,237,239,.05);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 15px/1.6 var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: hidden;
+  transition: background-color .25s var(--ease), color .25s var(--ease);
+}
+img, svg { display: block; }
+.i { flex: none; display: inline-block; vertical-align: middle; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+::selection { background: var(--accent-line); }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.skip {
+  position: fixed; left: 12px; top: 10px; z-index: 200;
+  padding: 8px 12px; border-radius: var(--r); background: var(--fg); color: var(--bg);
+  font-weight: 500; font-size: 13px; text-decoration: none;
+  transform: translateY(-160%); transition: transform .2s var(--ease);
+}
+.skip:focus-visible { transform: none; }
+
+kbd, .kbd {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 20px; height: 20px; padding: 0 5px;
+  font: 500 11px/1 var(--font-ui);
+  color: var(--fg-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--topbar);
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 20px;
+  background: var(--bg-blur);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.wordmark {
+  display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; font-weight: 600; letter-spacing: -.012em; font-size: 15px;
+  padding: 4px 6px 4px 2px; margin-right: 4px; border-radius: var(--r);
+  white-space: nowrap;
+}
+.logo {
+  width: 24px; height: 24px; border-radius: 7px;
+  display: grid; place-items: center;
+  background: var(--fg); color: var(--bg);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.wm-sep { color: var(--border-strong); font-weight: 400; margin: 0 -2px; }
+.wm-docs { color: var(--fg-subtle); font-weight: 500; }
+
+.icon-btn {
+  width: 34px; height: 34px; border-radius: var(--r);
+  display: inline-grid; place-items: center; color: var(--fg-muted);
+  transition: background-color .15s var(--ease), color .15s var(--ease);
+}
+.icon-btn:hover { background: var(--bg-muted); color: var(--fg); }
+.nav-toggle { display: none; margin-left: -6px; }
+
+.ver { position: relative; }
+.ver-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 28px; padding: 0 8px 0 10px;
+  font: 500 12.5px/1 var(--font-mono);
+  color: var(--fg-muted);
+  border: 1px solid var(--border); border-radius: 999px;
+  background: var(--bg);
+  transition: border-color .15s var(--ease), color .15s var(--ease);
+}
+.ver-btn:hover { border-color: var(--border-strong); color: var(--fg); }
+.ver-btn .i { transition: transform .2s var(--ease); }
+.ver-btn[aria-expanded="true"] .i { transform: rotate(180deg); }
+.menu {
+  position: absolute; top: calc(100% + 8px); left: 0; z-index: 80;
+  min-width: 232px; padding: 6px;
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  transform-origin: top left;
+  animation: pop .16s var(--ease-out);
+}
+.menu[hidden] { display: none; }
+@keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(.98); } }
+.menu-label { padding: 6px 10px 4px; font-size: 11.5px; color: var(--fg-subtle); font-weight: 500; }
+.menu-item {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border-radius: var(--r-sm); text-align: left;
+  font-size: 13.5px; color: var(--fg-body);
+}
+.menu-item:hover, .menu-item:focus-visible { background: var(--bg-muted); color: var(--fg); outline: none; }
+.menu-item .mono { font-family: var(--font-mono); font-size: 12.5px; }
+.menu-item .meta { margin-left: auto; font-size: 12px; color: var(--fg-subtle); }
+.menu-item .tick { width: 14px; color: var(--accent); opacity: 0; }
+.menu-item[aria-checked="true"] .tick { opacity: 1; }
+.pill-latest {
+  font: 500 10.5px/1 var(--font-ui); letter-spacing: .02em;
+  padding: 3px 6px; border-radius: 999px;
+  color: var(--tip); background: var(--tip-bg); border: 1px solid var(--tip-line);
+}
+
+.search-trigger {
+  display: flex; align-items: center; gap: 8px;
+  width: 280px; height: 34px; padding: 0 6px 0 10px; margin-left: 10px;
+  color: var(--fg-subtle); font-size: 13.5px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border); border-radius: var(--r);
+  transition: border-color .15s var(--ease), background-color .15s var(--ease), box-shadow .15s var(--ease);
+}
+.search-trigger:hover { border-color: var(--border-strong); background: var(--bg); box-shadow: var(--shadow-sm); }
+.search-trigger .st-label { flex: 1; text-align: left; }
+.search-trigger .keys { display: inline-flex; gap: 3px; }
+.spacer { flex: 1; }
+.top-links { display: flex; gap: 2px; margin-right: 6px; }
+.top-links a {
+  font-size: 13.5px; color: var(--fg-muted); text-decoration: none;
+  padding: 6px 10px; border-radius: var(--r-sm);
+  transition: color .15s var(--ease), background-color .15s var(--ease);
+}
+.top-links a:hover { color: var(--fg); background: var(--bg-muted); }
+.repo {
+  display: inline-flex; align-items: stretch; height: 30px;
+  font-size: 12.5px; text-decoration: none; color: var(--fg-muted);
+  border: 1px solid var(--border); border-radius: var(--r);
+  overflow: hidden;
+  transition: border-color .15s var(--ease);
+}
+.repo:hover { border-color: var(--border-strong); color: var(--fg); }
+.repo > span { display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; }
+.repo .repo-name { font-family: var(--font-mono); font-size: 12px; }
+.repo .stars { border-left: 1px solid var(--border); background: var(--bg-subtle); font-weight: 500; font-variant-numeric: tabular-nums; }
+.repo .stars .i { color: #d4a72c; }
+.theme-btn .i-moon { display: none; }
+[data-theme="dark"] .theme-btn .i-sun { display: none; }
+[data-theme="dark"] .theme-btn .i-moon { display: block; }
+.theme-btn .i { transition: transform .45s var(--ease-out); }
+.theme-btn:active .i { transform: rotate(-30deg) scale(.9); }
+
+/* ---------- Shell ---------- */
+.shell {
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr) 240px;
+  max-width: 1480px; margin: 0 auto;
+}
+.sidebar {
+  position: sticky; top: var(--topbar);
+  height: calc(100vh - var(--topbar));
+  height: calc(100dvh - var(--topbar));
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 24px 14px 72px 20px;
+  border-right: 1px solid var(--border);
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  display: flex; flex-direction: column;
+}
+.nav-sec + .nav-sec { margin-top: 22px; }
+.nav-label {
+  display: block; padding: 0 10px 6px;
+  font-size: 12px; font-weight: 600; color: var(--fg);
+  letter-spacing: .005em;
+}
+.nav-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.nav-link, .nav-group-btn {
+  position: relative;
+  display: flex; align-items: center; gap: 9px; width: 100%;
+  padding: 6px 10px; border-radius: var(--r-sm);
+  font-size: 14px; line-height: 1.4; color: var(--fg-muted); text-decoration: none; text-align: left;
+  transition: color .15s var(--ease), background-color .15s var(--ease);
+}
+.nav-link:hover, .nav-group-btn:hover { color: var(--fg); background: var(--bg-muted); }
+.nav-link[aria-current="page"] { color: var(--accent); background: var(--accent-soft); font-weight: 500; }
+.nav-link .i, .nav-group-btn .i-lead { color: var(--fg-subtle); }
+.nav-link[aria-current="page"] .i { color: var(--accent); }
+.nav-group-btn .chev { margin-left: auto; color: var(--fg-subtle); transition: transform .2s var(--ease); }
+.nav-group-btn[aria-expanded="true"] .chev { transform: rotate(90deg); }
+.nav-group-btn .gdot { width: 8px; height: 8px; border-radius: 3px; flex: none; }
+.nav-group-btn .nbadge { font: 500 10.5px/1 var(--font-mono); color: var(--fg-subtle); padding: 3px 5px; border: 1px solid var(--border); border-radius: 5px; }
+.nav-sub {
+  list-style: none; margin: 2px 0 6px 18px; padding: 0 0 0 10px;
+  border-left: 1px solid var(--border);
+  display: grid; gap: 1px;
+  overflow: hidden;
+}
+.nav-sub[hidden] { display: none; }
+.nav-sub .nav-link { font-size: 13.5px; padding: 5px 10px; }
+.nav-sub .nav-link[aria-current="page"]::before {
+  content: ""; position: absolute; left: -11px; top: 6px; bottom: 6px; width: 1px; background: var(--accent);
+}
+.nav-writing .nav-link { align-items: flex-start; }
+.nav-writing .nav-link .i { margin-top: 2px; }
+.side-foot {
+  margin-top: auto; padding: 24px 10px 0;
+  font-size: 12px; color: var(--fg-subtle);
+  display: grid; gap: 10px;
+}
+.side-foot .repo { display: none; width: max-content; }
+.scrim {
+  position: fixed; inset: 0; z-index: 55;
+  background: rgba(10,10,12,.4);
+  opacity: 0; transition: opacity .25s var(--ease);
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+}
+.nav-open .scrim { opacity: 1; }
+
+main { min-width: 0; padding: 40px 56px 120px; outline: none; }
+.page { max-width: 760px; margin: 0 auto; transition: opacity .24s var(--ease), transform .3s var(--ease-out); }
+.page.is-guide { max-width: 700px; }
+.page.is-wide { max-width: 860px; }
+.page.is-leaving { opacity: 0; transform: translateY(-4px); transition-duration: .14s, .14s; }
+.page.is-entering { opacity: 0; transform: translateY(10px); transition: none; }
+
+.toc {
+  position: sticky; top: var(--topbar);
+  height: calc(100vh - var(--topbar));
+  overflow-y: auto; padding: 40px 24px 32px 8px;
+  scrollbar-width: none;
+}
+.toc-title { margin: 0 0 12px; font-size: 12px; font-weight: 600; color: var(--fg); display: flex; align-items: center; gap: 8px; }
+.toc-list { position: relative; border-left: 1px solid var(--border); }
+.toc-ind {
+  position: absolute; left: -1px; top: 0; width: 2px; height: 0; border-radius: 2px;
+  background: var(--accent);
+  transition: transform .32s var(--ease-out), height .32s var(--ease-out), opacity .2s;
+  opacity: 0;
+}
+.toc-list a, .toc-m-panel a {
+  display: block; padding: 5px 0 5px 14px;
+  font-size: 13px; line-height: 1.45; color: var(--fg-subtle); text-decoration: none;
+  transition: color .15s var(--ease);
+}
+.toc-list a:hover, .toc-m-panel a:hover { color: var(--fg); }
+.toc-list a.lvl3, .toc-m-panel a.lvl3 { padding-left: 26px; font-size: 12.5px; }
+.toc-list a.is-active, .toc-m-panel a.is-active { color: var(--fg); font-weight: 500; }
+.toc-extra { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); display: grid; gap: 4px; }
+.toc-extra a, .toc-extra button {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-subtle); text-decoration: none; padding: 3px 0; width: max-content;
+  transition: color .15s var(--ease);
+}
+.toc-extra a:hover, .toc-extra button:hover { color: var(--fg); }
+
+.toc-m { display: none; position: sticky; top: var(--topbar); z-index: 30; margin: -40px -56px 28px; padding: 0 56px; background: var(--bg-blur); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.toc-m-btn { display: flex; width: 100%; align-items: center; gap: 8px; height: 44px; font-size: 13px; color: var(--fg-muted); text-align: left; }
+.toc-m-btn .lbl { font-weight: 500; color: var(--fg); white-space: nowrap; }
+.toc-m-btn .cur { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-subtle); }
+.toc-m-btn .i { transition: transform .2s var(--ease); }
+.toc-m-btn[aria-expanded="true"] .i { transform: rotate(180deg); }
+.toc-m-panel { padding: 4px 0 14px; max-height: 55vh; overflow-y: auto; border-left: 0; }
+.toc-m-panel a { border-left: 2px solid transparent; }
+.toc-m-panel a.is-active { border-left-color: var(--accent); }
+.toc-m.is-empty { display: none !important; }
+
+.archived {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  max-width: 760px; margin: 0 auto 28px; padding: 10px 14px;
+  font-size: 13.5px; color: var(--fg-body);
+  border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: var(--r);
+}
+.archived[hidden] { display: none; }
+.archived .i { color: var(--warn); }
+.archived button { margin-left: auto; font-weight: 500; color: var(--fg); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-strong); }
+
+/* ---------- Doc typography ---------- */
+.crumbs ol { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: var(--fg-subtle); }
+.crumbs li { display: inline-flex; align-items: center; gap: 6px; }
+.crumbs li + li::before { content: ""; width: 5px; height: 5px; border-right: 1.25px solid var(--border-strong); border-top: 1.25px solid var(--border-strong); transform: rotate(45deg); margin-right: 4px; }
+.crumbs li[aria-current] { color: var(--fg-muted); }
+.crumbs a { text-decoration: none; }
+.crumbs a:hover { color: var(--fg); }
+
+.page h1 { font-size: 34px; line-height: 1.15; font-weight: 600; letter-spacing: -.028em; margin: 0 0 12px; text-wrap: balance; }
+.lede { font-size: 17px; line-height: 1.6; color: var(--fg-muted); margin: 0 0 8px; max-width: 64ch; text-wrap: pretty; }
+.doc-head { margin-bottom: 36px; }
+.hx { position: relative; scroll-margin-top: calc(var(--topbar) + 28px); }
+.page h2 { font-size: 22px; line-height: 1.3; font-weight: 600; letter-spacing: -.018em; margin: 56px 0 12px; }
+.page h3 { font-size: 17px; line-height: 1.4; font-weight: 600; letter-spacing: -.01em; margin: 36px 0 10px; }
+.page h2 + h3 { margin-top: 20px; }
+.hx .anchor {
+  display: inline-grid; place-items: center; width: 24px; height: 24px; margin-left: 6px;
+  vertical-align: 1px;
+  border-radius: var(--r-sm);
+  font: 500 15px/1 var(--font-ui); color: var(--fg-subtle); text-decoration: none;
+  opacity: 0; transition: opacity .15s var(--ease), color .15s var(--ease), background-color .15s var(--ease);
+}
+.hx:hover .anchor, .hx .anchor:focus-visible { opacity: 1; }
+.hx .anchor:hover { color: var(--accent); background: var(--accent-soft); }
+@media (hover: none) { .hx .anchor { opacity: .45; } }
+
+.prose p, .prose li { color: var(--fg-body); font-size: 15.5px; line-height: 1.72; }
+.prose p { margin: 0 0 16px; }
+.prose ul, .prose ol { padding-left: 22px; margin: 0 0 16px; }
+.prose li { margin: 4px 0; padding-left: 4px; }
+.prose li::marker { color: var(--fg-subtle); }
+.prose strong { color: var(--fg); font-weight: 600; }
+.prose a:not([class]), .link {
+  color: var(--fg); text-decoration: underline; text-decoration-color: var(--accent-line);
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+  transition: text-decoration-color .15s var(--ease), color .15s var(--ease);
+}
+.prose a:not([class]):hover, .link:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.prose :not(pre) > code, .ic {
+  font: 500 .86em/1 var(--font-mono);
+  padding: .18em .38em; border-radius: 5px;
+  background: var(--bg-muted); border: 1px solid var(--border);
+  color: var(--fg);
+  word-break: break-word;
+}
+.prose hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; overflow: hidden;
+  margin: 0 0 40px; padding: 44px 40px 36px;
+  border: 1px solid var(--border); border-radius: var(--r-xl);
+  isolation: isolate;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background:
+    radial-gradient(60% 90% at 88% 0%, rgba(99,112,241,.20), transparent 60%),
+    radial-gradient(50% 80% at 70% 110%, rgba(45,190,170,.14), transparent 60%),
+    radial-gradient(40% 60% at 0% 0%, rgba(244,174,120,.12), transparent 60%),
+    var(--bg-subtle);
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+[data-theme="dark"] .hero::after { opacity: .22; mix-blend-mode: overlay; }
+.hero .hero-grid {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(var(--gridline) 1px, transparent 1px), linear-gradient(90deg, var(--gridline) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(80% 100% at 100% 0%, #000 10%, transparent 70%);
+  mask-image: radial-gradient(80% 100% at 100% 0%, #000 10%, transparent 70%);
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 500 12.5px/1 var(--font-ui); color: var(--fg-muted);
+  padding: 6px 10px 6px 8px; margin-bottom: 18px;
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: 999px; box-shadow: var(--shadow-sm);
+}
+.eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tip); box-shadow: 0 0 0 3px var(--tip-bg); }
+.hero h1 { font-size: 40px; letter-spacing: -.035em; margin-bottom: 12px; }
+.hero .lede { font-size: 17.5px; max-width: 54ch; color: var(--fg-body); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 28px; padding-top: 18px; border-top: 1px dashed var(--border-strong); font-size: 12.5px; color: var(--fg-subtle); }
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-meta b { font-weight: 500; color: var(--fg-muted); font-family: var(--font-mono); font-size: 12px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 36px; padding: 0 14px; border-radius: var(--r);
+  font: 500 14px/1 var(--font-ui); text-decoration: none; white-space: nowrap;
+  border: 1px solid transparent;
+  transition: background-color .15s var(--ease), border-color .15s var(--ease), box-shadow .15s var(--ease), transform .1s var(--ease), color .15s var(--ease);
+}
+.btn .i { transition: transform .2s var(--ease); }
+.btn:hover .i-arrowR { transform: translateX(2px); }
+.btn:active, .btn.is-active { transform: translateY(1px); }
+.btn-primary { background: var(--fg); color: var(--bg); box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,.12); }
+.btn-primary:hover, .btn-primary.is-hover { background: color-mix(in srgb, var(--fg) 86%, var(--bg)); }
+.btn-accent { background: var(--accent); color: var(--accent-fg); }
+.btn-accent:hover, .btn-accent.is-hover { background: var(--accent-hover); }
+.btn-secondary { background: var(--bg-elev); color: var(--fg); border-color: var(--border); box-shadow: var(--shadow-sm); }
+.btn-secondary:hover, .btn-secondary.is-hover { border-color: var(--border-strong); background: var(--bg-subtle); }
+.btn-ghost { color: var(--fg-muted); }
+.btn-ghost:hover, .btn-ghost.is-hover { background: var(--bg-muted); color: var(--fg); }
+.btn.is-focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn:disabled, .btn.is-disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-sm { height: 30px; padding: 0 10px; font-size: 13px; border-radius: var(--r-sm); }
+
+/* ---------- Cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin: 20px 0 8px; }
+.cards.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.card {
+  position: relative; display: flex; flex-direction: column; gap: 6px;
+  padding: 18px 18px 18px; border-radius: var(--r-lg);
+  background: var(--bg-elev); border: 1px solid var(--border);
+  text-decoration: none; color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out), border-color .22s var(--ease-out);
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
+.card:active { transform: translateY(0); box-shadow: var(--shadow-md); }
+.card-icon {
+  width: 32px; height: 32px; border-radius: 9px; margin-bottom: 8px;
+  display: grid; place-items: center; color: var(--accent);
+  background: var(--accent-soft); border: 1px solid var(--accent-line);
+}
+.card-t { font-weight: 600; font-size: 14.5px; letter-spacing: -.005em; display: flex; align-items: center; gap: 6px; }
+.card-d { font-size: 13.5px; line-height: 1.55; color: var(--fg-muted); }
+.card-arrow { position: absolute; top: 18px; right: 18px; color: var(--fg-subtle); opacity: 0; transform: translateX(-4px); transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.card:hover .card-arrow, .card:focus-visible .card-arrow { opacity: 1; transform: none; }
+
+/* ---------- Callouts ---------- */
+.callout {
+  display: grid; grid-template-columns: 20px 1fr; gap: 12px;
+  margin: 20px 0; padding: 14px 16px;
+  border: 1px solid var(--co-line); border-radius: var(--r-lg);
+  background: var(--co-bg);
+}
+.callout .co-icon { color: var(--co); padding-top: 2px; }
+.callout .co-title { margin: 0 0 2px; font-weight: 600; font-size: 14px; color: var(--fg); }
+.callout .co-body p { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--fg-body); }
+.callout-note { --co: var(--note); --co-bg: var(--note-bg); --co-line: var(--note-line); }
+.callout-tip { --co: var(--tip); --co-bg: var(--tip-bg); --co-line: var(--tip-line); }
+.callout-warning { --co: var(--warn); --co-bg: var(--warn-bg); --co-line: var(--warn-line); }
+.callout-danger { --co: var(--danger); --co-bg: var(--danger-bg); --co-line: var(--danger-line); }
+
+/* ---------- Steps ---------- */
+.steps { list-style: none; margin: 24px 0; padding: 0; counter-reset: none; }
+.steps > li { margin: 0; padding-left: 0; position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 16px; padding-bottom: 26px; }
+.steps > li:last-child { padding-bottom: 4px; }
+.steps > li:not(:last-child)::before {
+  content: ""; position: absolute; left: 13.5px; top: 34px; bottom: 4px; width: 1px;
+  background: linear-gradient(var(--border-strong), var(--border));
+}
+.step-n {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  font: 600 12.5px/1 var(--font-mono); color: var(--fg);
+  background: var(--bg-elev); border: 1px solid var(--border-strong);
+  box-shadow: 0 0 0 4px var(--bg);
+  font-variant-numeric: tabular-nums;
+}
+.step-c { padding-top: 3px; min-width: 0; }
+.steps .step-t { margin: 0 0 4px; font-weight: 600; font-size: 15px; color: var(--fg); }
+.step-c p { margin: 0 0 10px; font-size: 14.5px; }
+.step-c > :last-child { margin-bottom: 0; }
+
+/* ---------- Code ---------- */
+.code, .codetabs {
+  margin: 18px 0; border: 1px solid var(--border); border-radius: var(--r-lg);
+  background: var(--code-bg); overflow: hidden;
+}
+.code-head {
+  display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 6px 0 14px;
+  border-bottom: 1px solid var(--border); background: var(--bg-elev);
+  font-size: 12.5px; color: var(--fg-subtle);
+}
+.code-head .file { font-family: var(--font-mono); font-size: 12px; color: var(--fg-muted); display: inline-flex; align-items: center; gap: 8px; }
+.code-head .lang { margin-left: auto; font: 500 11px/1 var(--font-mono); text-transform: lowercase; color: var(--fg-subtle); }
+pre {
+  margin: 0; padding: 14px 16px; overflow-x: auto;
+  font: 400 13px/22px var(--font-mono); color: var(--fg);
+  tab-size: 2;
+  scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent;
+}
+pre code { font: inherit; }
+.tk-k { color: var(--tk-k); }
+.tk-s { color: var(--tk-s); }
+.tk-c { color: var(--tk-c); font-style: italic; }
+.tk-n { color: var(--tk-n); }
+.tk-f { color: var(--tk-f); }
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: var(--r-sm);
+  font-size: 12px; color: var(--fg-subtle);
+  transition: color .15s var(--ease), background-color .15s var(--ease);
+}
+.copy-btn:hover { color: var(--fg); background: var(--bg-muted); }
+.copy-btn .i-check { display: none; color: var(--tip); }
+.copy-btn.is-copied .i-copy { display: none; }
+.copy-btn.is-copied .i-check { display: inline-block; animation: pop .2s var(--ease-out); }
+.code-head .copy-btn { margin-left: 4px; }
+
+.ct-tabs { position: relative; display: flex; align-self: stretch; gap: 2px; }
+.ct-tab {
+  position: relative; padding: 0 10px; height: 40px;
+  font: 500 12.5px/1 var(--font-mono); color: var(--fg-subtle);
+  transition: color .15s var(--ease);
+}
+.ct-tab:hover { color: var(--fg); }
+.ct-tab[aria-selected="true"] { color: var(--fg); }
+.ct-tab:focus-visible { outline-offset: -4px; }
+.ct-ind { position: absolute; bottom: -1px; left: 0; height: 2px; width: 0; background: var(--fg); border-radius: 2px; transition: transform .28s var(--ease-out), width .28s var(--ease-out); }
+.codetabs .code-head { padding-left: 4px; }
+.ct-panel[hidden] { display: none; }
+
+/* Terminal */
+.term {
+  margin: 18px 0; border-radius: var(--r-lg); overflow: hidden;
+  background: var(--term-bg); color: var(--term-fg);
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: var(--shadow-md);
+}
+[data-theme="dark"] .term { border-color: var(--border); }
+.term-head { display: flex; align-items: center; gap: 12px; height: 38px; padding: 0 6px 0 14px; border-bottom: 1px solid rgba(255,255,255,.07); }
+.term-dots { display: flex; gap: 6px; }
+.term-dots i { width: 10px; height: 10px; border-radius: 50%; background: #34343b; }
+.term-title { flex: 1; text-align: center; font: 500 12px/1 var(--font-mono); color: #8e8e98; }
+.term .copy-btn, .term .t-replay { color: #9a9aa4; }
+.term .copy-btn:hover, .term .t-replay:hover { color: #fff; background: rgba(255,255,255,.07); }
+.t-replay { width: 28px; height: 28px; border-radius: var(--r-sm); display: inline-grid; place-items: center; transition: color .15s, background-color .15s; }
+.term pre { color: var(--term-fg); padding: 14px 16px 16px; min-height: calc(var(--lines, 3) * 22px + 30px); }
+.term .p { color: #6ee7b7; user-select: none; }
+.term .p-path { color: #93a4ff; user-select: none; }
+.term .l { display: block; animation: lineIn .22s var(--ease-out) both; }
+.term .l-dim { color: #8b8b95; }
+.term .l-ok { color: #86efac; }
+.term .l-acc { color: #c7d0ff; }
+.term .l-warn { color: #fcd34d; }
+.caret { display: inline-block; width: 7.5px; height: 15px; margin-left: 1px; vertical-align: -2px; background: #d4d4d8; animation: blink 1.05s steps(1) infinite; }
+.term.typed .t-first-caret { display: none; }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes lineIn { from { opacity: 0; transform: translateY(2px); } }
+
+/* ---------- Param table ---------- */
+.table-wrap { margin: 18px 0; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+table.params { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.params th { text-align: left; font-weight: 500; font-size: 12px; color: var(--fg-subtle); padding: 10px 14px; background: var(--bg-subtle); border-bottom: 1px solid var(--border); }
+.params td { vertical-align: top; padding: 14px; border-bottom: 1px solid var(--border); color: var(--fg-body); line-height: 1.55; }
+.params tr:last-child td { border-bottom: 0; }
+.params tbody tr { transition: background-color .15s var(--ease); }
+.params tbody tr:hover { background: var(--bg-subtle); }
+.p-name { font: 500 13px/1.4 var(--font-mono); color: var(--fg); white-space: nowrap; }
+.p-req { display: block; margin-top: 6px; font: 500 11px/1 var(--font-ui); color: var(--danger); }
+.p-opt { display: block; margin-top: 6px; font: 500 11px/1 var(--font-ui); color: var(--fg-subtle); }
+.p-def { font: 400 12.5px/1.4 var(--font-mono); color: var(--fg-muted); white-space: nowrap; }
+.tpill {
+  display: inline-block; padding: 3px 7px; border-radius: 6px;
+  font: 500 11.5px/1.3 var(--font-mono); white-space: nowrap;
+  color: var(--tp); background: color-mix(in srgb, var(--tp) 9%, transparent); border: 1px solid color-mix(in srgb, var(--tp) 22%, transparent);
+}
+.t-str { --tp: var(--tip); }
+.t-num { --tp: var(--warn); }
+.t-bool { --tp: #8b5cf6; }
+[data-theme="dark"] .t-bool { --tp: #c4b5fd; }
+.t-fn { --tp: var(--note); }
+.t-arr { --tp: #0e7490; }
+[data-theme="dark"] .t-arr { --tp: #67e8f9; }
+.t-obj { --tp: var(--fg-muted); }
+
+/* ---------- Diagram ---------- */
+.diagram { margin: 22px 0; border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; background: var(--bg-elev); }
+.dg-canvas {
+  position: relative; overflow-x: auto; padding: 22px 18px 10px;
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 18px 18px;
+  scrollbar-width: thin;
+}
+.dg-canvas svg { width: 100%; min-width: 580px; height: auto; overflow: visible; }
+.dg-edge { fill: none; stroke: var(--border-strong); stroke-width: 1.5; transition: stroke .2s var(--ease), opacity .2s var(--ease); }
+.dg-label { font: 500 10.5px var(--font-mono); fill: var(--fg-subtle); transition: fill .2s var(--ease), opacity .2s var(--ease); }
+.dg-node { cursor: pointer; outline: none; transition: opacity .2s var(--ease); }
+.dg-node rect.box { fill: var(--bg-elev); stroke: var(--border-strong); stroke-width: 1; transition: fill .2s var(--ease), stroke .2s var(--ease); }
+.dg-node .ring { fill: none; stroke: var(--accent); stroke-width: 2; opacity: 0; }
+.dg-node:focus-visible .ring { opacity: 1; }
+.dg-t { font: 600 13px var(--font-ui); fill: var(--fg); }
+.dg-s { font: 400 11px var(--font-mono); fill: var(--fg-subtle); }
+.dg-dot { transition: r .2s var(--ease); }
+.diagram.has-active .dg-node:not(.is-on) { opacity: .42; }
+.diagram.has-active .dg-edge:not(.is-on) { opacity: .35; }
+.diagram.has-active .dg-label:not(.is-on) { opacity: .35; }
+.dg-node.is-on rect.box { fill: var(--node-on); stroke: var(--accent); }
+.dg-edge.is-on { stroke: var(--accent); stroke-dasharray: 5 5; animation: flow 1s linear infinite; }
+.dg-label.is-on { fill: var(--accent); }
+@keyframes flow { to { stroke-dashoffset: -20; } }
+.dg-panel {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: baseline;
+  padding: 14px 18px; border-top: 1px solid var(--border); background: var(--bg-subtle); min-height: 76px;
+}
+.dg-panel .dp-k { font: 500 11px/1 var(--font-mono); color: var(--fg-subtle); padding: 4px 6px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg-elev); }
+.dg-panel .dp-t { font-weight: 600; font-size: 14px; }
+.dg-panel .dp-d { grid-column: 2; margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--fg-muted); }
+.dg-hint { font-size: 12px; color: var(--fg-subtle); padding: 0 18px 12px; display: flex; gap: 6px; align-items: center; }
+
+/* ---------- Changelog ---------- */
+.cl-head-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.cl-entry { display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 0 32px; }
+.cl-rail { position: relative; padding-top: 58px; }
+.cl-rail-in { position: sticky; top: calc(var(--topbar) + 28px); display: grid; gap: 8px; justify-items: start; }
+.cl-rail time { font-size: 13px; font-weight: 500; color: var(--fg-muted); }
+.ver-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 12px/1 var(--font-mono); color: var(--fg);
+  padding: 5px 8px; border-radius: 6px; background: var(--bg-muted); border: 1px solid var(--border);
+}
+.ver-tag.is-latest { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+.cl-body { position: relative; padding: 0 0 56px 32px; border-left: 1px solid var(--border); min-width: 0; }
+.cl-body::before {
+  content: ""; position: absolute; left: -5px; top: 64px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--border-strong);
+}
+.cl-entry:first-of-type .cl-body::before { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.cl-body h2 { margin-top: 56px; }
+.cl-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.cl-list li { display: grid; grid-template-columns: 78px 1fr; gap: 12px; align-items: baseline; font-size: 14.5px; line-height: 1.6; color: var(--fg-body); padding: 0; margin: 0; }
+.chip {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  height: 22px; padding: 0 8px; border-radius: 999px;
+  font: 500 11.5px/1 var(--font-ui); white-space: nowrap; width: max-content;
+  color: var(--cc); background: color-mix(in srgb, var(--cc) 9%, transparent); border: 1px solid color-mix(in srgb, var(--cc) 24%, transparent);
+}
+.chip::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.chip-new { --cc: var(--tip); }
+.chip-improved { --cc: var(--note); }
+.chip-fixed { --cc: var(--warn); }
+.chip-plain { --cc: var(--fg-muted); }
+.chip-plain::before { display: none; }
+
+/* CSS-generated screenshots */
+.shot {
+  position: relative; margin: 20px 0 6px; aspect-ratio: 16 / 8.2;
+  border-radius: var(--r-lg); border: 1px solid var(--border); overflow: hidden;
+  background:
+    radial-gradient(70% 90% at 100% 0%, var(--accent-soft), transparent 70%),
+    radial-gradient(var(--dot) 1px, transparent 1.2px) 0 0 / 16px 16px,
+    var(--bg-subtle);
+  padding: 7% 8% 0;
+}
+.shot-win {
+  height: 100%; border-radius: 10px 10px 0 0; background: var(--bg-elev);
+  border: 1px solid var(--border); border-bottom: 0; box-shadow: var(--shadow-lg);
+  display: grid; grid-template-rows: 26px 1fr; overflow: hidden;
+}
+.shot-bar { display: flex; align-items: center; gap: 5px; padding: 0 10px; border-bottom: 1px solid var(--border); background: var(--bg-subtle); }
+.shot-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--border-strong); }
+.shot-bar .url { margin-left: 12px; height: 12px; width: 42%; border-radius: 4px; background: var(--bg-muted); border: 1px solid var(--border); }
+.shot-body { position: relative; display: grid; grid-template-columns: 22% 1fr; gap: 6%; padding: 5% 6%; }
+.sk { display: block; height: 7px; border-radius: 4px; background: var(--bg-muted); margin-bottom: 9px; }
+.sk.w1 { width: 90%; } .sk.w2 { width: 70%; } .sk.w3 { width: 52%; } .sk.w4 { width: 80%; }
+.sk.h { height: 12px; width: 60%; background: var(--border-strong); margin-bottom: 14px; }
+.sk.blk { height: 48px; border-radius: 6px; }
+.pin {
+  position: absolute; width: 22px; height: 22px; border-radius: 50% 50% 50% 2px;
+  background: var(--accent); color: var(--accent-fg); display: grid; place-items: center;
+  font: 600 10px/1 var(--font-ui); box-shadow: 0 0 0 3px var(--bg-elev), var(--shadow-md);
+}
+.bubble {
+  position: absolute; width: 38%; padding: 9px 10px; border-radius: 9px;
+  background: var(--bg-elev); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+}
+.bubble .sk { margin-bottom: 6px; height: 6px; }
+.bubble .who { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.bubble .av { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #8b9cff, #3b50d6); }
+.bubble .ok { display: inline-block; height: 12px; width: 44px; border-radius: 99px; background: var(--tip-bg); border: 1px solid var(--tip-line); }
+.prose p.shot-cap, .shot-cap { font-size: 12.5px; line-height: 1.5; color: var(--fg-subtle); margin: 8px 0 0; }
+.shot-tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5%; padding: 7% 6%; }
+.shot-tiles span { aspect-ratio: 3/4; border-radius: 6px; border: 1px solid var(--border); }
+.shot-mail { max-width: 58%; margin: 0 auto; padding: 6% 0; }
+
+/* ---------- Page footer ---------- */
+.page-foot { margin-top: 72px; }
+.pf-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.helpful { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--fg-muted); min-height: 32px; }
+.helpful .hb { display: inline-flex; gap: 6px; }
+.hbtn {
+  width: 32px; height: 32px; border-radius: var(--r); display: inline-grid; place-items: center;
+  color: var(--fg-subtle); border: 1px solid var(--border); background: var(--bg-elev);
+  transition: color .15s var(--ease), border-color .15s var(--ease), background-color .15s var(--ease), transform .15s var(--ease);
+}
+.hbtn:hover { color: var(--fg); border-color: var(--border-strong); }
+.hbtn:active { transform: scale(.94); }
+.hbtn[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+.hbtn[aria-pressed="true"] .i { animation: pop .25s var(--ease-out); }
+.helpful .thanks { font-size: 13px; color: var(--fg-subtle); animation: lineIn .25s var(--ease-out); }
+.pf-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--fg-subtle); }
+.pf-meta a { display: inline-flex; align-items: center; gap: 6px; color: var(--fg-muted); text-decoration: none; }
+.pf-meta a:hover { color: var(--fg); }
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+.pager a {
+  display: grid; gap: 4px; padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--r-lg);
+  text-decoration: none; background: var(--bg-elev);
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease-out);
+}
+.pager a:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+.pager .pg-k { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--fg-subtle); }
+.pager .pg-t { font-weight: 500; font-size: 15px; color: var(--fg); }
+.pager .next { text-align: right; justify-items: end; grid-column: 2; }
+.pager a .i { transition: transform .2s var(--ease); }
+.pager .prev:hover .i { transform: translateX(-2px); }
+.pager .next:hover .i { transform: translateX(2px); }
+.site-foot { margin-top: 48px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-subtle); }
+
+/* ---------- Guides (reading layout) ---------- */
+.guide-head { margin-bottom: 40px; }
+.guide-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 14px; }
+.page.is-guide h1 { font-size: 38px; line-height: 1.12; letter-spacing: -.032em; }
+.guide-dek { font: 400 21px/1.5 var(--font-read); color: var(--fg-muted); margin: 0 0 24px; letter-spacing: -.003em; text-wrap: pretty; }
+.byline { display: flex; align-items: center; gap: 12px; font-size: 13.5px; color: var(--fg-subtle); padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  font: 600 12.5px/1 var(--font-ui); color: #fff; letter-spacing: .02em;
+  background: linear-gradient(140deg, #6b7cf5, #2b3aa8 70%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.byline b { display: block; font-weight: 500; color: var(--fg); font-size: 14px; }
+.byline .sep { width: 3px; height: 3px; border-radius: 50%; background: var(--border-strong); display: inline-block; vertical-align: middle; margin: 0 8px; }
+.reading p, .reading li { font: 400 19px/1.72 var(--font-read); color: var(--fg-body); letter-spacing: -.003em; }
+.reading p { margin: 0 0 24px; }
+.reading ul, .reading ol { margin: 0 0 24px; padding-left: 24px; }
+.reading li { margin: 6px 0; }
+.reading h2 { font-size: 24px; margin-top: 52px; }
+.reading > p:first-of-type::first-letter { font-size: 3.2em; float: left; line-height: .82; padding: 6px 10px 0 0; font-weight: 500; color: var(--fg); }
+.reading :not(pre) > code { font-size: .78em; }
+.reading .code, .reading .table-wrap, .reading .callout { margin: 28px 0; }
+.reading .callout .co-body p { font: 400 14.5px/1.65 var(--font-ui); margin: 0; }
+blockquote.quote {
+  margin: 36px 0; padding: 4px 0 4px 24px; border-left: 2px solid var(--accent);
+}
+blockquote.quote p { font: italic 400 24px/1.45 var(--font-read) !important; color: var(--fg) !important; margin: 0 0 10px !important; letter-spacing: -.01em; }
+blockquote.quote p::first-letter { all: unset; }
+blockquote.quote cite { font: 500 13px/1 var(--font-ui); color: var(--fg-subtle); font-style: normal; }
+
+/* ---------- Lists ---------- */
+.post-list { list-style: none; padding: 0; margin: 12px 0; border-top: 1px solid var(--border); }
+.post-list > li.post-item { border-bottom: 1px solid var(--border); margin: 0; padding: 0; }
+.post-item a {
+  display: grid; grid-template-columns: 96px 1fr auto; gap: 16px; align-items: baseline;
+  padding: 16px 10px; margin: 0 -10px; border-radius: var(--r); text-decoration: none;
+  transition: background-color .15s var(--ease);
+}
+.post-item a:hover { background: var(--bg-subtle); }
+.post-item time { font: 400 12.5px/1.4 var(--font-mono); color: var(--fg-subtle); font-variant-numeric: tabular-nums; }
+.post-item .pt { font-weight: 500; font-size: 15px; color: var(--fg); letter-spacing: -.005em; transition: color .15s var(--ease); }
+.post-item .pd { display: block; margin-top: 3px; font-size: 13.5px; color: var(--fg-muted); line-height: 1.5; }
+.post-item .rt { font-size: 12.5px; color: var(--fg-subtle); white-space: nowrap; display: inline-flex; gap: 6px; align-items: center; }
+.post-item .rt .i { transition: transform .2s var(--ease); }
+.post-item a:hover .pt { color: var(--accent); }
+.post-item a:hover .rt .i { transform: translateX(2px); }
+
+.proj-card { display: grid; gap: 10px; padding: 18px; }
+.proj-top { display: flex; align-items: center; gap: 10px; }
+.proj-mark { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; color: #fff; flex: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+.proj-meta { display: flex; gap: 14px; font-size: 12.5px; color: var(--fg-subtle); margin-top: 4px; }
+.proj-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.lang-dot { width: 8px; height: 8px; border-radius: 50%; }
+.status { margin-left: auto; }
+
+/* ---------- Design system ---------- */
+.swatches { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: 20px 0; }
+.swatch {
+  display: grid; grid-template-rows: 76px auto; text-align: left;
+  border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; background: var(--bg-elev);
+  transition: transform .2s var(--ease-out), box-shadow .2s var(--ease-out), border-color .2s var(--ease-out);
+}
+.swatch:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.swatch .chipc { position: relative; border-bottom: 1px solid var(--border); }
+.swatch .chipc::after { content: "Copy"; position: absolute; right: 8px; top: 8px; font: 500 11px/1 var(--font-ui); padding: 4px 6px; border-radius: 5px; background: rgba(0,0,0,.55); color: #fff; opacity: 0; transition: opacity .15s var(--ease); }
+.swatch:hover .chipc::after, .swatch:focus-visible .chipc::after { opacity: 1; }
+.swatch .sw-t { padding: 10px 12px 12px; display: grid; gap: 3px; }
+.swatch .sw-n { font-weight: 500; font-size: 13.5px; }
+.swatch .sw-v { font: 400 11.5px/1.4 var(--font-mono); color: var(--fg-subtle); }
+.swatch .sw-v b { font-weight: 500; color: var(--fg-muted); }
+
+.specimen { border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 18px 0; }
+.spec-head { display: flex; align-items: baseline; gap: 12px; padding: 12px 16px; background: var(--bg-subtle); border-bottom: 1px solid var(--border); font-size: 12.5px; color: var(--fg-subtle); }
+.spec-head b { font-weight: 600; color: var(--fg); font-size: 13.5px; }
+.spec-head .mono { margin-left: auto; font-family: var(--font-mono); font-size: 11.5px; }
+.spec-row { display: grid; grid-template-columns: 124px 1fr; gap: 16px; align-items: baseline; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.spec-row:last-child { border-bottom: 0; }
+.spec-row .sz { font: 400 11.5px/1.5 var(--font-mono); color: var(--fg-subtle); }
+.spec-row .sm { min-width: 0; overflow-wrap: anywhere; }
+
+.textures { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 20px 0; }
+.tex { position: relative; aspect-ratio: 4/3; border-radius: var(--r-lg); border: 1px solid var(--border); overflow: hidden; }
+.tex span { position: absolute; left: 10px; bottom: 10px; font: 500 11.5px/1 var(--font-ui); padding: 5px 7px; border-radius: 6px; background: var(--bg-elev); border: 1px solid var(--border); color: var(--fg-muted); }
+.tex-grid { background-color: var(--bg-subtle); background-image: linear-gradient(var(--gridline) 1px, transparent 1px), linear-gradient(90deg, var(--gridline) 1px, transparent 1px); background-size: 20px 20px; }
+.tex-dots { background-color: var(--bg-subtle); background-image: radial-gradient(var(--dot) 1.1px, transparent 1.3px); background-size: 14px 14px; }
+.tex-noise { isolation: isolate; }
+.tex-noise::before { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(90% 90% at 90% 0%, rgba(99,112,241,.38), transparent 60%), radial-gradient(70% 80% at 10% 110%, rgba(45,190,170,.26), transparent 60%), var(--bg-subtle); }
+.tex-noise::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .45; mix-blend-mode: soft-light; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+.ds-panel { margin: 16px 0 24px; padding: 20px; border: 1px solid var(--border); border-radius: var(--r-lg); background-image: radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 16px 16px; background-color: var(--bg-subtle); }
+.ds-label { font: 500 11.5px/1 var(--font-mono); color: var(--fg-subtle); margin: 0 0 10px; }
+.ds-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.ds-row + .ds-label { margin-top: 18px; }
+.mini-nav { display: flex; align-items: center; gap: 12px; height: 48px; padding: 0 12px; border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--bg-elev); box-shadow: var(--shadow-sm); overflow: hidden; }
+.mini-nav .wordmark { font-size: 14px; }
+.mini-nav .mn-links { display: flex; gap: 2px; margin-left: 8px; }
+.mini-nav .mn-links span { font-size: 13px; color: var(--fg-muted); padding: 5px 9px; border-radius: 6px; }
+.mini-nav .mn-links span.on { color: var(--fg); background: var(--bg-muted); }
+.mini-nav .mn-search { margin-left: auto; display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 6px 0 10px; font-size: 12.5px; color: var(--fg-subtle); border: 1px solid var(--border); border-radius: 7px; background: var(--bg-subtle); }
+.ds-post { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 0 16px; }
+.ds-post .post-list { margin: 0; border-top: 0; }
+.ds-post .post-item:last-child { border-bottom: 0; }
+.link-demo { font-size: 15.5px; color: var(--fg-body); }
+.link-demo .link.is-hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+/* ---------- Search ---------- */
+.search-root { position: fixed; inset: 0; z-index: 100; display: grid; justify-items: center; align-items: start; padding: 12vh 16px 16px; }
+.search-root[hidden] { display: none; }
+.search-scrim { position: absolute; inset: 0; background: rgba(10,10,12,.32); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); animation: fade .18s var(--ease); }
+[data-theme="dark"] .search-scrim { background: rgba(0,0,0,.6); }
+@keyframes fade { from { opacity: 0; } }
+.search-panel {
+  position: relative; width: 100%; max-width: 620px; max-height: min(560px, 76vh);
+  display: flex; flex-direction: column;
+  background: var(--bg-elev); border-radius: 14px; box-shadow: var(--shadow-xl);
+  overflow: hidden; animation: panelIn .22s var(--ease-out);
+}
+@keyframes panelIn { from { opacity: 0; transform: translateY(-8px) scale(.985); } }
+.search-field { display: flex; align-items: center; gap: 10px; padding: 0 12px 0 16px; height: 56px; border-bottom: 1px solid var(--border); color: var(--fg-subtle); }
+.search-field input { flex: 1; min-width: 0; height: 100%; border: 0; background: none; font: 400 16px/1 var(--font-ui); color: var(--fg); outline: none; }
+.search-field input::placeholder { color: var(--fg-subtle); }
+.search-field input::-webkit-search-cancel-button { display: none; }
+.esc-btn { border-radius: 6px; }
+.results { flex: 1; overflow-y: auto; padding: 8px; scrollbar-width: thin; overscroll-behavior: contain; }
+.r-sec { padding: 10px 10px 6px; font-size: 11.5px; font-weight: 600; color: var(--fg-subtle); display: flex; align-items: center; justify-content: space-between; }
+.r-sec button { font-weight: 500; font-size: 11.5px; color: var(--fg-subtle); padding: 2px 6px; border-radius: 5px; }
+.r-sec button:hover { color: var(--fg); background: var(--bg-muted); }
+.r-item {
+  display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center;
+  padding: 8px 10px; border-radius: var(--r); cursor: pointer; color: var(--fg-body);
+  scroll-margin: 8px;
+}
+.r-item .r-ic { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; color: var(--fg-subtle); background: var(--bg-subtle); border: 1px solid var(--border); }
+.r-item .r-t { font-size: 14px; font-weight: 500; color: var(--fg); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.r-item .r-p { font-size: 12.5px; color: var(--fg-subtle); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.r-item .r-go { color: var(--fg-subtle); opacity: 0; }
+.r-item mark { background: none; color: var(--accent); font-weight: 600; }
+.r-item[aria-selected="true"] { background: var(--accent-soft); }
+.r-item[aria-selected="true"] .r-ic { color: var(--accent); border-color: var(--accent-line); background: var(--bg-elev); }
+.r-item[aria-selected="true"] .r-go { opacity: 1; }
+.r-item > span:nth-child(2) { min-width: 0; }
+.r-empty { padding: 40px 16px; text-align: center; color: var(--fg-subtle); font-size: 14px; }
+.r-empty b { color: var(--fg); font-weight: 500; }
+.search-foot { display: flex; align-items: center; gap: 16px; padding: 10px 16px; border-top: 1px solid var(--border); background: var(--bg-subtle); font-size: 12px; color: var(--fg-subtle); }
+.search-foot span { display: inline-flex; align-items: center; gap: 5px; }
+.search-foot .sf-r { margin-left: auto; }
+
+/* ---------- Toast & corner ---------- */
+.toast-wrap { position: fixed; left: 50%; bottom: 24px; z-index: 120; transform: translateX(-50%); pointer-events: none; }
+.toast {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px 10px 12px;
+  font-size: 13.5px; font-weight: 500; color: var(--bg); background: var(--fg);
+  border-radius: 10px; box-shadow: var(--shadow-lg);
+  opacity: 0; transform: translateY(10px) scale(.98);
+  transition: opacity .2s var(--ease), transform .25s var(--ease-out);
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: none; }
+.toast .i { color: #4ade80; }
+[data-theme="dark"] .toast .i { color: #15803d; }
+.corner {
+  position: fixed; left: 16px; bottom: 16px; z-index: 40;
+  display: inline-flex; align-items: center; gap: 7px;
+  font: 500 11.5px/1 var(--font-mono); color: var(--fg-muted); text-decoration: none;
+  padding: 7px 10px; border-radius: 999px;
+  background: var(--bg-blur); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); box-shadow: var(--shadow-md);
+  transition: color .15s var(--ease), border-color .15s var(--ease);
+}
+.corner:hover { color: var(--fg); border-color: var(--border-strong); }
+.corner i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1199px) {
+  .shell { grid-template-columns: 256px minmax(0,1fr); }
+  .toc { display: none; }
+  .toc-m { display: block; }
+  main { padding-top: 40px; }
+  .search-trigger { width: 220px; }
+  .top-links { display: none; }
+}
+@media (max-width: 899px) {
+  :root { --topbar: 52px; }
+  .shell { grid-template-columns: minmax(0,1fr); }
+  .nav-toggle { display: inline-grid; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
+    width: min(304px, 86vw); height: 100%;
+    background: var(--bg); border-right: 1px solid var(--border); box-shadow: var(--shadow-xl);
+    padding-top: 20px;
+    transform: translateX(-102%); visibility: hidden;
+    transition: transform .3s var(--ease-out), visibility 0s linear .3s;
+  }
+  .nav-open .sidebar { transform: none; visibility: visible; transition: transform .3s var(--ease-out); }
+  .side-foot .repo { display: inline-flex; }
+  .topbar { padding: 0 12px; gap: 6px; }
+  .search-trigger { width: 34px; padding: 0; justify-content: center; margin-left: auto; background: none; border-color: transparent; }
+  .search-trigger .st-label, .search-trigger .keys { display: none; }
+  .spacer { display: none; }
+  .repo { display: none; }
+  main { padding: 28px 20px 112px; }
+  .toc-m { margin: -28px -20px 24px; padding: 0 20px; }
+  .hx { scroll-margin-top: calc(var(--topbar) + 60px); }
+}
+@media (max-width: 640px) {
+  .wm-sep, .wm-docs { display: none; }
+  main { padding: 24px 16px 112px; }
+  .toc-m { margin: -24px -16px 20px; padding: 0 16px; }
+  .page h1 { font-size: 29px; }
+  .page.is-guide h1 { font-size: 31px; }
+  .guide-dek { font-size: 19px; }
+  .reading p, .reading li { font-size: 18px; }
+  .hero { padding: 28px 20px 24px; border-radius: var(--r-lg); }
+  .hero h1 { font-size: 32px; }
+  .cards, .cards.three { grid-template-columns: minmax(0,1fr); }
+  .swatches { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .textures { grid-template-columns: minmax(0,1fr); }
+  .tex { aspect-ratio: 16/7; }
+  .pager { grid-template-columns: minmax(0,1fr); }
+  .pager .next { grid-column: 1; }
+  .cl-entry { grid-template-columns: minmax(0,1fr); }
+  .cl-rail { padding: 40px 0 0 32px; border-left: 1px solid var(--border); }
+  .cl-rail-in { position: static; display: flex; align-items: center; gap: 10px; }
+  .cl-body::before { top: -48px; }
+  .cl-body h2 { margin-top: 14px; }
+  .cl-list li { grid-template-columns: minmax(0,1fr); gap: 4px; }
+  .post-item a { grid-template-columns: minmax(0,1fr); gap: 4px; }
+  .post-item .rt { display: none; }
+  .spec-row { grid-template-columns: minmax(0,1fr); gap: 4px; }
+  .params thead { display: none; }
+  .params, .params tbody, .params tr, .params td { display: block; width: 100%; }
+  .params tr { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  .params tr:last-child { border-bottom: 0; }
+  .params td { border: 0; padding: 3px 0; }
+  .params td[data-l]::before { content: attr(data-l); display: inline-block; width: 64px; font-size: 11.5px; color: var(--fg-subtle); }
+  .params td.p-desc::before { display: none; }
+  .params td.p-desc { padding-top: 8px; }
+  .p-req, .p-opt { display: inline; margin: 0 0 0 8px; }
+  .search-root { padding: 8px; }
+  .search-panel { max-height: calc(100dvh - 16px); }
+  .search-foot .sf-r, .search-foot span:nth-child(3) { display: none; }
+  .mini-nav .mn-links span:not(.on) { display: none; }
+  .ver { display: none; }
+  .corner { left: 12px; bottom: 12px; }
+  .toast { white-space: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  .card:hover, .swatch:hover { transform: none; }
+  .caret { animation: none; }
+  .dg-edge.is-on { animation: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="icon-btn nav-toggle" id="navToggle" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false"></button>
+  <a class="wordmark" href="#/intro" aria-label="Z. Christensen docs, home">
+    <span class="logo" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2.25h8L2 9.75h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <span>Z. Christensen</span><span class="wm-sep" aria-hidden="true">/</span><span class="wm-docs">Docs</span>
+  </a>
+  <div class="ver">
+    <button class="ver-btn" id="verBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="verMenu" aria-label="Documentation version, v2026.09"><span id="verLabel">v2026.09</span></button>
+    <div class="menu" id="verMenu" role="menu" aria-label="Choose version" hidden></div>
+  </div>
+  <button class="search-trigger" id="searchBtn" aria-label="Search documentation" aria-keyshortcuts="Meta+K Control+K">
+    <span class="st-label">Search docs…</span>
+    <span class="keys" aria-hidden="true"><kbd id="modKey">⌘</kbd><kbd>K</kbd></span>
+  </button>
+  <div class="spacer"></div>
+  <nav class="top-links" aria-label="Shortcuts">
+    <a href="#/g-overlay">Guides</a>
+    <a href="#/cf-changelog">Changelog</a>
+  </nav>
+  <a class="repo" id="repoTop" href="https://github.com/" target="_blank" rel="noopener" aria-label="Source repository on GitHub, 1.2 thousand stars">
+    <span class="repo-name"></span><span class="stars"></span>
+  </a>
+  <button class="icon-btn theme-btn" id="themeBtn" aria-label="Switch to dark theme"></button>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation navigation">
+    <nav id="nav"></nav>
+    <div class="side-foot">
+      <a class="repo" href="https://github.com/" target="_blank" rel="noopener" aria-label="Source repository on GitHub, 1.2 thousand stars"><span class="repo-name"></span><span class="stars"></span></a>
+      <span>Written and built by Z. Christensen · 2026</span>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main id="main" tabindex="-1">
+    <div class="toc-m" id="tocM">
+      <button class="toc-m-btn" id="tocMBtn" aria-expanded="false" aria-controls="tocMPanel">
+        <span class="lbl">On this page</span><span class="cur" id="tocMCur"></span>
+      </button>
+      <nav class="toc-m-panel" id="tocMPanel" aria-label="On this page" hidden></nav>
+    </div>
+    <div class="archived" id="archived" role="status" hidden></div>
+    <article class="page" id="page" aria-live="off"></article>
+  </main>
+
+  <aside class="toc" aria-labelledby="tocTitle">
+    <p class="toc-title" id="tocTitle">On this page</p>
+    <nav class="toc-list" id="toc" aria-labelledby="tocTitle"></nav>
+    <div class="toc-extra" id="tocExtra"></div>
+  </aside>
+</div>
+
+<div class="search-root" id="search" hidden>
+  <div class="search-scrim" data-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search documentation">
+    <div class="search-field">
+      <span id="searchIcon"></span>
+      <label for="q" class="sr-only">Search projects, guides and sections</label>
+      <input id="q" type="search" role="combobox" aria-expanded="true" aria-controls="results" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search projects, guides, sections…">
+      <button class="esc-btn" data-close aria-label="Close search"><kbd>Esc</kbd></button>
+    </div>
+    <div class="results" id="results" role="listbox" aria-label="Search results"></div>
+    <div class="search-foot" aria-hidden="true">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> open</span>
+      <span><kbd>esc</kbd> close</span>
+      <span class="sf-r">Titles, sections &amp; guides</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap"><div class="toast" id="toast" role="status" aria-live="polite"></div></div>
+<a class="corner" href="index.html"><i aria-hidden="true"></i>Product UI D/5 · Docs</a>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ================= Utilities ================= */
+  var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function reduced() { return reduceMQ.matches; }
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function strip(s) { return String(s).replace(/<[^>]+>/g, ''); }
+  var uidN = 0; function uid(p) { uidN += 1; return (p || 'u') + uidN; }
+  function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem(k)); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+
+  var P = {
+    search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+    moon: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/>',
+    menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+    chevD: '<path d="m6 9 6 6 6-6"/>',
+    chevR: '<path d="m9 6 6 6-6 6"/>',
+    copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/>',
+    check: '<path d="M5 12.5 10 17l9-10"/>',
+    star: '<path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6-5.4-2.9-5.4 2.9 1.1-6L3.2 9.4l6.1-.8Z"/>',
+    book: '<path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2Zm0 0A2 2 0 0 0 6 21h14"/>',
+    bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7Z"/>',
+    layers: '<path d="m12 3 9 5-9 5-9-5Z"/><path d="m3 13 9 5 9-5"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    sliders: '<path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/>',
+    hash: '<path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16"/>',
+    doc: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+    arrowR: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    arrowL: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+    thumbUp: '<path d="M7 10v11H4.5A1.5 1.5 0 0 1 3 19.5v-8A1.5 1.5 0 0 1 4.5 10Z"/><path d="M7 10l4-7a2.2 2.2 0 0 1 3.2 2.1L13.6 9H19a2 2 0 0 1 2 2.3l-1.3 7.6A2.5 2.5 0 0 1 17.2 21H7"/>',
+    thumbDown: '<path d="M17 14V3h2.5A1.5 1.5 0 0 1 21 4.5v8a1.5 1.5 0 0 1-1.5 1.5Z"/><path d="M17 14l-4 7a2.2 2.2 0 0 1-3.2-2.1l.6-3.9H5a2 2 0 0 1-2-2.3l1.3-7.6A2.5 2.5 0 0 1 6.8 3H17"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.8h.01"/>',
+    bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3Z"/>',
+    alert: '<path d="M10.3 4.2 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0Z"/><path d="M12 9.5v4M12 16.8h.01"/>',
+    octagon: '<path d="M8.2 3h7.6L21 8.2v7.6L15.8 21H8.2L3 15.8V8.2Z"/><path d="M12 8v5M12 16h.01"/>',
+    edit: '<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16Z"/><path d="m13.5 6.5 4 4"/>',
+    x: '<path d="M6 6l12 12M18 6 6 18"/>',
+    replay: '<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/>',
+    cube: '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9Z"/><path d="M12 12 4 7.5M12 12l8-4.5M12 12v9"/>',
+    news: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>',
+    grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+    pen: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+    sparkle: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8Z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8Z"/>',
+    palette: '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.7-.8 1.7-1.7 0-1.2-1-1.6-1-2.6 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15.5" cy="7.5" r="1"/>',
+    terminal: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/>',
+    ext: '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+    tag: '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9Z"/><circle cx="7.5" cy="7.5" r="1.3"/>',
+    rss: '<path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.3"/>',
+    up: '<path d="M12 19V5M6 11l6-6 6 6"/>',
+    history: '<path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5M12 8v4l3 2"/>'
+  };
+  function I(name, size, cls) {
+    size = size || 16;
+    return '<svg class="i i-' + name + (cls ? ' ' + cls : '') + '" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + P[name] + '</svg>';
+  }
+  function GH(size) {
+    size = size || 16;
+    return '<svg class="i" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>';
+  }
+
+  /* ================= Syntax highlighting ================= */
+  var RX = {
+    js: /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|\b(const|let|var|function|return|await|async|import|from|export|default|if|else|new|true|false|null|undefined|for|of|type|interface|throw|try|catch)\b|\b(\d[\d_.]*)\b|\b([A-Za-z_$][\w$]*)(?=\()/g,
+    bash: /(#[^\n]*)|("(?:\\.|[^"\\\n])*"|'[^'\n]*')|\b(npm|pnpm|bun|bunx|npx|cd|git|export|curl|open|claude-feedback|morning-briefing|mkdir|node|serve|dlx|launchctl)\b|\b(\d+)\b|((?:^|(?<=\s))--?[A-Za-z][\w-]*)/gm,
+    yaml: /(#[^\n]*)|("(?:\\.|[^"\\\n])*"|'[^'\n]*')|(^[ \t-]*[\w.-]+(?=:))|\b(\d[\d.]*)\b|\b(true|false|null)\b/gm
+  };
+  RX.json = RX.js; RX.ts = RX.js;
+  function hl(src, lang) {
+    var re = RX[lang] || RX.js; re.lastIndex = 0;
+    var out = '', last = 0, m;
+    while ((m = re.exec(src))) {
+      if (m[0] === '') { re.lastIndex++; continue; }
+      out += esc(src.slice(last, m.index));
+      var c = m[1] ? 'c' : m[2] ? 's' : m[3] ? 'k' : m[4] ? 'n' : 'f';
+      out += '<span class="tk-' + c + '">' + esc(m[0]) + '</span>';
+      last = re.lastIndex;
+    }
+    return out + esc(src.slice(last));
+  }
+
+  /* ================= Component builders ================= */
+  var CUR = '';
+  function H(lvl, id, html) {
+    var t = strip(html);
+    return '<h' + lvl + ' id="' + id + '" class="hx" data-t="' + esc(t) + '">' + html +
+      '<a class="anchor" href="#/' + CUR + '/' + id + '" aria-label="Copy link to section: ' + esc(t) + '">#</a></h' + lvl + '>';
+  }
+  function copyBtn(label) {
+    return '<button class="copy-btn" data-copy aria-label="' + (label || 'Copy code') + '">' + I('copy', 14) + I('check', 14) + '<span>Copy</span></button>';
+  }
+  function code(lang, src, file) {
+    return '<div class="code"><div class="code-head"><span class="file">' + (file ? I('doc', 14) + esc(file) : '') + '</span><span class="lang">' + lang + '</span>' + copyBtn('Copy ' + (file || lang) + ' code') + '</div>' +
+      '<pre tabindex="0"><code>' + hl(src, lang) + '</code></pre></div>';
+  }
+  var PMS = ['npm', 'pnpm', 'bun'];
+  function pmTabs(cmds, lang) {
+    var id = uid('ct');
+    var tabs = PMS.map(function (k) {
+      return '<button class="ct-tab" role="tab" id="' + id + '-t-' + k + '" aria-controls="' + id + '-p-' + k + '" aria-selected="false" tabindex="-1" data-key="' + k + '">' + k + '</button>';
+    }).join('');
+    var panels = PMS.map(function (k) {
+      return '<div class="ct-panel" role="tabpanel" id="' + id + '-p-' + k + '" aria-labelledby="' + id + '-t-' + k + '" data-key="' + k + '" hidden><pre tabindex="0"><code>' + hl(cmds[k], lang || 'bash') + '</code></pre></div>';
+    }).join('');
+    return '<div class="codetabs" data-sync="pm"><div class="code-head"><div class="ct-tabs" role="tablist" aria-label="Package manager">' + tabs + '<span class="ct-ind" aria-hidden="true"></span></div><span class="lang">terminal</span>' + copyBtn('Copy command') + '</div>' + panels + '</div>';
+  }
+  var TERMS = {};
+  function term(title, cmd, out) {
+    var id = uid('term');
+    TERMS[id] = { cmd: cmd, out: out };
+    var full = '$ ' + cmd + '\n' + out.map(function (l) { return l.t; }).join('\n');
+    return '<div class="term" data-term="' + id + '" style="--lines:' + (out.length + 2) + '">' +
+      '<div class="term-head"><span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-title">' + esc(title) + '</span>' +
+      '<button class="t-replay" data-replay aria-label="Replay terminal animation">' + I('replay', 14) + '</button>' + copyBtn('Copy command') + '</div>' +
+      '<pre tabindex="0"><span class="sr-only">' + esc(full) + '</span><span aria-hidden="true" class="t-vis"><span class="p-path">~/prototypes</span> <span class="p">$</span> <span class="t-cmd"></span><span class="caret t-first-caret"></span><span class="t-out"></span></span></pre></div>';
+  }
+  var CO_ICON = { note: 'info', tip: 'bulb', warning: 'alert', danger: 'octagon' };
+  function callout(type, title, body) {
+    return '<div class="callout callout-' + type + '" role="note" aria-label="' + title + '"><span class="co-icon">' + I(CO_ICON[type], 18) + '</span><div><p class="co-title">' + title + '</p><div class="co-body"><p>' + body + '</p></div></div></div>';
+  }
+  function steps(list) {
+    return '<ol class="steps">' + list.map(function (s, i) {
+      return '<li><span class="step-n" aria-hidden="true">' + (i + 1) + '</span><div class="step-c"><p class="step-t">' + s[0] + '</p>' + s[1] + '</div></li>';
+    }).join('') + '</ol>';
+  }
+  function typeClass(t) {
+    if (t.indexOf('=>') > -1) return 't-fn';
+    if (/\[\]$/.test(t)) return 't-arr';
+    if (/^string/.test(t)) return 't-str';
+    if (/^number/.test(t)) return 't-num';
+    if (/^boolean/.test(t)) return 't-bool';
+    return 't-obj';
+  }
+  function params(rows, cap) {
+    return '<div class="table-wrap"><table class="params">' + (cap ? '<caption class="sr-only">' + cap + '</caption>' : '') +
+      '<thead><tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Default</th><th scope="col">Description</th></tr></thead><tbody>' +
+      rows.map(function (r) {
+        return '<tr><td><span class="p-name">' + r[0] + '</span>' + (r[2] === 'req' ? '<span class="p-req">Required</span>' : '<span class="p-opt">Optional</span>') + '</td>' +
+          '<td data-l="Type"><span class="tpill ' + typeClass(r[1]) + '">' + esc(r[1]) + '</span></td>' +
+          '<td data-l="Default"><span class="p-def">' + (r[3] ? esc(r[3]) : '—') + '</span></td>' +
+          '<td class="p-desc">' + r[4] + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+  function cards(list, three) {
+    return '<div class="cards' + (three ? ' three' : '') + '">' + list.map(function (c) {
+      return '<a class="card" href="#/' + c.to + '"><span class="card-icon">' + I(c.icon, 16) + '</span><span class="card-t">' + c.t + '</span><span class="card-d">' + c.d + '</span><span class="card-arrow">' + I('arrowR', 16) + '</span></a>';
+    }).join('') + '</div>';
+  }
+  function hero(o) {
+    return '<header class="hero"><div class="hero-grid" aria-hidden="true"></div>' +
+      '<span class="eyebrow"><span class="dot" aria-hidden="true"></span>' + o.eyebrow + '</span>' +
+      '<h1>' + o.title + '</h1><p class="lede">' + o.lede + '</p>' +
+      '<div class="hero-actions">' + o.actions + '</div>' +
+      '<div class="hero-meta">' + o.meta.map(function (m) { return '<span>' + m[0] + ' <b>' + m[1] + '</b></span>'; }).join('') + '</div></header>';
+  }
+  function docHead(title, lede) {
+    return '<header class="doc-head"><h1>' + title + '</h1>' + (lede ? '<p class="lede">' + lede + '</p>' : '') + '</header>';
+  }
+
+  /* ---- Architecture diagram ---- */
+  var DG = {
+    browser: { x: 20, y: 122, t: 'Browser', s: 'localhost:4599/3000/', d: 'You review the prototype exactly as it renders — same DOM, same assets — loaded through the proxy’s path prefix.', c: '#8b9cff' },
+    proxy: { x: 260, y: 122, t: 'Proxy', s: ':4599', d: 'A small Node server. It forwards each request to the port named in the path and rewrites HTML responses to include the overlay script before the closing body tag.', c: '#3b50d6' },
+    dev: { x: 500, y: 22, t: 'Dev server', s: ':3000 · any port', d: 'Your prototype, unchanged. Vite, Next, or a static folder — the proxy doesn’t care, and HMR websockets pass straight through.', c: '#2dbeaa' },
+    overlay: { x: 20, y: 232, t: 'Overlay', s: 'overlay.js · 9 kB', d: 'A dependency-free script mounted in a shadow root. It draws pins, the comment dock and viewport screenshots, and never touches your styles.', c: '#f4a462' },
+    store: { x: 260, y: 232, t: 'Comment store', s: 'comments.json', d: 'One JSON file plus a folder of PNGs. Human-readable, diffable, and trivial for any agent to parse.', c: '#15803d' },
+    agent: { x: 500, y: 232, t: 'Coding agent', s: '“address my feedback”', d: 'Reads unresolved comments for the current URL, looks at each screenshot, makes the fix, then writes resolved: true back to the file.', c: '#a855f7' }
+  };
+  var DGE = [
+    ['browser', 'proxy', 'M180 150 H260', 'HTTP', 220, 142],
+    ['proxy', 'dev', 'M420 140 C 462 140, 458 50, 500 50', 'forward', 470, 104],
+    ['browser', 'overlay', 'M100 178 V232', 'hosts', 108, 209],
+    ['overlay', 'store', 'M180 260 H260', 'POST', 220, 252],
+    ['proxy', 'store', 'M340 178 V232', 'writes', 348, 209],
+    ['store', 'agent', 'M420 260 H500', 'reads', 460, 252]
+  ];
+  function diagram() {
+    var edges = DGE.map(function (e) {
+      return '<path class="dg-edge" data-a="' + e[0] + '" data-b="' + e[1] + '" d="' + e[2] + '"/>' +
+        '<text class="dg-label" data-a="' + e[0] + '" data-b="' + e[1] + '" x="' + e[4] + '" y="' + e[5] + '" text-anchor="middle">' + e[3] + '</text>';
+    }).join('');
+    var nodes = Object.keys(DG).map(function (k) {
+      var n = DG[k];
+      return '<g class="dg-node" data-id="' + k + '" tabindex="0" role="button" aria-label="' + n.t + ': ' + esc(n.d) + '">' +
+        '<rect class="ring" x="' + (n.x - 4) + '" y="' + (n.y - 4) + '" width="168" height="64" rx="13"/>' +
+        '<rect class="box" x="' + n.x + '" y="' + n.y + '" width="160" height="56" rx="10"/>' +
+        '<circle class="dg-dot" cx="' + (n.x + 18) + '" cy="' + (n.y + 21) + '" r="3.5" fill="' + n.c + '"/>' +
+        '<text class="dg-t" x="' + (n.x + 30) + '" y="' + (n.y + 25) + '">' + n.t + '</text>' +
+        '<text class="dg-s" x="' + (n.x + 30) + '" y="' + (n.y + 42) + '">' + esc(n.s) + '</text></g>';
+    }).join('');
+    return '<figure class="diagram" style="margin-left:0;margin-right:0"><div class="dg-canvas"><svg viewBox="0 0 680 300" role="group" aria-label="claude-feedback architecture: browser, proxy, dev server, overlay, comment store and coding agent">' + edges + nodes + '</svg></div>' +
+      '<div class="dg-panel" aria-live="polite"><span class="dp-k">node</span><span class="dp-t">Six moving parts</span><p class="dp-d">Hover or focus a node to see what it does and which parts it talks to.</p></div></figure>';
+  }
+
+  /* ---- CSS screenshots ---- */
+  function shot(kind, cap) {
+    var body = '';
+    if (kind === 'pins') {
+      body = '<div class="shot-body"><div><span class="sk w1"></span><span class="sk w2"></span><span class="sk w3"></span><span class="sk w2"></span></div><div><span class="sk h"></span><span class="sk w1"></span><span class="sk w4"></span><span class="sk blk"></span><span class="sk w2" style="margin-top:12px"></span></div>' +
+        '<span class="pin" style="left:58%;top:22%">1</span><span class="pin" style="left:78%;top:58%">2</span>' +
+        '<div class="bubble" style="left:61%;top:30%"><div class="who"><span class="av"></span><span class="sk w3" style="margin:0;width:40%"></span></div><span class="sk w1"></span><span class="sk w2"></span></div></div>';
+    } else if (kind === 'thread') {
+      body = '<div class="shot-body"><div><span class="sk w1"></span><span class="sk w2"></span><span class="sk w3"></span></div><div><span class="sk h"></span><span class="sk w4"></span><span class="sk blk"></span></div>' +
+        '<div class="bubble" style="left:40%;top:14%;width:44%"><div class="who"><span class="av"></span><span class="sk w3" style="margin:0;width:36%"></span></div><span class="sk w1"></span><span class="sk w3"></span><div class="who" style="margin-top:10px"><span class="av" style="background:linear-gradient(135deg,#c084fc,#7c3aed)"></span><span class="sk w3" style="margin:0;width:30%"></span></div><span class="sk w2"></span><span class="ok"></span></div></div>';
+    } else if (kind === 'routes') {
+      body = '<div class="shot-body" style="grid-template-columns:1fr"><div style="display:grid;gap:10px">' + [3000, 5173, 8080].map(function (p, i) {
+        return '<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg-subtle)"><span class="lang-dot" style="background:' + ['#2dbeaa', '#8b9cff', '#f4a462'][i] + '"></span><span style="font:500 11px/1 var(--font-mono);color:var(--fg-muted)">:4599/' + p + '/</span><span class="sk w2" style="margin:0 0 0 auto;width:30%"></span></div>';
+      }).join('') + '</div></div>';
+    } else if (kind === 'digest') {
+      body = '<div class="shot-mail"><span class="sk h" style="width:40%"></span><span class="sk w1"></span><span class="sk w4"></span><span class="sk w2"></span><span class="sk" style="height:1px;margin:14px 0"></span><span class="sk w3" style="background:var(--border-strong)"></span><span class="sk w1"></span><span class="sk w4"></span></div>';
+    } else {
+      var g = ['linear-gradient(160deg,#eef0fd,#c7d0ff)', 'linear-gradient(160deg,#fff7ed,#fdba74)', 'linear-gradient(160deg,#ecfdf5,#6ee7b7)', 'linear-gradient(160deg,#18181b,#3f3f46)', 'linear-gradient(160deg,#faf5ff,#d8b4fe)'];
+      body = '<div class="shot-tiles">' + g.map(function (b) { return '<span style="background:' + b + '"></span>'; }).join('') + '</div>';
+    }
+    return '<div class="shot" role="img" aria-label="' + esc(cap) + '"><div class="shot-win"><div class="shot-bar"><i></i><i></i><i></i><span class="url"></span></div>' + body + '</div></div><p class="shot-cap">' + cap + '</p>';
+  }
+  function changelog(entries) {
+    return entries.map(function (e, i) {
+      return '<section class="cl-entry"><div class="cl-rail"><div class="cl-rail-in"><time datetime="' + e.iso + '">' + e.date + '</time><span class="ver-tag' + (i === 0 ? ' is-latest' : '') + '">' + I('tag', 12) + e.v + '</span></div></div>' +
+        '<div class="cl-body prose">' + H(2, e.id, e.title) + '<p>' + e.body + '</p>' + (e.shot ? shot(e.shot, e.cap) : '') +
+        '<ul class="cl-list">' + e.items.map(function (it) {
+          return '<li><span class="chip chip-' + it[0] + '">' + it[0].charAt(0).toUpperCase() + it[0].slice(1) + '</span><span>' + it[1] + '</span></li>';
+        }).join('') + '</ul></div></section>';
+    }).join('');
+  }
+  function byline(date, iso, mins) {
+    return '<div class="byline"><span class="avatar" aria-hidden="true">ZC</span><span><b>Z. Christensen</b><time datetime="' + iso + '">' + date + '</time><span class="sep" aria-hidden="true"></span>' + mins + ' min read</span></div>';
+  }
+  function postList(items) {
+    return '<ul class="post-list">' + items.map(function (p) {
+      return '<li class="post-item"><a class="pi-link" href="#/' + p.id + '"><time datetime="' + p.iso + '">' + p.short + '</time><span><span class="pt">' + p.title + '</span><span class="pd">' + p.dek + '</span></span><span class="rt">' + p.mins + ' min ' + I('arrowR', 14) + '</span></a></li>';
+    }).join('') + '</ul>';
+  }
+
+  /* ================= Content ================= */
+  var POSTS = [
+    { id: 'g-overlay', title: 'Building a comment overlay for prototypes', short: 'Sep 2026', date: 'September 12, 2026', iso: '2026-09-12', mins: 7, dek: 'Why I stopped writing feedback in chat, and what it took to let a coding agent see exactly what I saw.' },
+    { id: 'g-digest', title: 'What I learned shipping a daily news digest agent', short: 'Aug 2026', date: 'August 19, 2026', iso: '2026-08-19', mins: 9, dek: 'Six weeks of 6:30 a.m. briefings taught me that search is the product and prose is the interface.' },
+    { id: 'g-motion', title: 'Notes on designing for motion', short: 'Jun 2026', date: 'June 8, 2026', iso: '2026-06-08', mins: 6, dek: 'The durations, curves and restraint I reach for when interface motion needs to explain rather than decorate.' }
+  ];
+  var PROJ = {
+    cf: { title: 'claude-feedback', badge: 'v0.4', color: '#3b50d6' },
+    mb: { title: 'Morning Briefing', badge: 'daily', color: '#d97706' },
+    st: { title: 'Style Tiles', badge: 'wip', color: '#15803d' }
+  };
+  var SUB = [['overview', 'Overview', 'book'], ['quickstart', 'Quickstart', 'bolt'], ['architecture', 'Architecture', 'layers'], ['changelog', 'Changelog', 'history']];
+
+  var PAGES = {};
+  function page(id, meta, render) { meta.id = id; meta.render = render; PAGES[id] = meta; }
+
+  /* ---------- Introduction ---------- */
+  page('intro', { title: 'Welcome', crumbs: ['Introduction'], updated: 'Sep 28, 2026', kind: 'doc', desc: 'What this site is and how it’s organized.' }, function () {
+    return docHead('Welcome', 'This is the working notebook of Z. Christensen: small tools I build, and the notes I write while building them. It’s organized like documentation because that’s how I think about projects — each one has an overview, a quickstart, an architecture and an honest changelog.') +
+      '<div class="prose">' +
+      H(2, 'whats-here', 'What’s here') +
+      cards([
+        { to: 'cf-overview', icon: 'cube', t: 'Projects', d: 'Three tools with docs you can actually follow: a feedback proxy, a news agent and this design exploration.' },
+        { to: 'g-overlay', icon: 'pen', t: 'Writing', d: 'Long-form guides on building things — what worked, what didn’t, and the numbers behind both.' },
+        { to: 'design-system', icon: 'palette', t: 'Design system', d: 'The tokens, type and components this site is built from, documented like any other project.' },
+        { to: 'about', icon: 'user', t: 'About', d: 'Who I am, what I’m working on now, and how to reach me.' }
+      ]) +
+      H(2, 'projects', 'Projects') +
+      '<div class="cards three">' + [
+        ['cf', 'claude-feedback', 'A comment-overlay proxy for reviewing local prototypes with a coding agent.', 'TypeScript', '#3178c6', 'v0.4.2', 'cube'],
+        ['mb', 'Morning Briefing', 'An automated daily news digest, researched and written before breakfast.', 'Python', '#3572a5', 'Daily', 'news'],
+        ['st', 'Style Tiles', 'Many directions for this site, each one a single self-contained HTML file.', 'HTML', '#e34c26', '25 tiles', 'grid']
+      ].map(function (p) {
+        return '<a class="card proj-card" href="#/' + p[0] + '-overview"><span class="proj-top"><span class="proj-mark" style="background:' + PROJ[p[0]].color + '">' + I(p[6], 16) + '</span><span class="chip chip-plain status">' + p[5] + '</span></span><span class="card-t">' + p[1] + '</span><span class="card-d">' + p[2] + '</span><span class="proj-meta"><span><span class="lang-dot" style="background:' + p[4] + '"></span>' + p[3] + '</span></span></a>';
+      }).join('') + '</div>' +
+      H(2, 'latest-writing', 'Latest writing') + postList(POSTS) +
+      H(2, 'conventions', 'How to read this site') +
+      '<p>Every project follows the same four pages, so you always know where to look:</p><ul>' +
+      '<li><strong>Overview</strong> explains what it is and why it exists.</li>' +
+      '<li><strong>Quickstart</strong> gets it running in under five minutes.</li>' +
+      '<li><strong>Architecture</strong> covers the moving parts and the trade-offs I made.</li>' +
+      '<li><strong>Changelog</strong> records what shipped, including the fixes that were my fault.</li></ul>' +
+      callout('tip', 'Search everything', 'Press <kbd>' + MOD + '</kbd> <kbd>K</kbd> or <kbd>/</kbd> from anywhere to jump to a page, guide or section heading.') +
+      '</div>';
+  });
+
+  /* ---------- claude-feedback ---------- */
+  page('cf-overview', { title: 'Overview', group: 'cf', crumbs: ['Projects', 'claude-feedback'], updated: 'Sep 24, 2026', kind: 'doc', desc: 'A comment-overlay proxy for reviewing local prototypes.' }, function () {
+    return hero({
+      eyebrow: 'v0.4.2 · Released Sep 24',
+      title: 'claude-feedback',
+      lede: 'A local proxy that puts a comment layer on top of any prototype. Point it at a dev server, click anywhere to leave a note, and hand the whole thread — screenshots included — to your coding agent.',
+      actions: '<a class="btn btn-primary" href="#/cf-quickstart">Quickstart ' + I('arrowR', 15) + '</a><a class="btn btn-secondary" href="https://github.com/" target="_blank" rel="noopener">' + GH(15) + 'View source</a>',
+      meta: [['License', 'MIT'], ['Runtime', 'Node ≥ 20'], ['Overlay', '9 kB gzip'], ['Deps', '2']]
+    }) + '<div class="prose">' +
+      H(2, 'get-started', 'Get started') +
+      '<p>New here? Start with the quickstart. Already running it? Jump to configuration or see what changed.</p>' +
+      cards([
+        { to: 'cf-quickstart', icon: 'bolt', t: 'Quickstart', d: 'Install, run the proxy and leave your first comment in about two minutes.' },
+        { to: 'cf-architecture', icon: 'layers', t: 'Architecture', d: 'How the proxy, overlay and comment store fit together — and why it isn’t an extension.' },
+        { to: 'cf-overview/configuration', icon: 'sliders', t: 'Configuration', d: 'Every option in feedback.config.js, with types and defaults.' },
+        { to: 'cf-changelog', icon: 'history', t: 'Changelog', d: 'Threads, resolution and screenshots that finally match what you saw.' }
+      ]) +
+      H(2, 'installation', 'Installation') +
+      '<p>Install the CLI globally. Your choice of package manager is remembered across every code block on this site.</p>' +
+      pmTabs({ npm: 'npm install --global claude-feedback', pnpm: 'pnpm add --global claude-feedback', bun: 'bun add --global claude-feedback' }) +
+      callout('note', 'Note', 'claude-feedback needs Node 20 or newer for native <code>fetch</code> streaming. Check with <code>node --version</code>.') +
+      H(2, 'run-it', 'Run it') +
+      '<p>Start the proxy once. It serves every local port through a path prefix, so there’s nothing to configure per project.</p>' +
+      term('zsh — claude-feedback', 'claude-feedback --port 4599', [
+        { c: 'acc', t: '▲ claude-feedback 0.4.2' },
+        { c: 'dim', t: '  Proxy      http://localhost:4599' },
+        { c: 'dim', t: '  Comments   ~/.claude-feedback/comments.json' },
+        { c: 'ok', t: '✓ Ready in 212ms — open localhost:4599/3000/ to review :3000' }
+      ]) +
+      H(3, 'review-a-page', 'Review a page') +
+      steps([
+        ['Start your prototype', '<p>Run your dev server as usual. Any port works — Vite on 5173, Next on 3000, a static folder on 8080.</p>'],
+        ['Open it through the proxy', '<p>Prefix the path with the port: <code>localhost:4599/3000/pricing</code>. The page is identical, plus a small comment dock in the corner.</p>'],
+        ['Click to comment', '<p>Press <kbd>C</kbd>, click any element and type. The overlay records the selector, URL, viewport and a screenshot of exactly what you saw.</p>'],
+        ['Hand it off', '<p>Tell your agent to “address my feedback.” It reads unresolved comments, fixes them and marks each one resolved.</p>']
+      ]) +
+      callout('tip', 'Tip', 'Comments are keyed by URL, so one proxy can serve every prototype you have running and each agent only sees its own threads.') +
+      callout('warning', 'Warning', 'The proxy rewrites HTML responses to inject the overlay. Streaming responses that never send a closing body tag are passed through untouched, so the dock won’t appear on them.') +
+      callout('danger', 'Danger', 'Never expose port 4599 beyond localhost. The proxy forwards to any local port you name in the path, including ones you didn’t mean to share.') +
+      H(2, 'configuration', 'Configuration') +
+      '<p>Defaults work for most setups. To change them, add a <code>feedback.config.js</code> to your home directory or the folder you run the proxy from.</p>' +
+      code('js', 'export default {\n  port: 4599,\n  storeDir: "~/.claude-feedback",\n  screenshots: { enabled: true, scale: 2 },\n  // Proxied as-is, without the overlay\n  ignore: ["/_next/webpack-hmr", "/@vite/client"],\n  onComment(comment) {\n    console.log("New comment on", comment.url);\n  },\n};', 'feedback.config.js') +
+      H(3, 'options', 'Options') +
+      params([
+        ['port', 'number', 'opt', '4599', 'Port the proxy listens on. Every other local port is reached through it.'],
+        ['storeDir', 'string', 'opt', '"~/.claude-feedback"', 'Where <code>comments.json</code> and screenshot PNGs are written.'],
+        ['screenshots.enabled', 'boolean', 'opt', 'true', 'Capture the viewport each time a comment is created.'],
+        ['screenshots.scale', 'number', 'opt', '1', 'Pixel ratio for captures. Use <code>2</code> for crisp text on large displays.'],
+        ['ignore', 'string[]', 'opt', '[]', 'Path prefixes proxied without injecting the overlay — useful for HMR sockets and API routes.'],
+        ['onComment', '(c: Comment) => void', 'opt', '', 'Called after each comment is saved. Handy for desktop notifications.']
+      ], 'Configuration options') +
+      H(2, 'how-it-works', 'How it works') +
+      '<p>Six parts, one direction of flow. The proxy is the only piece that touches the network; everything else is a file or a script.</p>' +
+      diagram() +
+      H(2, 'comment-object', 'The comment object') +
+      '<p>Each comment is a flat record in <code>comments.json</code>. Agents only need four fields to act on one: <code>url</code>, <code>body</code>, <code>screenshot</code> and <code>resolved</code>.</p>' +
+      code('json', '{\n  "id": "c_01J8Z4Q7",\n  "url": "http://localhost:4599/3000/pricing",\n  "selector": "main > section.plans > .card:nth-child(2) h3",\n  "body": "Annual price wraps onto two lines at 390px.",\n  "screenshot": "shots/c_01J8Z4Q7.png",\n  "viewport": { "width": 390, "height": 844 },\n  "resolved": false,\n  "createdAt": "2026-09-24T14:12:08Z"\n}', 'comments.json') +
+      params([
+        ['id', 'string', 'req', '', 'Sortable, unique identifier.'],
+        ['url', 'string', 'req', '', 'Full proxied URL, including the port prefix. Used to match comments to a session.'],
+        ['selector', 'string', 'req', '', 'CSS path to the element that was clicked, plus a text fingerprint for re-anchoring.'],
+        ['body', 'string', 'req', '', 'The comment text, as written.'],
+        ['screenshot', 'string', 'opt', 'null', 'Path to the PNG, relative to <code>storeDir</code>.'],
+        ['resolved', 'boolean', 'opt', 'false', 'Set to <code>true</code> by whoever addressed the comment.']
+      ], 'Comment fields') +
+      '</div>';
+  });
+
+  page('cf-quickstart', { title: 'Quickstart', group: 'cf', crumbs: ['Projects', 'claude-feedback'], updated: 'Sep 24, 2026', kind: 'doc', desc: 'Install claude-feedback and leave your first comment.' }, function () {
+    return docHead('Quickstart', 'From zero to your first resolved comment in about two minutes.') + '<div class="prose">' +
+      H(2, 'prerequisites', 'Prerequisites') +
+      '<ul><li>Node 20 or newer</li><li>A prototype running on any local port</li><li>A coding agent that can read files in your home directory</li></ul>' +
+      H(2, 'install', 'Install') +
+      pmTabs({ npm: 'npm install --global claude-feedback', pnpm: 'pnpm add --global claude-feedback', bun: 'bun add --global claude-feedback' }) +
+      H(2, 'start-the-proxy', 'Start the proxy') +
+      term('zsh — ~/prototypes', 'claude-feedback', [
+        { c: 'acc', t: '▲ claude-feedback 0.4.2' },
+        { c: 'dim', t: '  Proxy      http://localhost:4599' },
+        { c: 'ok', t: '✓ Ready in 198ms' }
+      ]) +
+      callout('tip', 'Keep it running', 'Add it to a login item or a tmux pane. It idles at under 30 MB and serves every project you open.') +
+      H(2, 'leave-a-comment', 'Leave a comment') +
+      steps([
+        ['Open your prototype through the proxy', '<p>If your app runs on <code>localhost:5173</code>, visit <code>localhost:4599/5173/</code>.</p>'],
+        ['Press C and click', '<p>Pick the element that needs work. A pin appears where you clicked and a composer opens beside it.</p>'],
+        ['Write what you’d say out loud', '<p>“The CTA disappears under the cookie banner on mobile” beats “fix CTA.” The screenshot carries the context; your words carry the intent.</p>']
+      ]) +
+      H(2, 'address-feedback', 'Address feedback') +
+      '<p>Ask your agent to address your feedback. It reads the store directly, so no plugin is required:</p>' +
+      code('bash', '# What the agent does, in plain terms\ncat ~/.claude-feedback/comments.json   # find unresolved comments for this URL\nopen ~/.claude-feedback/shots/c_01J8Z4Q7.png   # look at what you saw', 'terminal') +
+      callout('note', 'Resolution is a file write', 'When a fix lands, the agent sets <code>resolved: true</code>. The dock picks up the change within a second and fades the pin.') +
+      '</div>';
+  });
+
+  page('cf-architecture', { title: 'Architecture', group: 'cf', crumbs: ['Projects', 'claude-feedback'], updated: 'Sep 18, 2026', kind: 'doc', desc: 'Proxy, overlay and comment store.' }, function () {
+    return docHead('Architecture', 'A proxy, a script and a JSON file. Each part is small enough to read in one sitting.') + '<div class="prose">' +
+      H(2, 'overview', 'Overview') + diagram() +
+      H(2, 'request-lifecycle', 'Request lifecycle') +
+      steps([
+        ['Parse the port', '<p>The first path segment is the target port. <code>/3000/pricing</code> becomes a request to <code>localhost:3000/pricing</code>.</p>'],
+        ['Forward everything', '<p>Headers, bodies and websocket upgrades are streamed through untouched. HMR keeps working.</p>'],
+        ['Rewrite HTML only', '<p>If the response is <code>text/html</code>, the proxy buffers it and inserts one script tag before the closing body tag.</p>'],
+        ['Rebase absolute URLs', '<p>Root-relative links like <code>/assets/app.js</code> are rewritten to keep the port prefix, so navigation stays inside the proxy.</p>']
+      ]) +
+      H(2, 'injection', 'HTML injection') +
+      '<p>The rewrite is deliberately boring: find the last closing body tag, insert before it, fix the content length.</p>' +
+      code('ts', 'const TAG = \'<script src="/__feedback/overlay.js" defer><\/script>\';\n\nexport function inject(html: string): string {\n  const at = html.lastIndexOf("<\/body>");\n  if (at === -1) return html; // streaming or partial: leave it alone\n  return html.slice(0, at) + TAG + html.slice(at);\n}', 'src/inject.ts') +
+      callout('warning', 'Why lastIndexOf', 'Inline templates and code samples often contain body tags inside strings. Searching from the end avoids injecting into the middle of someone’s JavaScript.') +
+      H(2, 'comment-store', 'Comment store') +
+      '<p>Comments live in a single JSON array, written atomically through a temp file and rename. Screenshots are PNGs named after the comment id. There is no database because nothing here needs one.</p>' +
+      H(2, 'trade-offs', 'Trade-offs') +
+      '<ul><li><strong>Proxy over extension:</strong> works in any browser, including a phone on the same network, and in the preview panes agents already use.</li>' +
+      '<li><strong>Shadow DOM:</strong> the overlay can’t be styled by accident, at the cost of a few kilobytes of duplicated CSS.</li>' +
+      '<li><strong>Screenshots over DOM snapshots:</strong> heavier on disk, but they show what a person actually saw, animations and all.</li></ul>' +
+      '</div>';
+  });
+
+  page('cf-changelog', { title: 'Changelog', group: 'cf', crumbs: ['Projects', 'claude-feedback'], updated: 'Sep 24, 2026', kind: 'changelog', wide: true, desc: 'Every claude-feedback release.' }, function () {
+    return docHead('Changelog', 'New features, improvements and fixes in claude-feedback. Most recent first.') +
+      '<div class="cl-head-row"><a class="btn btn-secondary btn-sm" href="#/cf-changelog" data-toast="RSS feed URL copied">' + I('rss', 14) + 'Subscribe</a><span class="chip chip-plain">5 releases since July</span></div>' +
+      changelog([
+        { id: 'v0-4-2', v: 'v0.4.2', date: 'Sep 24, 2026', iso: '2026-09-24', title: 'Screenshots that match what you saw', shot: 'pins', cap: 'Pins now stay anchored to their element through resize and scroll.', body: 'A small release focused on fidelity. Captures wait for fonts and images, and pins track their element instead of their original coordinates.', items: [['improved', 'Screenshots wait for <code>document.fonts.ready</code> and pending images before capturing.'], ['improved', 'Pins re-anchor on resize using the stored text fingerprint.'], ['fixed', 'Comments made inside scrolled containers captured the wrong region.'], ['fixed', 'The dock no longer steals focus from inputs on page load.']] },
+        { id: 'v0-4-0', v: 'v0.4.0', date: 'Sep 10, 2026', iso: '2026-09-10', title: 'Threads and resolution', shot: 'thread', cap: 'Reply threads, with the agent’s response and a resolved state.', body: 'Comments became conversations. Agents can reply with what they changed, and resolving a thread is now a first-class state rather than a deletion.', items: [['new', 'Reply to any comment; agents can append a reply describing the fix.'], ['new', '<code>resolved</code> flag, written back by agents and honored by the dock.'], ['improved', 'The dock collapses to a single pill showing the open count.'], ['fixed', 'Unicode selectors are escaped correctly when re-anchoring.']] },
+        { id: 'v0-3-0', v: 'v0.3.0', date: 'Aug 21, 2026', iso: '2026-08-21', title: 'Any port, zero config', shot: 'routes', cap: 'One proxy, every local port, addressed by path.', body: 'The proxy stopped needing a target. Put the port in the path and it routes there, so a single long-running process covers every project.', items: [['new', 'Path-prefix routing: <code>/&lt;port&gt;/&lt;path&gt;</code>.'], ['new', '<code>ignore</code> option for paths that should skip injection.'], ['fixed', 'Websocket upgrades are forwarded, so HMR works through the proxy.']] },
+        { id: 'v0-2-0', v: 'v0.2.0', date: 'Jul 30, 2026', iso: '2026-07-30', title: 'Element-anchored comments', body: 'Comments attach to elements rather than coordinates, with a text fingerprint as a fallback when the DOM changes underneath them.', items: [['new', 'Selector capture with a nearest-stable-ancestor strategy.'], ['improved', 'Overlay moved into a shadow root; no more style leakage.']] },
+        { id: 'v0-1-0', v: 'v0.1.0', date: 'Jul 12, 2026', iso: '2026-07-12', title: 'First release', body: 'A proxy, a floating button and a JSON file. Enough to stop pasting screenshots into chat.', items: [['new', 'Click-to-comment overlay with viewport screenshots.'], ['new', 'Comments stored in <code>~/.claude-feedback/comments.json</code>.']] }
+      ]);
+  });
+
+  /* ---------- Morning Briefing ---------- */
+  page('mb-overview', { title: 'Overview', group: 'mb', crumbs: ['Projects', 'Morning Briefing'], updated: 'Sep 02, 2026', kind: 'doc', desc: 'An automated daily news digest.' }, function () {
+    return hero({
+      eyebrow: 'Running every weekday · 6:30 a.m.',
+      title: 'Morning Briefing',
+      lede: 'An agent that reads about forty outlets before breakfast, clusters the stories that overlap, and writes a five-minute briefing in plain prose — no bullet soup, no hot takes.',
+      actions: '<a class="btn btn-primary" href="#/mb-quickstart">Quickstart ' + I('arrowR', 15) + '</a><a class="btn btn-secondary" href="#/g-digest">Read the write-up</a>',
+      meta: [['Sources', '41'], ['Median length', '740 words'], ['Runs', '63'], ['Stack', 'Python · cron']]
+    }) + '<div class="prose">' +
+      H(2, 'what-it-does', 'What it does') +
+      '<p>Every weekday it searches a fixed list of outlets outlet by outlet, dedupes stories that several sources are covering, ranks them against a short list of running threads, and writes a briefing that reads like a colleague summarizing the news — then emails it.</p>' +
+      cards([
+        { to: 'mb-quickstart', icon: 'bolt', t: 'Quickstart', d: 'Configure sources and schedule your first run.' },
+        { to: 'mb-architecture', icon: 'layers', t: 'Architecture', d: 'Collect, cluster, rank, write, deliver.' }
+      ]) +
+      H(2, 'configuration', 'Configuration') +
+      code('yaml', '# briefing.yaml\nschedule: "30 6 * * 1-5"\nmax_stories: 8\nvoice: plain\noutlets:\n  - name: "Associated Press"\n    weight: 1.0\n  - name: "Financial Times"\n    weight: 0.9\nthreads:\n  - "AI policy"\n  - "Energy grid"\ndeliver:\n  email: true', 'briefing.yaml') +
+      params([
+        ['schedule', 'string', 'req', '', 'Cron expression, evaluated in your local time zone.'],
+        ['max_stories', 'number', 'opt', '8', 'Upper bound after clustering. Quiet days produce fewer.'],
+        ['voice', 'string', 'opt', '"plain"', 'Writing register. <code>plain</code> avoids adjectives that editorialize.'],
+        ['outlets', 'Outlet[]', 'req', '', 'Sources to search, each with an optional ranking weight.'],
+        ['threads', 'string[]', 'opt', '[]', 'Ongoing stories to check for updates every run, even when quiet.'],
+        ['deliver.email', 'boolean', 'opt', 'true', 'Send the finished briefing by email as well as saving it.']
+      ], 'Briefing options') +
+      callout('note', 'Why a fixed outlet list', 'Open-ended web search drifts toward whatever ranks well that morning. Searching named outlets one by one makes the briefing reproducible and its blind spots visible.') +
+      '</div>';
+  });
+  page('mb-quickstart', { title: 'Quickstart', group: 'mb', crumbs: ['Projects', 'Morning Briefing'], updated: 'Aug 28, 2026', kind: 'doc', desc: 'Schedule your first briefing.' }, function () {
+    return docHead('Quickstart', 'Clone, configure your outlets, and let the scheduler do the rest.') + '<div class="prose">' +
+      H(2, 'install', 'Install') +
+      pmTabs({ npm: 'npx morning-briefing init', pnpm: 'pnpm dlx morning-briefing init', bun: 'bunx morning-briefing init' }) +
+      '<p>The init command writes a starter <code>briefing.yaml</code> with a dozen general-news outlets and no running threads.</p>' +
+      H(2, 'dry-run', 'Do a dry run') +
+      term('zsh — ~/briefing', 'morning-briefing run --dry', [
+        { c: 'dim', t: '  Searching 41 outlets…' },
+        { c: 'dim', t: '  132 articles → 19 clusters → 7 stories' },
+        { c: 'ok', t: '✓ Draft written to out/2026-09-30.md (712 words)' }
+      ]) +
+      H(2, 'schedule', 'Schedule it') +
+      steps([
+        ['Read the draft', '<p>Open the markdown file and check it against your own sense of the day. Tune weights before you tune prompts.</p>'],
+        ['Add your threads', '<p>List the two or three stories you follow closely. They’re checked every run, even on quiet days.</p>'],
+        ['Turn on delivery', '<p>Run <code>morning-briefing schedule</code>. It installs a user-level cron entry and prints it so nothing is hidden.</p>']
+      ]) +
+      callout('warning', 'Rate limits', 'Forty outlets means forty searches. Keep runs at least an hour apart while testing, or use <code>--dry</code> with cached results.') +
+      '</div>';
+  });
+  page('mb-architecture', { title: 'Architecture', group: 'mb', crumbs: ['Projects', 'Morning Briefing'], updated: 'Aug 21, 2026', kind: 'doc', desc: 'Collect, cluster, rank, write, deliver.' }, function () {
+    return docHead('Architecture', 'Five stages, each writing its output to disk so any run can be replayed from the middle.') + '<div class="prose">' +
+      H(2, 'pipeline', 'Pipeline') +
+      steps([
+        ['Collect', '<p>One search per outlet, restricted to the last 24 hours. Results are cached as JSON under <code>runs/&lt;date&gt;/collect</code>.</p>'],
+        ['Cluster', '<p>Headlines and ledes are embedded and grouped; a cluster needs two independent outlets to count as a story.</p>'],
+        ['Rank', '<p>Clusters are scored by outlet weight, coverage breadth and whether they touch a running thread.</p>'],
+        ['Write', '<p>The top stories go to the model with a strict house style: no bullets, no bolded summaries, opinion pieces labeled as opinion.</p>'],
+        ['Deliver', '<p>The briefing is saved as markdown and sent as a plain, single-column email.</p>']
+      ]) +
+      H(2, 'replay', 'Replaying a run') +
+      code('bash', 'morning-briefing run --from rank --date 2026-09-29', 'terminal') +
+      callout('tip', 'Debug from the middle', 'Most bad briefings are ranking problems, not writing problems. Replaying from <code>rank</code> costs nothing and isolates the stage that went wrong.') +
+      '</div>';
+  });
+  page('mb-changelog', { title: 'Changelog', group: 'mb', crumbs: ['Projects', 'Morning Briefing'], updated: 'Sep 02, 2026', kind: 'changelog', wide: true, desc: 'Morning Briefing releases.' }, function () {
+    return docHead('Changelog', 'Changes to the briefing pipeline and its house style.') + changelog([
+      { id: 'sep-02', v: '2026.09.02', date: 'Sep 02, 2026', iso: '2026-09-02', title: 'Running threads', shot: 'digest', cap: 'Thread updates now appear as a short closing section.', body: 'The briefing now keeps track of ongoing stories and reports on them even when they fall below the ranking cut.', items: [['new', '<code>threads</code> config with a closing “Still developing” section.'], ['improved', 'Opinion pieces are labeled inline instead of being dropped.']] },
+      { id: 'aug-14', v: '2026.08.14', date: 'Aug 14, 2026', iso: '2026-08-14', title: 'Two-source rule', body: 'A story now needs coverage from two independent outlets before it can lead. Single-source scoops are held a day.', items: [['improved', 'Cluster threshold raised to two outlets.'], ['fixed', 'Wire stories republished by multiple outlets no longer count as independent coverage.']] },
+      { id: 'jul-28', v: '2026.07.28', date: 'Jul 28, 2026', iso: '2026-07-28', title: 'First scheduled run', body: 'The first briefing arrived at 6:31 a.m. It was 1,900 words long, which was the first bug.', items: [['new', 'Collect, cluster, rank, write and deliver stages.'], ['fixed', 'Word budget enforced at the writing stage.']] }
+    ]);
+  });
+
+  /* ---------- Style Tiles ---------- */
+  page('st-overview', { title: 'Overview', group: 'st', crumbs: ['Projects', 'Style Tiles'], updated: 'Sep 30, 2026', kind: 'doc', desc: 'Design directions for this site as single HTML files.' }, function () {
+    return hero({
+      eyebrow: 'Exploration · in progress',
+      title: 'Style Tiles',
+      lede: 'Before redesigning this site, I built its possible futures: many directions, each a single self-contained HTML file, compared side by side in the browser instead of in a slide deck.',
+      actions: '<a class="btn btn-primary" href="index.html">Open the index ' + I('arrowR', 15) + '</a><a class="btn btn-secondary" href="#/design-system">This tile’s tokens</a>',
+      meta: [['Tiles', '25'], ['Files', '1 each'], ['Build step', 'none'], ['You are here', 'D/5']]
+    }) + '<div class="prose">' +
+      H(2, 'why', 'Why tiles') +
+      '<p>A style tile sits between a mood board and a mockup: real type, real color, real components, but no commitment to a full layout. Building them as live pages means interaction and motion get judged too, not just screenshots.</p>' +
+      H(2, 'families', 'Families') +
+      '<ul><li><strong>Product UI</strong> — minimal, modern and polished. This docs tile is the fourth of five.</li><li><strong>Editorial</strong> — newspaper, museum and Swiss grids.</li><li><strong>Nostalgia</strong> — the web of 2000 to 2005, taken seriously.</li></ul>' +
+      callout('tip', 'Leave comments', 'Every tile is reviewed through claude-feedback, so the notes that shaped each direction live next to the file they describe.') +
+      '</div>';
+  });
+  page('st-quickstart', { title: 'Quickstart', group: 'st', crumbs: ['Projects', 'Style Tiles'], updated: 'Sep 30, 2026', kind: 'doc', desc: 'Serve the tiles locally.' }, function () {
+    return docHead('Quickstart', 'Serve the folder and open the index. There is nothing to build.') + '<div class="prose">' +
+      H(2, 'serve', 'Serve the folder') +
+      pmTabs({ npm: 'npx serve tiles --listen 8080', pnpm: 'pnpm dlx serve tiles --listen 8080', bun: 'bunx serve tiles --listen 8080' }) +
+      H(2, 'review', 'Review through the proxy') +
+      term('zsh — ~/personal-site', 'open http://localhost:4599/8080/', [
+        { c: 'dim', t: '  Opening index.html through claude-feedback…' },
+        { c: 'ok', t: '✓ 25 tiles · comment dock ready' }
+      ]) +
+      callout('note', 'One file per tile', 'Each tile inlines its CSS and JavaScript and may load fonts from Google Fonts. That keeps them portable and makes comparisons fair.') +
+      '</div>';
+  });
+  page('st-architecture', { title: 'Architecture', group: 'st', crumbs: ['Projects', 'Style Tiles'], updated: 'Sep 30, 2026', kind: 'doc', desc: 'Conventions every tile follows.' }, function () {
+    return docHead('Architecture', 'Not much architecture — mostly conventions that keep twenty-five files comparable.') + '<div class="prose">' +
+      H(2, 'conventions', 'Conventions') +
+      params([
+        ['corner label', 'string', 'req', '', 'A fixed label naming the family and position, linking back to the index.'],
+        ['sample content', 'string[]', 'req', '', 'The same three posts and three projects in every tile, so only the design varies.'],
+        ['breakpoint', 'number', 'req', '375', 'Every tile must work at phone width with no horizontal page scroll.'],
+        ['motion', 'boolean', 'opt', 'true', 'Animations must respect <code>prefers-reduced-motion</code>.']
+      ], 'Tile conventions') +
+      H(2, 'closing-tags', 'The closing-tag rule') +
+      '<p>The review proxy injects a script before the closing body tag. A tile that mentions that tag inside a string would get the script injected mid-code, so literal closing tags in scripts are always escaped.</p>' +
+      code('js', 'const snippet = "<\\/body>"; // escaped: the proxy can’t match it', 'tile.html') +
+      '</div>';
+  });
+  page('st-changelog', { title: 'Changelog', group: 'st', crumbs: ['Projects', 'Style Tiles'], updated: 'Sep 30, 2026', kind: 'changelog', wide: true, desc: 'Style Tiles additions.' }, function () {
+    return docHead('Changelog', 'New tiles and revisions, most recent first.') + changelog([
+      { id: 'product-ui', v: 'set 03', date: 'Sep 30, 2026', iso: '2026-09-30', title: 'Product UI family', shot: 'tiles', cap: 'Five variations in a minimal, product-grade direction.', body: 'Five directions inspired by the calm, dense clarity of modern product tools. This page is variation D.', items: [['new', 'Docs and changelog variation (you’re reading it).'], ['improved', 'Shared sample content tightened across all tiles.']] },
+      { id: 'editorial', v: 'set 02', date: 'Sep 16, 2026', iso: '2026-09-16', title: 'Editorial family', body: 'Newspaper, museum and Swiss-grid directions that treat the blog as the main event.', items: [['new', 'Newspaper, museum and Swiss tiles.'], ['fixed', 'Drop caps no longer collide with floated figures at tablet widths.']] },
+      { id: 'nostalgia', v: 'set 01', date: 'Sep 04, 2026', iso: '2026-09-04', title: 'Nostalgia family', body: 'The first batch: early-2000s interfaces rebuilt with modern accessibility.', items: [['new', 'Windows 2000, Aqua and Flash-era tiles.']] }
+    ]);
+  });
+
+  /* ---------- Guides ---------- */
+  function guide(p, bodyFn) {
+    page(p.id, { title: p.title, crumbs: ['Writing'], updated: p.date.replace(/(\w{3})\w* (\d+), (\d+)/, '$1 $2, $3'), kind: 'guide', desc: p.dek, post: p }, function () {
+      return '<header class="guide-head"><span class="guide-kicker">' + I('pen', 14) + 'Guide</span><h1>' + p.title + '</h1><p class="guide-dek">' + p.dek + '</p>' + byline(p.date, p.iso, p.mins) + '</header><div class="prose reading">' + bodyFn() + '</div>';
+    });
+  }
+  guide(POSTS[0], function () {
+    return '<p>For a year my design feedback lived in chat. I’d look at a prototype, switch windows, and type something like “the second card’s price wraps weirdly on mobile.” The agent would guess which card, which breakpoint and which kind of weird, and it would guess wrong often enough that I started attaching screenshots by hand.</p>' +
+      '<p>That workflow has three leaks: location, state and intent. Chat carries only the last one. claude-feedback is my attempt to plug the other two without adding a single step to how I already review.</p>' +
+      H(2, 'problem', 'The problem with feedback in chat') +
+      '<p>When I point at something on a screen, I’m pointing at a rendered pixel, at a specific viewport, after specific interactions. By the time that becomes a sentence, all of that has been compressed into nouns. “The second card” is only unambiguous to the person who saw it.</p>' +
+      '<p>Design tools solved this long ago with pinned comments. Prototypes built by agents live on localhost, though, and localhost has no comment layer.</p>' +
+      H(2, 'why-a-proxy', 'Why a proxy, not an extension') +
+      '<p>My first version was a browser extension. It worked in exactly one browser and none of the embedded preview panes agents use. A proxy works everywhere a URL does: any browser, a phone on the same network, a teammate’s laptop through a tunnel.</p>' +
+      '<p>The cost is one rewrite per HTML response. The proxy finds the closing body tag and inserts a script before it:</p>' +
+      code('ts', 'const at = html.lastIndexOf("<\/body>");\nif (at === -1) return html;\nreturn html.slice(0, at) + OVERLAY_TAG + html.slice(at);', 'inject.ts') +
+      H(2, 'anchoring', 'Anchoring comments to something that moves') +
+      '<p>Prototypes change constantly; that’s the point of them. A comment pinned to coordinates drifts the moment the layout shifts. A comment pinned to a CSS selector breaks the moment a class is renamed.</p>' +
+      '<p>I store both, plus a short fingerprint of the element’s text. When the page reloads, the overlay tries the selector, falls back to the fingerprint, and only then to coordinates. In practice the fingerprint rescues most comments that would otherwise be orphaned.</p>' +
+      '<blockquote class="quote"><p>The screenshot is the source of truth. Everything else is an attempt to find that moment again.</p><cite>— design note, v0.2</cite></blockquote>' +
+      H(2, 'closing-the-loop', 'Closing the loop') +
+      '<p>The part I underestimated was resolution. Early on, comments piled up forever because nothing marked them done. Now the agent writes <code>resolved: true</code> after a fix, and the dock fades that pin. Review becomes a queue that empties, which turns out to matter more than any feature in the overlay itself.</p>' +
+      callout('tip', 'Try this', 'Leave comments in the voice you’d use with a colleague sitting next to you. Agents act on intent far better than on terse instructions.') +
+      H(2, 'differently', 'What I’d do differently') +
+      '<ul><li>Start with resolution, not creation. A comment system is only as good as its ability to become empty.</li><li>Ship the screenshot on day one. Every other anchoring trick is a fallback for it.</li><li>Keep the store a plain file for as long as possible. Being able to read it with <code>cat</code> has saved me more debugging time than any UI.</li></ul>';
+  });
+  guide(POSTS[1], function () {
+    return '<p>Morning Briefing started as a favor. A colleague wanted a short, sober summary of the news waiting in their inbox at 6:30 every weekday, written the way a well-read friend would explain it over coffee. Six weeks and sixty-three runs later, here is what I’d tell anyone building something similar.</p>' +
+      H(2, 'search-is-the-product', 'Search is the product') +
+      '<p>I spent the first week tuning the writing prompt. That was the wrong week. When a briefing was bad, it was almost always because the right story never made it into the context. The model can’t summarize what it wasn’t shown.</p>' +
+      '<p>The fix was unglamorous: search each outlet by name, one at a time, restricted to the last day. It’s slower and it costs more calls, but the results are reproducible, and when something is missing I can see which outlet didn’t have it.</p>' +
+      H(2, 'ranking', 'Ranking without a newsroom') +
+      '<p>A story leads if it’s covered by at least two independent outlets, weighted by how much I trust each source for that subject. Wire copy republished in six places counts once. That single rule removed most of the week-one noise.</p>' +
+      params([
+        ['coverage', 'number', 'req', '', 'Independent outlets covering the cluster. Two or more to lead.'],
+        ['weight', 'number', 'opt', '1.0', 'Per-outlet trust, set by hand and revisited monthly.'],
+        ['thread', 'boolean', 'opt', 'false', 'Boost for stories that update a running thread.']
+      ], 'Ranking signals') +
+      H(2, 'voice', 'Writing in a voice people trust') +
+      '<p>The house style is mostly a list of prohibitions: no bullet points, no bolded summary sentences, no adjectives that tell the reader how to feel. Opinion pieces are labeled as opinion in the same sentence that cites them. The result reads plainer than most newsletters, and that plainness is why it gets read.</p>' +
+      '<blockquote class="quote"><p>If a sentence would still be true with the adjective removed, remove the adjective.</p><cite>— house style, rule 4</cite></blockquote>' +
+      H(2, 'failure-modes', 'Failure modes') +
+      '<ul><li><strong>Quiet days.</strong> The agent padded thin news with background. Now a quiet day produces a short briefing, and says so.</li><li><strong>Stale threads.</strong> Running stories were re-summarized from scratch. They now open with what changed since yesterday.</li><li><strong>Length creep.</strong> The first run was 1,900 words. A hard budget at the writing stage fixed it; asking nicely did not.</li></ul>' +
+      H(2, 'lessons', 'Lessons') +
+      '<ol><li>Write every stage’s output to disk. Replaying from the middle is how you debug.</li><li>Fix recall before you polish prose.</li><li>Constraints in code beat constraints in prompts.</li><li>Ask the reader what they skipped. It’s better feedback than what they read.</li></ol>';
+  });
+  guide(POSTS[2], function () {
+    return '<p>Most interface motion I remove is motion that was added to make something feel finished. The motion I keep has a job: it shows where something came from, confirms that an action happened, or keeps you oriented while the screen changes. These are the notes I’ve collected on the difference.</p>' +
+      H(2, 'motion-is-feedback', 'Motion is feedback') +
+      '<p>A button that depresses by one pixel when pressed tells you the press registered before the network does. A panel that slides from the edge it lives on tells you how to dismiss it. Neither is decoration; both are answers to a question the user didn’t have to ask.</p>' +
+      H(2, 'durations', 'Durations I actually use') +
+      '<p>I keep a short scale and resist adding to it. Almost everything fits one of four values:</p>' +
+      params([
+        ['instant', 'number', 'opt', '120ms', 'Hover and press states. Anything slower feels laggy under a cursor.'],
+        ['small', 'number', 'opt', '180ms', 'Menus, tooltips, toggles — elements under about 200px.'],
+        ['panel', 'number', 'opt', '280ms', 'Drawers, dialogs and anything that crosses a large distance.'],
+        ['page', 'number', 'opt', '320ms', 'Route transitions, split into a quick exit and a slower entrance.']
+      ], 'Duration scale') +
+      H(2, 'easing', 'Easing') +
+      '<p>Entrances decelerate; exits accelerate. I use one strong ease-out for nearly everything that appears and let exits run about half as long. Symmetric easing on both is the most common reason an otherwise good transition feels mechanical.</p>' +
+      code('css', '--ease-out: cubic-bezier(.16, 1, .3, 1);\n\n.panel { transition: transform 280ms var(--ease-out); }\n.panel.is-closing { transition-duration: 140ms; }', 'motion.css') +
+      H(2, 'reduced-motion', 'Reduced motion is a design, not a switch') +
+      '<p>Honoring <code>prefers-reduced-motion</code> doesn’t mean deleting feedback. Swap movement for opacity, keep state changes visible, and make sure nothing important is conveyed only through motion. A typing animation should show its full text immediately; a sliding indicator can simply appear in place.</p>' +
+      callout('note', 'A useful test', 'Turn on reduced motion and use your product for a day. Anything that feels broken was relying on motion to communicate.') +
+      H(2, 'checklist', 'A short checklist') +
+      '<ol><li>Does this motion answer a question the user has right now?</li><li>Does it start from where the element lives?</li><li>Is the exit faster than the entrance?</li><li>Does it still make sense with motion reduced?</li></ol>';
+  });
+
+  /* ---------- About ---------- */
+  page('about', { title: 'About', crumbs: ['About'], updated: 'Sep 28, 2026', kind: 'doc', desc: 'Who writes this site and what they’re working on.' }, function () {
+    return '<header class="doc-head" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><span class="avatar" style="width:64px;height:64px;font-size:20px" aria-hidden="true">ZC</span><div><h1 style="margin:0 0 6px">About</h1><p class="lede" style="margin:0">Designer and builder. I make small tools that shorten the distance between an idea and a working prototype.</p></div></header>' +
+      '<div class="prose">' +
+      H(2, 'now', 'Now') +
+      '<p>I’m redesigning this site in public through <a href="#/st-overview">Style Tiles</a>, shipping <a href="#/cf-changelog">claude-feedback</a> releases every couple of weeks, and keeping <a href="#/mb-overview">Morning Briefing</a> honest one run at a time.</p>' +
+      H(2, 'principles', 'How I work') +
+      '<ul><li>Prototype in the real medium. A working page settles arguments a mockup starts.</li><li>Write the docs first. If the quickstart is awkward, the product is.</li><li>Keep changelogs honest, including the fixes that were my fault.</li></ul>' +
+      H(2, 'contact', 'Contact') +
+      '<p>The best way to reach me is an issue on any project’s repository. I read all of them, usually within a day.</p>' +
+      '<div class="hero-actions"><a class="btn btn-secondary" href="https://github.com/" target="_blank" rel="noopener">' + GH(15) + 'GitHub</a><a class="btn btn-ghost" href="#/intro">Back to welcome</a></div>' +
+      '</div>';
+  });
+
+  /* ---------- Design system ---------- */
+  var SW = [
+    ['Ink', '--fg', '#18181B', '#EDEDEF'], ['Body', '--fg-body', '#3F3F46', '#C9C9CF'], ['Muted', '--fg-muted', '#52525B', '#A1A1AA'], ['Subtle', '--fg-subtle', '#6B6B74', '#8B8B94'],
+    ['Paper', '--bg', '#FFFFFF', '#0A0A0B'], ['Surface', '--bg-muted', '#F4F4F5', '#18181B'], ['Line', '--border', '#E8E8EB', '#232327'], ['Accent', '--accent', '#3B50D6', '#8B9CFF'],
+    ['Note', '--note', '#2563EB', '#60A5FA'], ['Tip', '--tip', '#15803D', '#4ADE80'], ['Warning', '--warn', '#B45309', '#FBBF24'], ['Danger', '--danger', '#DC2626', '#F87171']
+  ];
+  page('design-system', { title: 'Design system', crumbs: ['Introduction'], updated: 'Sep 30, 2026', kind: 'doc', wide: true, desc: 'Palette, type, texture and components.' }, function () {
+    var sw = SW.map(function (s) {
+      return '<button class="swatch" data-hex-l="' + s[2] + '" data-hex-d="' + s[3] + '" aria-label="Copy ' + s[0] + ' color, token ' + s[1] + '"><span class="chipc" style="background:var(' + s[1] + ')"></span><span class="sw-t"><span class="sw-n">' + s[0] + '</span><span class="sw-v">' + s[1] + '</span><span class="sw-v"><b>' + s[2] + '</b> · ' + s[3] + '</span></span></button>';
+    }).join('');
+    var ui = [['Display', '40 / 44 · 600', 'font:600 40px/1.1 var(--font-ui);letter-spacing:-.035em', 'Ship the docs first'], ['Title', '28 / 34 · 600', 'font:600 28px/1.2 var(--font-ui);letter-spacing:-.025em', 'Quickstart'], ['Heading', '20 / 28 · 600', 'font:600 20px/1.4 var(--font-ui);letter-spacing:-.015em', 'Request lifecycle'], ['Body', '15 / 24 · 400', 'font:400 15px/1.6 var(--font-ui);color:var(--fg-body)', 'Comments are keyed by URL, so one proxy serves every prototype.'], ['Small', '13 / 20 · 500', 'font:500 13px/1.5 var(--font-ui);color:var(--fg-muted)', 'Last updated Sep 24, 2026']];
+    var read = [['Dek', '21 / 32', 'font:400 21px/1.5 var(--font-read);color:var(--fg-muted)', 'Six weeks of briefings taught me that search is the product.'], ['Reading', '19 / 33', 'font:400 19px/1.72 var(--font-read);color:var(--fg-body)', 'The screenshot is the source of truth. Everything else is an attempt to find that moment again.'], ['Quote', '24 / 35 italic', 'font:italic 400 24px/1.45 var(--font-read)', 'Remove the adjective.']];
+    var mono = [['Code', '13 / 22 · 400', 'font:400 13px/22px var(--font-mono)', 'const at = html.lastIndexOf(tag);'], ['Label', '12 / 16 · 500', 'font:500 12px/1.3 var(--font-mono);color:var(--fg-muted)', 'v2026.09 · :4599 · resolved: true']];
+    function spec(name, fam, note, rows) {
+      return '<div class="specimen"><div class="spec-head"><b>' + name + '</b>' + fam + '<span class="mono">' + note + '</span></div>' + rows.map(function (r) {
+        return '<div class="spec-row"><span class="sz">' + r[0] + '<br>' + r[1] + '</span><span class="sm" style="' + r[2] + '">' + esc(r[3]) + '</span></div>';
+      }).join('') + '</div>';
+    }
+    return docHead('Design system', 'The tokens, type and components this site is built from. Everything here is live — toggle the theme and every value follows.') + '<div class="prose">' +
+      H(2, 'color', 'Color') +
+      '<p>A near-neutral zinc scale does almost all the work. One ink-blue accent marks the current location and primary actions; four semantic colors are reserved for callouts and changelog chips. Click a swatch to copy its hex for the current theme.</p>' +
+      '<div class="swatches">' + sw + '</div>' +
+      H(2, 'typography', 'Typography') +
+      '<p>Three families, each with one job: a geometric sans for interface, a text serif for long reading, and a mono for anything you might paste into a terminal.</p>' +
+      spec('UI Sans', ' · Geist', 'var(--font-ui)', ui) +
+      spec('Reading', ' · Newsreader', 'var(--font-read)', read) +
+      spec('Mono', ' · Geist Mono', 'var(--font-mono)', mono) +
+      H(2, 'texture', 'Texture') +
+      '<p>Texture stays behind content: grids for technical surfaces, dots for canvases, and a single noise gradient reserved for project heroes.</p>' +
+      '<div class="textures"><div class="tex tex-grid"><span>Grid · 20px</span></div><div class="tex tex-dots"><span>Dots · 14px</span></div><div class="tex tex-noise"><span>Noise gradient</span></div></div>' +
+      H(2, 'components', 'Components') +
+      H(3, 'site-nav', 'Site nav') +
+      '<div class="ds-panel"><div class="mini-nav"><span class="wordmark"><span class="logo" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2.25h8L2 9.75h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Z. Christensen</span><span class="mn-links"><span class="on">Docs</span><span>Guides</span><span>Changelog</span></span><span class="mn-search">' + I('search', 13) + 'Search<kbd>' + MOD + '</kbd><kbd>K</kbd></span></div></div>' +
+      H(3, 'post-list-item', 'Post list item') +
+      '<div class="ds-panel"><div class="ds-post">' + postList([POSTS[0]]) + '</div></div>' +
+      H(3, 'project-card', 'Project card') +
+      '<div class="ds-panel"><div class="cards" style="margin:0"><a class="card proj-card" href="#/cf-overview"><span class="proj-top"><span class="proj-mark" style="background:#3b50d6">' + I('cube', 16) + '</span><span class="chip chip-new status">Active</span></span><span class="card-t">claude-feedback</span><span class="card-d">A comment-overlay proxy for reviewing local prototypes.</span><span class="proj-meta"><span><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span><span>' + I('star', 13) + '1.2k</span></span></a>' +
+      '<a class="card proj-card" href="#/mb-overview"><span class="proj-top"><span class="proj-mark" style="background:#d97706">' + I('news', 16) + '</span><span class="chip chip-improved status">Daily</span></span><span class="card-t">Morning Briefing</span><span class="card-d">An automated daily news digest, written before breakfast.</span><span class="proj-meta"><span><span class="lang-dot" style="background:#3572a5"></span>Python</span><span>' + I('star', 13) + '318</span></span></a></div></div>' +
+      H(3, 'buttons', 'Buttons') +
+      '<div class="ds-panel">' + [['Primary', 'btn-primary'], ['Secondary', 'btn-secondary'], ['Ghost', 'btn-ghost']].map(function (b) {
+        return '<p class="ds-label">' + b[0].toLowerCase() + '</p><div class="ds-row"><button class="btn ' + b[1] + '">Default</button><button class="btn ' + b[1] + ' is-hover" tabindex="-1">Hover</button><button class="btn ' + b[1] + ' is-active" tabindex="-1">Active</button><button class="btn ' + b[1] + ' is-focus" tabindex="-1">Focus</button><button class="btn ' + b[1] + '" disabled>Disabled</button></div>';
+      }).join('') + '</div>' +
+      H(3, 'badges', 'Badges and chips') +
+      '<div class="ds-panel"><p class="ds-label">changelog</p><div class="ds-row"><span class="chip chip-new">New</span><span class="chip chip-improved">Improved</span><span class="chip chip-fixed">Fixed</span><span class="chip chip-plain">5 releases</span></div>' +
+      '<p class="ds-label">types &amp; versions</p><div class="ds-row"><span class="tpill t-str">string</span><span class="tpill t-num">number</span><span class="tpill t-bool">boolean</span><span class="tpill t-arr">string[]</span><span class="tpill t-fn">(c) =&gt; void</span><span class="ver-tag is-latest">' + I('tag', 12) + 'v0.4.2</span><span class="ver-tag">' + I('tag', 12) + 'v0.4.0</span><span class="pill-latest">Latest</span></div></div>' +
+      H(3, 'code-block', 'Code block') +
+      code('ts', 'export function isOpen(c: Comment): boolean {\n  return !c.resolved && c.url.startsWith(SESSION_URL);\n}', 'src/filter.ts') +
+      H(3, 'quote', 'Quote') +
+      '<blockquote class="quote" style="margin:16px 0"><p>If the quickstart is awkward, the product is.</p><cite>— Z. Christensen</cite></blockquote>' +
+      H(3, 'links', 'Links') +
+      '<div class="ds-panel link-demo"><p class="ds-label">rest · hover</p><p style="margin:0">Read the <a class="link" href="#/g-overlay">comment overlay guide</a> or jump to the <a class="link is-hover" href="#/cf-changelog">latest release</a>.</p></div>' +
+      H(3, 'keys', 'Keyboard keys') +
+      '<div class="ds-panel"><div class="ds-row"><span class="ds-row" style="gap:4px"><kbd>' + MOD + '</kbd><kbd>K</kbd></span><span style="font-size:13px;color:var(--fg-muted)">Search</span><span class="ds-row" style="gap:4px;margin-left:12px"><kbd>/</kbd></span><span style="font-size:13px;color:var(--fg-muted)">Search</span><span class="ds-row" style="gap:4px;margin-left:12px"><kbd>↑</kbd><kbd>↓</kbd><kbd>↵</kbd></span><span style="font-size:13px;color:var(--fg-muted)">Navigate results</span><span class="ds-row" style="gap:4px;margin-left:12px"><kbd>C</kbd></span><span style="font-size:13px;color:var(--fg-muted)">Comment</span></div></div>' +
+      H(3, 'callouts', 'Callouts') +
+      callout('note', 'Note', 'Neutral context the reader should know.') +
+      callout('tip', 'Tip', 'A shortcut or a better way.') +
+      callout('warning', 'Warning', 'Something that can surprise you.') +
+      callout('danger', 'Danger', 'Something that can cost you data or security.') +
+      '</div>';
+  });
+
+  /* ================= Navigation model ================= */
+  var MOD = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘' : 'Ctrl';
+  var NAV = [
+    { label: 'Introduction', items: [['intro', 'Welcome', 'sparkle'], ['design-system', 'Design system', 'palette']] },
+    { label: 'Projects', groups: ['cf', 'mb', 'st'] },
+    { label: 'Writing', cls: 'nav-writing', items: POSTS.map(function (p) { return [p.id, p.title, 'doc']; }) },
+    { label: 'About', items: [['about', 'About Z.', 'user']] }
+  ];
+  var ORDER = [];
+  NAV.forEach(function (s) {
+    if (s.items) s.items.forEach(function (it) { ORDER.push(it[0]); });
+    if (s.groups) s.groups.forEach(function (g) { SUB.forEach(function (sb) { ORDER.push(g + '-' + sb[0]); }); });
+  });
+  function pageLabel(id) {
+    var p = PAGES[id];
+    return p.group ? PROJ[p.group].title + ' · ' + p.title : p.title;
+  }
+
+  function renderNav() {
+    var html = NAV.map(function (s) {
+      var out = '<div class="nav-sec ' + (s.cls || '') + '"><span class="nav-label">' + s.label + '</span><ul class="nav-list">';
+      if (s.items) out += s.items.map(function (it) { return '<li><a class="nav-link" href="#/' + it[0] + '" data-id="' + it[0] + '">' + I(it[2], 15) + '<span>' + it[1] + '</span></a></li>'; }).join('');
+      if (s.groups) out += s.groups.map(function (g) {
+        var pr = PROJ[g];
+        return '<li><button class="nav-group-btn" aria-expanded="false" aria-controls="sub-' + g + '" data-group="' + g + '"><span class="gdot" style="background:' + pr.color + '" aria-hidden="true"></span><span>' + pr.title + '</span><span class="nbadge">' + pr.badge + '</span>' + I('chevR', 14, 'chev') + '</button>' +
+          '<ul class="nav-sub" id="sub-' + g + '" hidden>' + SUB.map(function (sb) { return '<li><a class="nav-link" href="#/' + g + '-' + sb[0] + '" data-id="' + g + '-' + sb[0] + '"><span>' + sb[1] + '</span></a></li>'; }).join('') + '</ul></li>';
+      }).join('');
+      return out + '</ul></div>';
+    }).join('');
+    $('#nav').innerHTML = html;
+    $$('.nav-group-btn').forEach(function (b) {
+      b.addEventListener('click', function () { setGroup(b.dataset.group, b.getAttribute('aria-expanded') !== 'true'); });
+    });
+  }
+  function setGroup(g, open) {
+    var b = $('.nav-group-btn[data-group="' + g + '"]'); if (!b) return;
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    $('#sub-' + g).hidden = !open;
+  }
+  function markNav(id) {
+    $$('.nav-link').forEach(function (a) { if (a.dataset.id === id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    var p = PAGES[id]; if (p && p.group) setGroup(p.group, true);
+  }
+
+  /* ================= Router ================= */
+  var current = null, first = true;
+  var pageEl = $('#page');
+  function parse() {
+    var h = (location.hash || '').replace(/^#\/?/, '');
+    var parts = h.split('/');
+    var id = PAGES[parts[0]] ? parts[0] : null;
+    return { id: id, anchor: id ? (parts[1] || '') : '' };
+  }
+  function footer(id) {
+    var p = PAGES[id], i = ORDER.indexOf(id);
+    var prev = ORDER[i - 1], next = ORDER[i + 1];
+    return '<footer class="page-foot"><div class="pf-row"><div class="helpful" data-fb="' + id + '"><span id="fbq-' + id + '">Was this helpful?</span><span class="hb" role="group" aria-labelledby="fbq-' + id + '"><button class="hbtn" aria-pressed="false" data-v="up" aria-label="Yes, this was helpful">' + I('thumbUp', 16) + '</button><button class="hbtn" aria-pressed="false" data-v="down" aria-label="No, this was not helpful">' + I('thumbDown', 16) + '</button></span></div>' +
+      '<div class="pf-meta"><a href="https://github.com/" target="_blank" rel="noopener">' + I('edit', 14) + 'Edit this page</a><span>Last updated <time>' + p.updated + '</time></span></div></div>' +
+      '<nav class="pager" aria-label="Previous and next pages">' +
+      (prev ? '<a class="prev" href="#/' + prev + '"><span class="pg-k">' + I('arrowL', 14) + 'Previous</span><span class="pg-t">' + pageLabel(prev) + '</span></a>' : '') +
+      (next ? '<a class="next" href="#/' + next + '"><span class="pg-k">Next' + I('arrowR', 14) + '</span><span class="pg-t">' + pageLabel(next) + '</span></a>' : '') +
+      '</nav><div class="site-foot"><span>© 2026 Z. Christensen</span><span>Docs <span class="mono">v2026.09</span> · Built by hand, no framework</span></div></footer>';
+  }
+  function crumbs(p) {
+    var c = p.crumbs.slice();
+    var items = c.map(function (x, i) {
+      if (i === 1 && p.group) return '<li><a href="#/' + p.group + '-overview">' + x + '</a></li>';
+      return '<li>' + x + '</li>';
+    });
+    items.push('<li aria-current="page">' + p.title + '</li>');
+    return '<nav class="crumbs" aria-label="Breadcrumb"><ol>' + items.join('') + '</ol></nav>';
+  }
+  function renderPage(id) {
+    var p = PAGES[id];
+    CUR = id;
+    pageEl.className = 'page' + (p.kind === 'guide' ? ' is-guide' : '') + (p.wide ? ' is-wide' : '');
+    pageEl.innerHTML = crumbs(p) + p.render() + footer(id);
+    document.title = pageLabel(id) + ' — Z. Christensen Docs';
+    markNav(id);
+    buildToc();
+    initPage();
+  }
+  function go(target, fromHash) {
+    var r = target || parse();
+    if (!r.id) { r = { id: 'cf-overview', anchor: '' }; history.replaceState(null, '', '#/cf-overview'); }
+    closeDrawer();
+    if (r.id === current) { scrollToAnchor(r.anchor, true); return; }
+    var swap = function () {
+      renderPage(r.id);
+      current = r.id;
+      if (r.anchor) scrollToAnchor(r.anchor, false); else window.scrollTo(0, 0);
+      if (!first) { try { $('#main').focus({ preventScroll: true }); } catch (e) { $('#main').focus(); } }
+      first = false;
+    };
+    if (first || reduced()) { swap(); return; }
+    pageEl.classList.add('is-leaving');
+    setTimeout(function () {
+      pageEl.classList.remove('is-leaving');
+      pageEl.classList.add('is-entering');
+      swap();
+      requestAnimationFrame(function () { requestAnimationFrame(function () { pageEl.classList.remove('is-entering'); }); });
+    }, 140);
+  }
+  function scrollToAnchor(a, smooth) {
+    if (!a) { window.scrollTo({ top: 0, behavior: smooth && !reduced() ? 'smooth' : 'auto' }); return; }
+    var el = document.getElementById(a);
+    if (el) el.scrollIntoView({ behavior: smooth && !reduced() ? 'smooth' : 'auto', block: 'start' });
+  }
+  window.addEventListener('hashchange', function () { go(null, true); });
+
+  /* ================= TOC + scroll spy ================= */
+  var heads = [], activeId = null;
+  function buildToc() {
+    heads = $$('h2.hx, h3.hx', pageEl);
+    var links = heads.map(function (h) {
+      return '<a href="#/' + CUR + '/' + h.id + '" data-to="' + h.id + '" class="lvl' + h.tagName.charAt(1) + '">' + esc(h.dataset.t) + '</a>';
+    }).join('');
+    $('#toc').innerHTML = '<span class="toc-ind" aria-hidden="true"></span>' + links;
+    $('#tocMPanel').innerHTML = links;
+    $('#tocM').classList.toggle('is-empty', !heads.length);
+    $('.toc').style.visibility = heads.length ? '' : 'hidden';
+    $('#tocExtra').innerHTML = '<a href="https://github.com/" target="_blank" rel="noopener">' + I('edit', 14) + 'Edit this page</a><button type="button" id="toTop">' + I('up', 14) + 'Back to top</button>';
+    $('#toTop').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }); $('#main').focus({ preventScroll: true }); });
+    $$('#toc a, #tocMPanel a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.replaceState(null, '', a.getAttribute('href'));
+        scrollToAnchor(a.dataset.to, true);
+        setTocOpen(false);
+        var h = document.getElementById(a.dataset.to);
+        if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+      });
+    });
+    activeId = null;
+    spy();
+  }
+  function setActive(id) {
+    if (id === activeId) return;
+    activeId = id;
+    $$('#toc a, #tocMPanel a').forEach(function (a) {
+      var on = a.dataset.to === id;
+      a.classList.toggle('is-active', on);
+      if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+    });
+    var link = $('#toc a[data-to="' + id + '"]'), ind = $('#toc .toc-ind');
+    if (link && ind) {
+      ind.style.opacity = '1';
+      ind.style.transform = 'translateY(' + link.offsetTop + 'px)';
+      ind.style.height = link.offsetHeight + 'px';
+    }
+    var h = document.getElementById(id);
+    $('#tocMCur').textContent = h ? h.dataset.t : '';
+  }
+  var spyQueued = false;
+  function spy() {
+    if (!heads.length) return;
+    var line = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar'), 10) + 64;
+    var cur = heads[0];
+    for (var i = 0; i < heads.length; i++) {
+      if (heads[i].getBoundingClientRect().top - line <= 0) cur = heads[i]; else break;
+    }
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+      var last = heads[heads.length - 1];
+      if (last.getBoundingClientRect().top < window.innerHeight) cur = last;
+    }
+    setActive(cur.id);
+  }
+  window.addEventListener('scroll', function () {
+    if (spyQueued) return; spyQueued = true;
+    requestAnimationFrame(function () { spyQueued = false; spy(); });
+  }, { passive: true });
+  window.addEventListener('resize', function () { activeId = null; spy(); $$('.codetabs').forEach(moveInd); });
+
+  function setTocOpen(open) {
+    $('#tocMBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
+    $('#tocMPanel').hidden = !open;
+  }
+  $('#tocMBtn').insertAdjacentHTML('beforeend', I('chevD', 15));
+  $('#tocMBtn').addEventListener('click', function () { setTocOpen($('#tocMBtn').getAttribute('aria-expanded') !== 'true'); });
+
+  /* ================= Page components ================= */
+  var pm = store('zc-docs-pm') || 'npm';
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { io.unobserve(en.target); runTerm(en.target); } });
+  }, { threshold: 0.45 }) : null;
+
+  function initPage() {
+    // copy buttons
+    $$('[data-copy]', pageEl).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var box = b.closest('.code, .codetabs, .term');
+        var text;
+        if (box.classList.contains('term')) text = TERMS[box.dataset.term].cmd;
+        else if (box.classList.contains('codetabs')) text = $('.ct-panel:not([hidden]) code', box).textContent;
+        else text = $('pre code', box).textContent;
+        copy(text).then(function () {
+          b.classList.add('is-copied'); b.querySelector('span').textContent = 'Copied';
+          setTimeout(function () { b.classList.remove('is-copied'); b.querySelector('span').textContent = 'Copy'; }, 1600);
+        });
+      });
+    });
+    // code tabs
+    $$('.codetabs', pageEl).forEach(function (ct) {
+      $$('.ct-tab', ct).forEach(function (t) {
+        t.addEventListener('click', function () { setPM(t.dataset.key, true); });
+        t.addEventListener('keydown', function (e) {
+          var i = PMS.indexOf(t.dataset.key), n = null;
+          if (e.key === 'ArrowRight') n = PMS[(i + 1) % PMS.length];
+          if (e.key === 'ArrowLeft') n = PMS[(i + PMS.length - 1) % PMS.length];
+          if (e.key === 'Home') n = PMS[0];
+          if (e.key === 'End') n = PMS[PMS.length - 1];
+          if (n) { e.preventDefault(); setPM(n, true); $('.ct-tab[data-key="' + n + '"]', ct).focus(); }
+        });
+      });
+    });
+    setPM(pm, false);
+    // terminals
+    $$('.term', pageEl).forEach(function (t) {
+      $('[data-replay]', t).addEventListener('click', function () { runTerm(t, true); });
+      if (reduced() || !io) runTerm(t); else io.observe(t);
+    });
+    // anchors
+    $$('.anchor', pageEl).forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var href = a.getAttribute('href');
+        var url = location.href.split('#')[0] + href;
+        history.replaceState(null, '', href);
+        scrollToAnchor(href.split('/')[2], true);
+        copy(url).then(function () { toast('Link copied to clipboard'); });
+      });
+    });
+    // diagram
+    $$('.diagram', pageEl).forEach(initDiagram);
+    // helpful
+    $$('.helpful', pageEl).forEach(function (w) {
+      $$('.hbtn', w).forEach(function (b) {
+        b.addEventListener('click', function () {
+          $$('.hbtn', w).forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+          var old = $('.thanks', w); if (old) old.remove();
+          w.insertAdjacentHTML('beforeend', '<span class="thanks" role="status">' + (b.dataset.v === 'up' ? 'Thanks — glad it helped.' : 'Thanks. I’ll take another pass at this page.') + '</span>');
+        });
+      });
+    });
+    // swatches
+    $$('.swatch', pageEl).forEach(function (s) {
+      s.addEventListener('click', function () {
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var hex = dark ? s.dataset.hexD : s.dataset.hexL;
+        copy(hex).then(function () { toast('Copied ' + hex); });
+      });
+    });
+    $$('[data-toast]', pageEl).forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        copy(location.href.split('#')[0] + '#/cf-changelog').then(function () { toast(b.dataset.toast); });
+      });
+    });
+  }
+  function setPM(key, persist) {
+    pm = key; if (persist) store('zc-docs-pm', key);
+    $$('.codetabs[data-sync="pm"]').forEach(function (ct) {
+      $$('.ct-tab', ct).forEach(function (t) { var on = t.dataset.key === key; t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; });
+      $$('.ct-panel', ct).forEach(function (p) { p.hidden = p.dataset.key !== key; });
+      moveInd(ct);
+    });
+  }
+  function moveInd(ct) {
+    var t = $('.ct-tab[aria-selected="true"]', ct), ind = $('.ct-ind', ct);
+    if (!t || !ind) return;
+    ind.style.width = (t.offsetWidth - 16) + 'px';
+    ind.style.transform = 'translateX(' + (t.offsetLeft + 8) + 'px)';
+  }
+  function runTerm(el, replay) {
+    var d = TERMS[el.dataset.term]; if (!d) return;
+    var cmdEl = $('.t-cmd', el), outEl = $('.t-out', el);
+    var token = (el._tok || 0) + 1; el._tok = token;
+    el.classList.remove('typed'); cmdEl.textContent = ''; outEl.innerHTML = '';
+    var lines = d.out.map(function (l) { return '<span class="l l-' + l.c + '">' + esc(l.t) + '</span>'; });
+    var tail = '<span class="l"><span class="p-path">~/prototypes</span> <span class="p">$</span> <span class="caret"></span></span>';
+    if (reduced()) { cmdEl.textContent = d.cmd; el.classList.add('typed'); outEl.innerHTML = lines.join('') + tail; return; }
+    var i = 0;
+    (function tick() {
+      if (el._tok !== token) return;
+      i += 1; cmdEl.textContent = d.cmd.slice(0, i);
+      if (i < d.cmd.length) { setTimeout(tick, 26 + Math.random() * 38); return; }
+      setTimeout(function () {
+        if (el._tok !== token) return;
+        el.classList.add('typed'); outEl.innerHTML = '';
+        lines.forEach(function (l, j) { setTimeout(function () { if (el._tok === token) outEl.insertAdjacentHTML('beforeend', l); }, 120 + j * 120); });
+        setTimeout(function () { if (el._tok === token) outEl.insertAdjacentHTML('beforeend', tail); }, 180 + lines.length * 120);
+      }, 320);
+    })();
+  }
+  function initDiagram(fig) {
+    var panel = $('.dg-panel', fig), def = panel.innerHTML;
+    function on(id) {
+      fig.classList.add('has-active');
+      $$('.dg-node', fig).forEach(function (n) { n.classList.toggle('is-on', n.dataset.id === id); });
+      var linked = {}; linked[id] = 1;
+      $$('.dg-edge, .dg-label', fig).forEach(function (e) {
+        var hit = e.dataset.a === id || e.dataset.b === id;
+        e.classList.toggle('is-on', hit);
+        if (hit) { linked[e.dataset.a] = 1; linked[e.dataset.b] = 1; }
+      });
+      $$('.dg-node', fig).forEach(function (n) { if (linked[n.dataset.id]) n.classList.add('is-on'); });
+      var n = DG[id];
+      var peers = Object.keys(linked).filter(function (k) { return k !== id; }).map(function (k) { return DG[k].t; }).join(', ');
+      panel.innerHTML = '<span class="dp-k">' + esc(n.s) + '</span><span class="dp-t">' + n.t + '</span><p class="dp-d">' + esc(n.d) + ' <span style="color:var(--fg-subtle)">Connects to ' + peers + '.</span></p>';
+    }
+    function off() {
+      fig.classList.remove('has-active');
+      $$('.is-on', fig).forEach(function (e) { e.classList.remove('is-on'); });
+      panel.innerHTML = def;
+    }
+    $$('.dg-node', fig).forEach(function (n) {
+      n.addEventListener('pointerenter', function () { on(n.dataset.id); });
+      n.addEventListener('focus', function () { on(n.dataset.id); });
+      n.addEventListener('click', function () { on(n.dataset.id); });
+      n.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); on(n.dataset.id); } });
+      n.addEventListener('blur', function (e) { var to = e.relatedTarget; if (!(to && to.classList && to.classList.contains('dg-node') && fig.contains(to))) off(); });
+    });
+    $('svg', fig).addEventListener('pointerleave', function () { if (!fig.contains(document.activeElement)) off(); });
+  }
+
+  /* ================= Copy + toast ================= */
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text).catch(function () { return legacyCopy(text); });
+    return Promise.resolve(legacyCopy(text));
+  }
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+  }
+  var toastT;
+  function toast(msg) {
+    var t = $('#toast');
+    t.innerHTML = I('check', 15) + '<span>' + esc(msg) + '</span>';
+    t.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove('show'); }, 1900);
+  }
+
+  /* ================= Theme ================= */
+  var themeBtn = $('#themeBtn');
+  themeBtn.innerHTML = I('sun', 17) + I('moon', 17);
+  function syncThemeLabel() {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeBtn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('zc-docs-theme', next); } catch (e) {}
+    syncThemeLabel();
+  });
+  syncThemeLabel();
+
+  /* ================= Top bar bits ================= */
+  $('#navToggle').innerHTML = I('menu', 18);
+  $('#modKey').textContent = MOD;
+  $('#searchIcon').innerHTML = I('search', 18);
+  $('#searchBtn').insertAdjacentHTML('afterbegin', I('search', 16));
+  $$('.repo').forEach(function (r) {
+    $('.repo-name', r).innerHTML = GH(15) + '<span>z-christensen/site</span>';
+    $('.stars', r).innerHTML = I('star', 13) + '1.2k';
+  });
+
+  // version menu
+  var VERS = [['v2026.09', 'Current', true], ['v2026.06', 'Jun 2026'], ['v2025.12', 'Dec 2025']];
+  var verBtn = $('#verBtn'), verMenu = $('#verMenu'), ver = 'v2026.09';
+  verBtn.insertAdjacentHTML('beforeend', I('chevD', 13));
+  function renderVer() {
+    verMenu.innerHTML = '<div class="menu-label">Documentation version</div>' + VERS.map(function (v) {
+      return '<button class="menu-item" role="menuitemradio" aria-checked="' + (v[0] === ver) + '" data-v="' + v[0] + '" tabindex="-1">' + I('check', 14, 'tick') + '<span class="mono">' + v[0] + '</span>' + (v[2] ? '<span class="pill-latest">Latest</span>' : '') + '<span class="meta">' + v[1] + '</span></button>';
+    }).join('');
+    $$('.menu-item', verMenu).forEach(function (b) {
+      b.addEventListener('click', function () { chooseVer(b.dataset.v); });
+    });
+  }
+  function openVer(open) {
+    verMenu.hidden = !open; verBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) { var sel = $('.menu-item[aria-checked="true"]', verMenu) || $('.menu-item', verMenu); sel.focus(); }
+  }
+  function chooseVer(v) {
+    ver = v; $('#verLabel').textContent = v; verBtn.setAttribute('aria-label', 'Documentation version, ' + v);
+    renderVer(); openVer(false); verBtn.focus();
+    var arch = $('#archived');
+    if (v !== 'v2026.09') {
+      arch.innerHTML = I('clock', 16) + '<span>You’re viewing archived docs for <strong>' + v + '</strong>. Some pages may describe older behavior.</span><button type="button" id="toLatest">Switch to latest</button>';
+      arch.hidden = false;
+      $('#toLatest').addEventListener('click', function () { chooseVer('v2026.09'); });
+    } else { arch.hidden = true; }
+    toast('Showing docs for ' + v);
+  }
+  renderVer();
+  verBtn.addEventListener('click', function () { openVer(verMenu.hidden); });
+  verBtn.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown') { e.preventDefault(); openVer(true); } });
+  verMenu.addEventListener('keydown', function (e) {
+    var items = $$('.menu-item', verMenu), i = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+    if (e.key === 'End') { e.preventDefault(); items[items.length - 1].focus(); }
+    if (e.key === 'Escape') { e.preventDefault(); openVer(false); verBtn.focus(); }
+    if (e.key === 'Tab') openVer(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (!verMenu.hidden && !e.target.closest('.ver')) openVer(false);
+  });
+
+  /* ================= Drawer ================= */
+  var scrim = $('#scrim');
+  function openDrawer() {
+    document.body.classList.add('nav-open'); scrim.hidden = false;
+    $('#navToggle').setAttribute('aria-expanded', 'true'); $('#navToggle').setAttribute('aria-label', 'Close navigation');
+    var a = $('.nav-link[aria-current="page"]') || $('.nav-link'); setTimeout(function () { a.focus(); }, 60);
+  }
+  function closeDrawer() {
+    if (!document.body.classList.contains('nav-open')) return;
+    document.body.classList.remove('nav-open');
+    $('#navToggle').setAttribute('aria-expanded', 'false'); $('#navToggle').setAttribute('aria-label', 'Open navigation');
+    setTimeout(function () { if (!document.body.classList.contains('nav-open')) scrim.hidden = true; }, 260);
+  }
+  $('#navToggle').addEventListener('click', function () { document.body.classList.contains('nav-open') ? closeDrawer() : openDrawer(); });
+  scrim.addEventListener('click', closeDrawer);
+
+  /* ================= Search ================= */
+  var INDEX = [];
+  function buildIndex() {
+    Object.keys(PAGES).forEach(function (id) {
+      var p = PAGES[id];
+      CUR = id;
+      var html = p.render();
+      var path = p.group ? 'Projects › ' + PROJ[p.group].title : p.crumbs.join(' › ');
+      INDEX.push({ kind: p.kind === 'guide' ? 'Guides' : 'Pages', id: id, anchor: '', title: p.group ? PROJ[p.group].title + ' ' + p.title : p.title, path: path + (p.desc ? ' — ' + p.desc : ''), icon: p.kind === 'guide' ? 'pen' : p.kind === 'changelog' ? 'history' : 'doc' });
+      var re = /<h([23]) id="([^"]+)" class="hx" data-t="([^"]*)"/g, m;
+      while ((m = re.exec(html))) {
+        INDEX.push({ kind: 'Sections', id: id, anchor: m[2], title: m[3].replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&quot;/g, '"'), path: pageLabel(id), icon: 'hash' });
+      }
+    });
+  }
+  var sRoot = $('#search'), q = $('#q'), res = $('#results'), sel = 0, flat = [], lastFocus = null;
+  function recent() { return store('zc-docs-recent') || []; }
+  function addRecent(it) {
+    var r = recent().filter(function (x) { return !(x.id === it.id && x.anchor === it.anchor); });
+    r.unshift({ id: it.id, anchor: it.anchor, title: it.title, path: it.path, icon: it.icon });
+    store('zc-docs-recent', r.slice(0, 5));
+  }
+  function mark(text, query) {
+    var t = esc(text); if (!query) return t;
+    var i = text.toLowerCase().indexOf(query.toLowerCase());
+    if (i < 0) return t;
+    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + query.length)) + '</mark>' + esc(text.slice(i + query.length));
+  }
+  function search(query) {
+    var qs = query.trim().toLowerCase();
+    var groups = [];
+    if (!qs) {
+      var r = recent();
+      if (r.length) groups.push({ name: 'Recent', clear: true, items: r.map(function (x) { x.icon = 'clock'; return x; }) });
+      groups.push({ name: 'Suggested', items: ['cf-quickstart', 'cf-changelog', 'g-overlay', 'design-system'].map(function (id) { return INDEX.filter(function (x) { return x.id === id && !x.anchor; })[0]; }) });
+    } else {
+      var words = qs.split(/\s+/);
+      var scored = INDEX.map(function (x) {
+        var t = x.title.toLowerCase(), hay = (x.title + ' ' + x.path).toLowerCase();
+        if (!words.every(function (w) { return hay.indexOf(w) > -1; })) return null;
+        var s = t.indexOf(qs) === 0 ? 4 : t.indexOf(qs) > -1 ? 3 : words.every(function (w) { return t.indexOf(w) > -1; }) ? 2 : 1;
+        return { x: x, s: s };
+      }).filter(Boolean).sort(function (a, b) { return b.s - a.s; });
+      ['Pages', 'Guides', 'Sections'].forEach(function (k) {
+        var items = scored.filter(function (o) { return o.x.kind === k; }).slice(0, k === 'Sections' ? 8 : 5).map(function (o) { return o.x; });
+        if (items.length) groups.push({ name: k, items: items });
+      });
+    }
+    flat = [];
+    if (!groups.length) {
+      res.innerHTML = '<div class="r-empty">No results for <b>“' + esc(query) + '”</b>.<br>Try a project name, or a word like “install”.</div>';
+      q.removeAttribute('aria-activedescendant');
+      return;
+    }
+    res.innerHTML = groups.map(function (g) {
+      var gid = uid('rg');
+      return '<div role="group" aria-labelledby="' + gid + '"><div class="r-sec"><span id="' + gid + '">' + g.name + '</span>' + (g.clear ? '<button type="button" data-clear>Clear</button>' : '') + '</div>' + g.items.map(function (it) {
+        var n = flat.length; flat.push(it);
+        return '<div class="r-item" role="option" id="opt-' + n + '" data-n="' + n + '" aria-selected="false"><span class="r-ic">' + I(it.icon, 16) + '</span><span><span class="r-t">' + mark(it.title, query.trim()) + '</span><span class="r-p">' + esc(it.path) + '</span></span><span class="r-go">' + I('arrowR', 15) + '</span></div>';
+      }).join('') + '</div>';
+    }).join('');
+    $$('.r-item', res).forEach(function (el) {
+      el.addEventListener('mousemove', function () { select(+el.dataset.n, false); });
+      el.addEventListener('click', function () { choose(+el.dataset.n); });
+    });
+    var c = $('[data-clear]', res);
+    if (c) c.addEventListener('click', function () { store('zc-docs-recent', []); search(''); q.focus(); });
+    select(0, false);
+  }
+  function select(n, scroll) {
+    if (!flat.length) return;
+    sel = (n + flat.length) % flat.length;
+    $$('.r-item', res).forEach(function (el) { el.setAttribute('aria-selected', +el.dataset.n === sel ? 'true' : 'false'); });
+    q.setAttribute('aria-activedescendant', 'opt-' + sel);
+    if (scroll) { var el = $('#opt-' + sel); if (el) el.scrollIntoView({ block: 'nearest' }); }
+  }
+  function choose(n) {
+    var it = flat[n]; if (!it) return;
+    addRecent(it);
+    closeSearch(false);
+    var h = '#/' + it.id + (it.anchor ? '/' + it.anchor : '');
+    if (location.hash === h) go(); else location.hash = h;
+  }
+  function openSearch() {
+    if (!sRoot.hidden) return;
+    lastFocus = document.activeElement;
+    sRoot.hidden = false; q.value = ''; search('');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { q.focus(); }, 10);
+  }
+  function closeSearch(restore) {
+    sRoot.hidden = true; document.body.style.overflow = '';
+    if (restore !== false && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  q.addEventListener('input', function () { search(q.value); });
+  q.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); select(sel + 1, true); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); select(sel - 1, true); }
+    else if (e.key === 'Enter') { e.preventDefault(); choose(sel); }
+  });
+  sRoot.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { e.preventDefault(); closeSearch(); }
+    if (e.key === 'Tab') {
+      var f = $$('input, button', sRoot).filter(function (x) { return x.offsetParent !== null; });
+      var i = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+  $$('[data-close]', sRoot).forEach(function (b) { b.addEventListener('click', function () { closeSearch(); }); });
+  $('#searchBtn').addEventListener('click', openSearch);
+  document.addEventListener('keydown', function (e) {
+    var k = e.key.toLowerCase();
+    if ((e.metaKey || e.ctrlKey) && k === 'k') { e.preventDefault(); sRoot.hidden ? openSearch() : closeSearch(); return; }
+    var typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) || document.activeElement.isContentEditable;
+    if (e.key === '/' && !typing && sRoot.hidden) { e.preventDefault(); openSearch(); return; }
+    if (e.key === 'Escape') {
+      if (document.body.classList.contains('nav-open')) { closeDrawer(); $('#navToggle').focus(); }
+      if ($('#tocMBtn').getAttribute('aria-expanded') === 'true') { setTocOpen(false); $('#tocMBtn').focus(); }
+    }
+  });
+
+  /* ================= Boot ================= */
+  renderNav();
+  buildIndex();
+  TERMS = {};
+  uidN = 0;
+  go();
+  reduceMQ.addEventListener && reduceMQ.addEventListener('change', function () { activeId = null; spy(); });
+})();
+</script>
+</body>
+</html>

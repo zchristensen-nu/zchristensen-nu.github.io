@@ -1,0 +1,37 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import EntryHeader from '../../components/EntryHeader.astro';
+import Related from '../../components/Related.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => import.meta.env.DEV || !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const project = post.data.project ? await getEntry(post.data.project) : undefined;
+const words = (post.body ?? '').split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 230));
+const date = post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <article>
+    <EntryHeader kind="post" id={post.id} title={post.data.title} description={post.data.description}>
+      <time datetime={post.data.date.toISOString()}>{date}</time>
+      <span>{minutes} min read</span>
+      {post.data.draft && <span class="mono">Draft</span>}
+    </EntryHeader>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  {project && (
+    <Related
+      heading="The project"
+      items={[{ href: `/projects/${project.id}/`, title: project.data.title, description: project.data.description }]}
+    />
+  )}
+</Base>

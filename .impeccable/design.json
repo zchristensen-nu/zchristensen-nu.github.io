@@ -1,0 +1,535 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T02:17:36+00:00",
+  "title": "Design System: Zach Christensen",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#fcfcfb",
+        "oklch": "oklch(99.1% 0.001 106.4)",
+        "mode": "light",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252524",
+          "#424241",
+          "#616160",
+          "#828281",
+          "#a5a5a4",
+          "#c9c9c8",
+          "#eeeeed"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#141517",
+        "oklch": "oklch(19.5% 0.004 264.5)",
+        "mode": "light",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a4a5a8",
+          "#c8c9cc",
+          "#edeef1"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Graphite",
+        "canonical": "#53575e",
+        "oklch": "oklch(50.9% 0.012 261.8)",
+        "mode": "light",
+        "tonalRamp": [
+          "#080b10",
+          "#22252b",
+          "#3e4249",
+          "#5d6168",
+          "#7e828a",
+          "#a1a5ad",
+          "#c5c9d1",
+          "#eaeff7"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint Graphite",
+        "canonical": "#686c73",
+        "oklch": "oklch(64.9% 0.011 261.8)",
+        "mode": "light",
+        "tonalRamp": [
+          "#090b10",
+          "#22252b",
+          "#3f4248",
+          "#5e6168",
+          "#7f8289",
+          "#a1a5ac",
+          "#c5c9d1",
+          "#eaeff6"
+        ],
+        "note": "3.16:1 on paper (2.87:1 on hover-wash) in light mode; below WCAG AA for small text. Open defect, not a sanctioned value for new essential text."
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e6e7e9",
+        "oklch": "oklch(92.8% 0.003 264.5)",
+        "mode": "light",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242526",
+          "#414244",
+          "#606163",
+          "#818284",
+          "#a4a5a7",
+          "#c8c9cb",
+          "#edeef0"
+        ]
+      },
+      "hover-wash": {
+        "role": "neutral",
+        "displayName": "Hover Wash",
+        "canonical": "#f0f1f2",
+        "oklch": "oklch(95.8% 0.002 247.8)",
+        "mode": "light",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606162",
+          "#818283",
+          "#a4a5a6",
+          "#c8c9ca",
+          "#edeeef"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Library Blue",
+        "canonical": "#2f4fd6",
+        "oklch": "oklch(49.4% 0.210 267.4)",
+        "mode": "light",
+        "tonalRamp": [
+          "#140063",
+          "#0f0088",
+          "#1726ae",
+          "#2f4fd6",
+          "#4c74fe",
+          "#6b99ff",
+          "#8dbfff",
+          "#b1e6ff"
+        ],
+        "note": "Active filter pill is color-mix(in srgb, accent 11%, paper)."
+      },
+      "code-bg": {
+        "role": "neutral",
+        "displayName": "Code Tint",
+        "canonical": "#f4f4f5",
+        "oklch": "oklch(96.7% 0.001 286.4)",
+        "mode": "light",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#252526",
+          "#424243",
+          "#616162",
+          "#828283",
+          "#a5a5a6",
+          "#c9c9ca",
+          "#eeeeef"
+        ]
+      },
+      "selection": {
+        "role": "neutral",
+        "displayName": "Selection Blue",
+        "canonical": "#dfe5fb",
+        "oklch": "oklch(92.4% 0.031 273.6)",
+        "mode": "light",
+        "tonalRamp": [
+          "#070a18",
+          "#202434",
+          "#3d4153",
+          "#5b6073",
+          "#7c8195",
+          "#9fa4b9",
+          "#c2c8de",
+          "#e8eeff"
+        ]
+      },
+      "paper-dark": {
+        "role": "neutral",
+        "displayName": "Paper (dark mode)",
+        "canonical": "#0e0f11",
+        "oklch": "oklch(16.8% 0.004 264.4)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a3a5a8",
+          "#c8c9cc",
+          "#edeef1"
+        ]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Ink (dark mode)",
+        "canonical": "#ececee",
+        "oklch": "oklch(94.4% 0.003 286.3)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#252526",
+          "#424243",
+          "#616163",
+          "#828284",
+          "#a5a5a7",
+          "#c9c9cb",
+          "#eeeef0"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Muted Graphite (dark mode)",
+        "canonical": "#9b9fa6",
+        "oklch": "oklch(70.1% 0.011 261.8)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#090b10",
+          "#22252b",
+          "#3f4248",
+          "#5e6168",
+          "#7f8289",
+          "#a1a5ac",
+          "#c5c9d1",
+          "#eaeff6"
+        ]
+      },
+      "faint-dark": {
+        "role": "neutral",
+        "displayName": "Faint Graphite (dark mode)",
+        "canonical": "#80848c",
+        "oklch": "oklch(59.9% 0.013 264.5)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#080b11",
+          "#22252c",
+          "#3e4249",
+          "#5d6169",
+          "#7e828a",
+          "#a1a5ad",
+          "#c5c9d2",
+          "#eaeff8"
+        ]
+      },
+      "rule-dark": {
+        "role": "neutral",
+        "displayName": "Hairline (dark mode)",
+        "canonical": "#222428",
+        "oklch": "oklch(26.0% 0.008 264.4)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#090b0f",
+          "#232529",
+          "#404246",
+          "#5f6166",
+          "#808287",
+          "#a2a5aa",
+          "#c6c9ce",
+          "#eceef4"
+        ]
+      },
+      "hover-wash-dark": {
+        "role": "neutral",
+        "displayName": "Hover Wash (dark mode)",
+        "canonical": "#18191c",
+        "oklch": "oklch(21.4% 0.006 271.1)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#242528",
+          "#414245",
+          "#606165",
+          "#818286",
+          "#a3a5a9",
+          "#c7c9cd",
+          "#edeef3"
+        ]
+      },
+      "accent-dark": {
+        "role": "primary",
+        "displayName": "Library Blue (dark mode)",
+        "canonical": "#8ea2ff",
+        "oklch": "oklch(73.5% 0.137 273.4)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#090043",
+          "#161365",
+          "#2d3689",
+          "#4a58ae",
+          "#697ad3",
+          "#8a9efa",
+          "#adc2ff",
+          "#d1e8ff"
+        ]
+      },
+      "code-bg-dark": {
+        "role": "neutral",
+        "displayName": "Code Tint (dark mode)",
+        "canonical": "#16171a",
+        "oklch": "oklch(20.5% 0.006 271.1)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#242528",
+          "#414245",
+          "#606165",
+          "#818286",
+          "#a3a5a9",
+          "#c7c9cd",
+          "#edeef3"
+        ]
+      },
+      "selection-dark": {
+        "role": "neutral",
+        "displayName": "Selection Blue (dark mode)",
+        "canonical": "#26305c",
+        "oklch": "oklch(32.5% 0.079 271.7)",
+        "mode": "dark",
+        "tonalRamp": [
+          "#04042b",
+          "#18204b",
+          "#333e6c",
+          "#515e8e",
+          "#7180b2",
+          "#93a3d7",
+          "#b7c7fe",
+          "#dbecff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Entry page titles only; view-transition morph target for the row title."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings inside prose."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Name, row titles, Library and Related headings; weight not size."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Home intro and entry descriptions, max 34rem, Muted."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base UI text."
+      },
+      "body-small": {
+        "displayName": "Body small",
+        "purpose": "Row and related descriptions, Muted."
+      },
+      "prose": {
+        "displayName": "Prose",
+        "purpose": "Post and project bodies; 1.125rem under 34rem."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Filter tabs, entry meta, footer."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Dates and counts (tabular); code at 0.8em inline, 0.8125rem in blocks."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "System easing for every transition and WAAPI animation."
+      },
+      {
+        "name": "color-fade",
+        "value": "160ms",
+        "purpose": "Link, tab and label colour changes."
+      },
+      {
+        "name": "hover-fill",
+        "value": "200ms",
+        "purpose": "Related row wash, back-link chevron nudge."
+      },
+      {
+        "name": "glide-fade",
+        "value": "220ms",
+        "purpose": "Opacity of the shared library highlight."
+      },
+      {
+        "name": "glide-spring",
+        "value": "stiffness 420, damping 34 (rAF, translateY + height)",
+        "purpose": "Shared library highlight moving between rows."
+      },
+      {
+        "name": "filter-indicator",
+        "value": "clip-path 380ms",
+        "purpose": "Active filter pill sliding between tabs."
+      },
+      {
+        "name": "filter-enter",
+        "value": "420ms, from opacity 0 / translateY(6px) / blur(3px)",
+        "purpose": "Rows appearing after a filter change."
+      },
+      {
+        "name": "filter-flip",
+        "value": "460ms translateY FLIP",
+        "purpose": "Rows that move when the filter changes."
+      },
+      {
+        "name": "page-transition",
+        "value": "Astro ClientRouter view transitions; transition:name title-{kind}-{id}",
+        "purpose": "Cross-fade between pages; row title morphs into the entry title."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce -> durations 0.01ms, spring jumps, no FLIP",
+        "purpose": "Required on all motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "34rem",
+        "purpose": "Library bar stacks, rows go two-column with date above, prose 1.125rem."
+      }
+    ],
+    "openItems": [
+      "Role line under the name: promised by the direction contract, not rendered, awaiting Zach's wording. No style set."
+    ]
+  },
+  "components": [
+    {
+      "name": "Library Row",
+      "kind": "custom",
+      "refersTo": "library-row",
+      "description": "Signature dated list row; one shared Hover Wash glides between rows on hover and focus (spring k=420, d=34 in the build; CSS approximation here).",
+      "html": "<ul class=\"ds-lib\"><li><a class=\"ds-row\" href=\"#\"><time class=\"ds-date\">Sep 2026</time><span class=\"ds-main\"><span class=\"ds-title\">Style Tiles</span><span class=\"ds-desc\">Fifteen interactive design directions for this site.</span></span><span class=\"ds-kind\">Project</span></a></li><li><a class=\"ds-row\" href=\"#\"><time class=\"ds-date\">Aug 2026</time><span class=\"ds-main\"><span class=\"ds-title\">Morning Briefing</span><span class=\"ds-desc\">An agent that writes a short, plain news digest.</span></span><span class=\"ds-kind\">Project</span></a></li></ul>",
+      "css": ".ds-lib { list-style: none; margin: 0; padding: 0; font-family: var(--sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); font-size: 0.9375rem; line-height: 1.6; color: var(--ink, #141517); } .ds-row { display: grid; grid-template-columns: 4.25rem 1fr auto; align-items: baseline; gap: 0 1rem; padding: 0.8rem 0.75rem; border-radius: 10px; color: inherit; text-decoration: none; transition: background-color 220ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-row:hover { background: var(--hover, #f0f1f2); } .ds-row:focus-visible { background: var(--hover, #f0f1f2); outline: 2px solid var(--accent, #2f4fd6); outline-offset: -2px; } .ds-date { font-family: var(--mono, 'Fragment Mono', ui-monospace, monospace); font-size: 0.75rem; font-variant-numeric: tabular-nums; color: var(--faint, #686c73); } .ds-main { display: grid; gap: 0.15rem; min-width: 0; } .ds-title { font-weight: 500; letter-spacing: -0.01em; } .ds-desc { font-size: 0.875rem; line-height: 1.5; color: var(--muted, #53575e); } .ds-kind { font-size: 0.75rem; color: var(--faint, #686c73); transition: color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-row:hover .ds-kind, .ds-row:focus-visible .ds-kind { color: var(--muted, #53575e); }"
+    },
+    {
+      "name": "Filter Tabs",
+      "kind": "chip",
+      "refersTo": "filter-tab-active",
+      "description": "All / Projects / Writing pills with mono counts; active state is accent text on an 11% accent pill (a clip-path indicator that slides over 380ms in the build).",
+      "html": "<div class=\"ds-filters\" role=\"group\" aria-label=\"Filter\"><button type=\"button\" class=\"ds-tab\" aria-pressed=\"false\">All<span class=\"ds-count\">4</span></button><button type=\"button\" class=\"ds-tab\" aria-pressed=\"true\">Projects<span class=\"ds-count\">3</span></button><button type=\"button\" class=\"ds-tab\" aria-pressed=\"false\">Writing<span class=\"ds-count\">1</span></button></div>",
+      "css": ".ds-filters { display: flex; gap: 0.125rem; font-family: var(--sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); } .ds-tab { display: inline-flex; align-items: baseline; gap: 0.35rem; font: inherit; font-size: 0.8125rem; color: var(--muted, #53575e); background: transparent; border: 0; border-radius: 999px; padding: 0.3rem 0.65rem; cursor: pointer; transition: color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), background-color 380ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-tab:hover { color: var(--ink, #141517); } .ds-tab:focus-visible { outline: 2px solid var(--accent, #2f4fd6); outline-offset: 3px; } .ds-tab[aria-pressed='true'] { color: var(--accent, #2f4fd6); background: color-mix(in srgb, var(--accent, #2f4fd6) 11%, var(--bg, #fcfcfb)); } .ds-count { font-family: var(--mono, 'Fragment Mono', ui-monospace, monospace); font-size: 0.6875rem; font-variant-numeric: tabular-nums; color: var(--faint, #686c73); } .ds-tab[aria-pressed='true'] .ds-count { color: inherit; opacity: 0.7; }"
+    },
+    {
+      "name": "Entry Header",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "Entry page title (view-transition morph target), muted lede, faint meta row with mono date and accent-hover links.",
+      "html": "<header class=\"ds-entry\"><h1 class=\"ds-h1\">claude-feedback</h1><p class=\"ds-lede\">A local proxy that lets me leave pinned comments on any prototype.</p><div class=\"ds-meta\"><span>Project</span><span>Active</span><time class=\"ds-mono\">2026</time><a href=\"#\">Open <svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M5.5 10.5 10.5 5.5M6 5.5h4.5V10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a></div></header>",
+      "css": ".ds-entry { font-family: var(--sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); color: var(--ink, #141517); } .ds-h1 { margin: 0; font-size: clamp(1.625rem, 4vw, 2rem); line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; } .ds-lede { margin: 0.75rem 0 0; max-width: 34rem; font-size: 1.0625rem; line-height: 1.55; color: var(--muted, #53575e); } .ds-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1.1rem; margin-top: 1.25rem; font-size: 0.8125rem; color: var(--faint, #686c73); } .ds-mono { font-family: var(--mono, 'Fragment Mono', ui-monospace, monospace); font-size: 0.75rem; font-variant-numeric: tabular-nums; } .ds-meta a { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--muted, #53575e); text-decoration: none; transition: color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-meta a:hover { color: var(--accent, #2f4fd6); } .ds-meta a:focus-visible { outline: 2px solid var(--accent, #2f4fd6); outline-offset: 3px; border-radius: 4px; } .ds-icon { width: 0.85em; height: 0.85em; vertical-align: -0.05em; flex: none; }"
+    },
+    {
+      "name": "Related List",
+      "kind": "card",
+      "refersTo": "related-row",
+      "description": "Cross-link block under an entry: hairline, title-weight heading, rows with a 200ms Hover Wash fill.",
+      "html": "<aside class=\"ds-related\"><h2 class=\"ds-rel-h\">Writing about this project</h2><a class=\"ds-rel\" href=\"#\"><span class=\"ds-rel-t\">Fifteen style tiles before one website</span><time class=\"ds-rel-time\">Oct 2026</time><span class=\"ds-rel-d\">I built every direction as a working page, then picked the quietest one.</span></a></aside>",
+      "css": ".ds-related { padding-top: 1.25rem; border-top: 1px solid var(--rule, #e6e7e9); font-family: var(--sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); font-size: 0.9375rem; color: var(--ink, #141517); } .ds-rel-h { margin: 0 0 0.75rem; font-size: inherit; font-weight: 500; letter-spacing: -0.01em; } .ds-rel { display: grid; grid-template-columns: 1fr auto; gap: 0.15rem 1rem; margin: 0 -0.75rem; padding: 0.7rem 0.75rem; border-radius: 10px; color: inherit; text-decoration: none; transition: background-color 200ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-rel:hover { background: var(--hover, #f0f1f2); } .ds-rel:focus-visible { outline: 2px solid var(--accent, #2f4fd6); outline-offset: 3px; } .ds-rel-t { font-weight: 500; letter-spacing: -0.01em; } .ds-rel-time { font-family: var(--mono, 'Fragment Mono', ui-monospace, monospace); font-size: 0.75rem; font-variant-numeric: tabular-nums; color: var(--faint, #686c73); align-self: baseline; } .ds-rel-d { grid-column: 1 / -1; font-size: 0.875rem; color: var(--muted, #53575e); }"
+    },
+    {
+      "name": "Masthead and Footer",
+      "kind": "nav",
+      "refersTo": "title",
+      "description": "Inner-page back link with a nudging chevron, and the hairline footer of muted links that hover to ink.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-back\" href=\"#\"><svg class=\"ds-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M10 3.5 5.5 8l4.5 4.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg> Zach Christensen</a><div class=\"ds-foot\"><a href=\"#\">GitHub</a><a href=\"#\">RSS</a><a href=\"#\">Style tiles</a></div></nav>",
+      "css": ".ds-nav { font-family: var(--sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); font-size: 0.9375rem; color: var(--ink, #141517); } .ds-back { display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 500; letter-spacing: -0.01em; color: var(--muted, #53575e); text-decoration: none; transition: color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-back:hover { color: var(--ink, #141517); } .ds-back .ds-icon { transition: transform 200ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-back:hover .ds-icon { transform: translateX(-2px); } .ds-foot { display: flex; gap: 1.25rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--rule, #e6e7e9); font-size: 0.8125rem; } .ds-foot a { color: var(--muted, #53575e); text-decoration: none; transition: color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-foot a:hover { color: var(--ink, #141517); } .ds-nav a:focus-visible { outline: 2px solid var(--accent, #2f4fd6); outline-offset: 3px; border-radius: 4px; } .ds-icon { width: 0.85em; height: 0.85em; vertical-align: -0.05em; flex: none; }"
+    },
+    {
+      "name": "Prose",
+      "kind": "custom",
+      "refersTo": "prose",
+      "description": "Long-form reading: Source Serif 4, grotesk section headings, hairline-underlined links that turn accent on hover, tinted inline code.",
+      "html": "<div class=\"ds-prose\"><h2>What building them taught me</h2><p><strong>The content decides.</strong> One tile would not load through my <a href=\"#\">comment proxy</a>. Its sample code contained <code>&lt;/body&gt;</code>.</p><blockquote>A direction you can’t click is a direction you can’t judge.</blockquote></div>",
+      "css": ".ds-prose { font-family: var(--serif, 'Source Serif 4', ui-serif, Georgia, serif); font-size: 1.1875rem; line-height: 1.65; font-optical-sizing: auto; color: var(--ink, #141517); } .ds-prose > * { margin: 0; } .ds-prose > * + * { margin-top: 1.1em; } .ds-prose h2 { font-family: var(--sans, 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif); font-size: 1.3125rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; } .ds-prose strong { font-weight: 600; } .ds-prose a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule, #e6e7e9); text-decoration-thickness: 1px; text-underline-offset: 0.22em; transition: text-decoration-color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), color 160ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); } .ds-prose a:hover { color: var(--accent, #2f4fd6); text-decoration-color: currentColor; } .ds-prose a:focus-visible { outline: 2px solid var(--accent, #2f4fd6); outline-offset: 3px; border-radius: 4px; } .ds-prose code { font-family: var(--mono, 'Fragment Mono', ui-monospace, monospace); font-size: 0.8em; background: var(--code-bg, #f4f4f5); border: 1px solid var(--rule, #e6e7e9); padding: 0.1em 0.35em; border-radius: 5px; } .ds-prose blockquote { padding-left: 1.1em; border-left: 1px solid var(--ink, #141517); color: var(--muted, #53575e); font-style: italic; }"
+    },
+    {
+      "name": "Code Block",
+      "kind": "custom",
+      "refersTo": "code-block",
+      "description": "Fenced code in prose: mono 0.8125rem on Code Tint with hairline border and 10px radius.",
+      "html": "<pre class=\"ds-pre\"><code>npm start\n# proxy on http://localhost:4599</code></pre>",
+      "css": ".ds-pre { margin: 0; font-family: var(--mono, 'Fragment Mono', ui-monospace, monospace); font-size: 0.8125rem; line-height: 1.7; padding: 1rem 1.15rem; border-radius: 10px; border: 1px solid var(--rule, #e6e7e9); background: var(--code-bg, #f4f4f5); color: var(--ink, #141517); overflow-x: auto; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Library",
+    "overview": "**Creative North Star: \"The Quiet Library\"**\n\nOne narrow column of type on near-white paper (near-black in dark mode), where the list of made things and writing is the hero. Nothing is boxed. Entries are separated by whitespace and the occasional hairline, and the only surface that ever appears behind a row is a soft grey wash that glides to it on hover or keyboard focus. The craft lives in motion and typesetting rather than ornament: a spring-damped highlight, a filter indicator that slides as a clip-path, rows that reflow with FLIP when filtered, and an entry title that morphs into the page heading across a view transition.\n\nThe system has three typographic voices with fixed jobs: a grotesk for everything you navigate, a serif for everything you read at length, and a mono for dates, counts and code. Colour is almost entirely neutral. A single blue accent appears only where the visitor's attention or state is: focus, the active filter, and links on hover in reading text and entry meta.\n\nDensity is low but not empty. Three entries must read as a deliberate library and fifty must still scan, so the row structure (date, title with one-line description, type) carries the page instead of imagery. There is no hero image, no card grid and no call-to-action button.",
+    "keyCharacteristics": [
+      "Single 40rem column, left-aligned, generous top padding.",
+      "Neutral ink on paper, with a full matching dark mode via `prefers-color-scheme`.",
+      "One accent, used for state and focus only.",
+      "Hairline rules and whitespace instead of containers; flat, no shadows.",
+      "One shared spring highlight for the library list; motion that always yields to `prefers-reduced-motion`."
+    ],
+    "rules": [
+      {
+        "name": "The One Accent Rule",
+        "body": "Library Blue marks state and attention only: focus, the active filter, and link hover in reading text and entry meta. Chrome links (footer, back link, filter tabs) hover to Ink, not to the accent. No accent fills, no accent headings.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paired Mode Rule",
+        "body": "Every colour token has a dark counterpart and every new surface must read in both. Dark mode is not an inversion; the accent lifts to a lighter blue (`accent-dark`) to hold contrast.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Voices Rule",
+        "body": "Grotesk for anything you navigate, serif only inside `.prose`, mono only for dates, counts, code and the draft marker. Never set UI chrome in the serif or prose in the grotesk.",
+        "section": "typography"
+      },
+      {
+        "name": "The Weight-Not-Size Rule",
+        "body": "Inside the column, headings above a list (Library, Related) are the same size as body text and differ only by weight 500 and -0.01em tracking. Only entry titles and prose sections step up in size.",
+        "section": "typography"
+      },
+      {
+        "name": "The Single Column Rule",
+        "body": "Every page lives in the one 40rem column. No sidebars, no multi-column grids, no full-bleed sections.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Paper Rule",
+        "body": "Surfaces never cast shadows. Any emphasis is a tonal fill with a 10px radius that appears only in response to state.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep every page in the single 40rem column with the clamp(1.25rem, 5vw, 2rem) gutter.",
+      "Do route any new list of entries through the shared glide pattern (one Hover Wash element, 10px radius, spring stiffness 420 / damping 34) rather than per-row hover fills.",
+      "Do use the ease-out curve cubic-bezier(0.16, 1, 0.3, 1) for transitions, and gate every animation on `prefers-reduced-motion`.",
+      "Do set dates and counts in Fragment Mono with tabular numerals.",
+      "Do give every new colour a dark-mode counterpart and check both modes.",
+      "Do separate sections with 1px Hairline rules and whitespace."
+    ],
+    "donts": [
+      "Don't wrap entries in bordered or shadowed cards, or build a card grid; the only fill behind a row is the state-driven Hover Wash.",
+      "Don't use box shadows; the system is flat.",
+      "Don't spend Library Blue on fills, headings, decoration or chrome-link hover; it is for focus, the active filter and link hover in reading text and entry meta.",
+      "Don't set prose in the grotesk or UI in the serif, and don't use Fragment Mono for headings or body text.",
+      "Don't add a hero image or a call-to-action button to the home page; clicking a row is the primary action.",
+      "Don't put new essential text in Faint Graphite on Paper: it measures about 3.2:1 in light mode, below WCAG AA for small text."
+    ]
+  }
+}

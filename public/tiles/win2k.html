@@ -1,0 +1,2433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vintage Windows · Style Tile</title>
+<meta name="description" content="Style tile 1 of 6 for Z. Christensen's personal site: a working 2000-to-XP era desktop with windows, a start menu, and a Display Properties style guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400&family=Fira+Sans:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --luna:#0058EE; --luna-deep:#003C9D; --luna-light:#3A93FF;
+  --start:#3C9A3C; --start-deep:#1F6F1F;
+  --chrome:#D4D0C8; --beige:#ECE9D8; --sky:#5DA3E8; --grass:#4F9A2E;
+  --cream:#FFFFE1; --select:#316AC5; --alert:#E0301E; --ink:#000; --paper:#fff;
+  --navy:#0A246A; --shade:#808080; --dark:#404040; --teal:#3A6EA5;
+  --font-display:"Trebuchet MS","Fira Sans",system-ui,sans-serif;
+  --font-body:Tahoma,Verdana,"Segoe UI","Noto Sans",sans-serif;
+  --font-mono:"Cousine","Lucida Console","Courier New",monospace;
+  --tb:30px;
+  --cur-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='24'%3E%3Cpath d='M1.5 1.5v17l4.3-4.1 2.9 6.6 2.8-1.2-2.9-6.5h6z' fill='white' stroke='black' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2;
+  --cur-wait:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M1.5 1.5v17l4.3-4.1 2.9 6.6 2.8-1.2-2.9-6.5h6z' fill='white' stroke='black' stroke-linejoin='round'/%3E%3Cpath d='M17 13h11v2c0 3-4 4-4 5s4 2 4 5v2H17v-2c0-3 4-4 4-5s-4-2-4-5z' fill='white' stroke='black'/%3E%3Cpath d='M19.5 26h6l-3-3.5z' fill='%23E0A020'/%3E%3C/svg%3E") 2 2;
+  --cur-hand:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='24'%3E%3Cpath d='M7 1.5c1 0 1.7.7 1.7 1.7V10l.8-.2V8.2c0-1 .7-1.6 1.6-1.6s1.6.7 1.6 1.6v1.6l.4-.1c.3-.8 1-1.2 1.7-1.1.8.1 1.4.8 1.4 1.6v1.3l.3-.1c.3-.6.9-.9 1.6-.8.8.1 1.4.8 1.4 1.6V18c0 2.7-2 4.5-4.8 4.5H11c-1.7 0-3-.8-3.9-2.2l-3.6-5.6c-.4-.7-.2-1.6.5-2 .6-.4 1.5-.2 1.9.4l1.4 1.9V3.2c0-1 .7-1.7 1.7-1.7z' fill='white' stroke='black'/%3E%3C/svg%3E") 7 1;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:#000;color:var(--ink);font:11px/1.35 var(--font-body);cursor:var(--cur-arrow),default;-webkit-font-smoothing:auto;overscroll-behavior:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:inherit}
+a,[data-href],.lnk{cursor:var(--cur-hand),pointer}
+body.busy,body.busy *{cursor:var(--cur-wait),progress!important}
+body.whats-this,body.whats-this *{cursor:help!important}
+body.dragging-win,body.dragging-win *{cursor:move!important;user-select:none}
+body.resizing,body.resizing *{cursor:nwse-resize!important;user-select:none}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ico{display:inline-block;width:var(--s,32px);height:var(--s,32px);flex:none}
+.ico svg,svg.fill{width:100%;height:100%;display:block}
+svg{overflow:visible}
+#defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ============ WALLPAPER ============ */
+#desktop{position:fixed;inset:0 0 var(--tb) 0;z-index:1;overflow:hidden;background:var(--teal);transition:filter 1.4s ease}
+#wall{position:absolute;inset:-20px;transition:opacity .4s}
+#wall svg{width:100%;height:100%}
+#wall .clouds{animation:drift 140s linear infinite alternate}
+#wall .hill-back{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+#wall .hill-front{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes drift{to{transform:translateX(-180px)}}
+body[data-wall="teal"] #wall,body[data-wall="dither"] #wall{opacity:0}
+body[data-wall="teal"] #desktop{background:var(--teal)}
+body[data-wall="dither"] #desktop{background:#5B7FA6 repeating-conic-gradient(#4B6E96 0 25%,#6A8EB5 0 50%) 0 0/4px 4px}
+body.fading #desktop,body.fading #taskbar{filter:grayscale(1) brightness(.85)}
+
+/* ============ DESKTOP ICONS ============ */
+#icons{position:absolute;inset:0;z-index:2}
+.dicon{position:absolute;width:78px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px;border:0;background:none;color:#fff;text-align:center;touch-action:none}
+.dicon .ico{--s:36px;filter:drop-shadow(1px 2px 1px rgba(0,0,0,.35));transition:transform .15s}
+.dicon .lbl{padding:1px 3px;font-size:11px;line-height:1.25;text-shadow:1px 1px 1px #000,0 0 2px rgba(0,0,0,.6);border:1px dotted transparent;word-break:break-word;max-width:76px}
+.dicon.sel .ico{filter:drop-shadow(1px 2px 1px rgba(0,0,0,.35)) brightness(.75) sepia(1) hue-rotate(185deg) saturate(3)}
+.dicon.sel .lbl{background:var(--select);text-shadow:none}
+.dicon:focus{outline:none}
+.dicon:focus-visible .lbl{border-color:#fff}
+.dicon.dragging{opacity:.65;z-index:5}
+.dicon.dragging .lbl{background:transparent}
+.dicon:active .ico{transform:scale(.94)}
+.rename{position:absolute;z-index:6;width:82px;font:11px/1.25 var(--font-body);text-align:center;border:1px solid #000;padding:1px 2px;resize:none;background:#fff;color:#000;outline:none;overflow:hidden}
+.marquee{position:absolute;z-index:3;border:1px solid var(--select);background:rgba(49,106,197,.28);pointer-events:none}
+body[data-theme="classic"] .marquee{border:1px dotted #fff;background:transparent;mix-blend-mode:difference}
+.refresh-blink #icons{visibility:hidden}
+
+/* ============ WINDOWS ============ */
+.win{position:absolute;display:flex;flex-direction:column;min-width:240px;min-height:120px;background:#7C98E0;padding:0 3px 3px;border-radius:8px 8px 0 0;border:1px solid #0019A4;border-top:0;box-shadow:3px 5px 18px rgba(0,20,60,.38);outline:none}
+.win.active{background:#0842D8}
+.win.max{left:0!important;top:0!important;width:100%!important;height:100%!important;border-radius:0}
+.win.max .titlebar{border-radius:0}
+.win[hidden]{display:none}
+.titlebar{flex:none;display:flex;align-items:center;gap:5px;height:29px;margin:0 -3px;padding:0 5px 0 7px;border-radius:7px 7px 0 0;user-select:none;touch-action:none;
+  background:linear-gradient(#9DB9EB 0,#7C9CE6 10%,#7596E3 45%,#6E90E1 85%,#6280D8 100%)}
+.win.active .titlebar{background:linear-gradient(#0997FF 0,#0053EE 8%,#0050EE 40%,#0066FF 88%,#0066FF 93%,#005BFF 95%,#003DD7 96%,#003DD7 100%)}
+.t-ico{width:16px;height:16px;flex:none;border:0;padding:0;background:none}
+.t-ico svg{width:16px;height:16px}
+.t-text{flex:1;min-width:0;margin:0;font:700 13px/1 var(--font-display);color:#D8E4F8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.1px}
+.win.active .t-text{color:#fff;text-shadow:1px 1px #0F1089}
+.t-btns{display:flex;gap:2px}
+.tbtn{width:21px;height:21px;padding:0;display:grid;place-items:center;border:1px solid #fff;border-radius:3px;color:#fff;
+  background:radial-gradient(circle at 90% 90%,#0054E9 0,#2263D5 55%,#4479E4 70%,#A3BBEC 90%,#fff 100%)}
+.tbtn svg{width:11px;height:11px}
+.tbtn:hover{filter:brightness(1.18)}
+.tbtn:active{filter:brightness(.85)}
+.tbtn.close{background:radial-gradient(circle at 90% 90%,#CC4600 0,#DC6527 55%,#CD7546 70%,#FFCCB2 90%,#fff 100%)}
+.tbtn.help{font:700 13px/1 var(--font-display)}
+.win:not(.active) .tbtn{opacity:.75}
+.tbtn:focus-visible{outline:1px dotted #fff;outline-offset:1px}
+.inner{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--beige)}
+.wbody{flex:1;min-height:0;overflow:auto;position:relative;display:flex;flex-direction:column}
+.menubar{flex:none;display:flex;flex-wrap:wrap;background:var(--beige);border-bottom:1px solid #D8D2BD;padding:1px 2px}
+.mb{border:1px solid transparent;background:none;padding:2px 7px;font-size:11px}
+.mb:hover,.mb[aria-expanded="true"]{background:var(--select);color:#fff}
+.mb:focus-visible{outline:1px dotted #000;outline-offset:-3px}
+.statusbar{flex:none;display:flex;gap:2px;padding:2px 3px;background:var(--beige);border-top:1px solid #fff;font-size:11px}
+.statusbar>span{padding:1px 6px;border:1px solid;border-color:#ACA899 #fff #fff #ACA899;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.statusbar .sb-main{flex:1;min-width:0}
+.statusbar .sb-cell{display:flex;align-items:center;gap:6px;flex:none;min-width:40px}
+.grip{position:absolute;right:3px;bottom:3px;width:14px;height:14px;cursor:nwse-resize;touch-action:none;
+  background:linear-gradient(135deg,transparent 45%,#fff 45% 52%,#ACA899 52% 60%,transparent 60% 68%,#fff 68% 74%,#ACA899 74% 82%,transparent 82%)}
+.win.max .grip,.win.dialog .grip{display:none}
+.win.flash .titlebar{animation:tflash .1s steps(1) 6}
+@keyframes tflash{50%{filter:grayscale(1) brightness(1.4)}}
+.win.shake{animation:shake .32s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.modal-shield{position:absolute;inset:0;z-index:0}
+
+/* Scrollbars (Luna) */
+.wbody ::-webkit-scrollbar,.wbody::-webkit-scrollbar,.np::-webkit-scrollbar,.tabpanel::-webkit-scrollbar{width:17px;height:17px}
+.wbody ::-webkit-scrollbar-track,.wbody::-webkit-scrollbar-track,.np::-webkit-scrollbar-track,.tabpanel::-webkit-scrollbar-track{background:#F4F3EE linear-gradient(90deg,#EEEDE5,#F9F9F7)}
+.wbody ::-webkit-scrollbar-thumb,.wbody::-webkit-scrollbar-thumb,.np::-webkit-scrollbar-thumb,.tabpanel::-webkit-scrollbar-thumb{background:linear-gradient(90deg,#C9D8FC,#B6CBF7 50%,#A7BDF0);border:1px solid #fff;border-radius:3px;box-shadow:inset 0 0 0 1px #9DB2E8}
+
+/* ============ BUTTONS & CONTROLS ============ */
+.btn{min-width:75px;min-height:23px;padding:3px 10px;border:1px solid #003C74;border-radius:3px;font-size:11px;color:#000;
+  background:linear-gradient(#fff 0,#ECEBE6 86%,#D6D0C5 100%)}
+.btn:hover,.btn.is-hover{box-shadow:inset -1px 1px #FFF0CF,inset 1px 2px #FDD889,inset -2px 2px #FBC761,inset 2px -2px #E5A01A}
+.btn:active,.btn.is-active{background:linear-gradient(#CDCAC3,#E3E3DB 8%,#E5E5DE 94%,#F2F2F1);box-shadow:none}
+.btn:focus-visible,.btn.is-focus{outline:1px dotted #000;outline-offset:-4px;box-shadow:inset -1px 1px #CEE7FF,inset 1px 2px #98B8EA,inset -2px 2px #BCD4F6,inset 1px -1px #89ADE4,inset 2px -2px #89ADE4}
+.btn:disabled{color:#ACA899;border-color:#C9C7BA;background:#F5F4EA;box-shadow:none}
+.btn.primary{border-color:#1A4B00;color:#fff;font-weight:700;background:linear-gradient(#77C46C,#3C9A3C 55%,#2C7F2C)}
+.btn.primary:active{background:linear-gradient(#2C7F2C,#3C9A3C)}
+.btn.primary:hover{box-shadow:inset 0 0 0 1px #A4E08F}
+.btn-row{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.field{height:21px;padding:2px 4px;border:1px solid #7F9DB9;background:#fff;font-size:11px;min-width:0}
+.field:focus{outline:1px solid var(--luna);outline-offset:0}
+select.field{padding:0 2px}
+.chk{display:inline-flex;align-items:center;gap:5px}
+.chk input{appearance:none;-webkit-appearance:none;margin:0;width:13px;height:13px;border:1px solid #1C5180;background:linear-gradient(135deg,#DCDCD7,#fff);display:grid;place-items:center;flex:none}
+.chk input[type=radio]{border-radius:50%}
+.chk input:checked::after{content:"";width:7px;height:4px;border:solid #21A121;border-width:0 0 2px 2px;transform:rotate(-45deg) translate(1px,-1px)}
+.chk input[type=radio]:checked::after{width:5px;height:5px;border:0;border-radius:50%;background:radial-gradient(#5EE35E,#1C9A1C);transform:none}
+.chk input:hover{box-shadow:inset 0 0 0 1px #FBC761}
+.chk input:focus-visible{outline:1px dotted #000;outline-offset:2px}
+.chk input:disabled{border-color:#CAC8BB;background:#fff}
+input[type=range].slider{appearance:none;-webkit-appearance:none;height:20px;background:none;width:100%}
+input[type=range].slider::-webkit-slider-runnable-track{height:4px;border:1px solid;border-color:#9D9C99 #fff #fff #9D9C99;background:#ECEBE5}
+input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:21px;margin-top:-9px;border:1px solid #92A3B0;border-radius:2px 2px 6px 6px;background:linear-gradient(#fff,#E3E9ED);box-shadow:inset 0 -3px #21A121}
+input[type=range].slider::-moz-range-track{height:4px;border:1px solid #9D9C99;background:#ECEBE5}
+input[type=range].slider::-moz-range-thumb{width:9px;height:19px;border:1px solid #92A3B0;border-radius:2px 2px 6px 6px;background:linear-gradient(#fff,#E3E9ED)}
+.progress{height:15px;border:1px solid #686868;border-radius:3px;padding:1px;background:#fff;overflow:hidden}
+.progress>i{display:block;height:100%;width:var(--p,40%);transition:width .25s;
+  background:repeating-linear-gradient(90deg,transparent 0 8px,#fff 8px 10px),linear-gradient(#ACEDAD,#7BE47D 20%,#4DD74F 45%,#37CF3A 50%,#56D85A 75%,#ACEDAD)}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{display:inline-flex;align-items:center;gap:3px;padding:1px 7px;border:1px solid #7F9DB9;border-radius:9px;background:linear-gradient(#FDFEFF,#E4ECF8);color:var(--luna-deep);font:11px/1.5 var(--font-body);text-decoration:none}
+.chip::before{content:"#";opacity:.55}
+.chip:hover,.chip.is-hover{background:var(--select);border-color:var(--luna-deep);color:#fff}
+.chip:focus-visible{outline:1px dotted #000;outline-offset:1px}
+.chip[aria-pressed="true"]{background:var(--luna-deep);color:#fff}
+.lnk,:where(.site a:not(.chip):not(.post-item):not(.site-brand)){color:#0033CC;text-decoration:underline;text-underline-offset:2px;border-radius:2px}
+.lnk:hover,.lnk.is-hover,:where(.site a:not(.chip):not(.post-item):not(.site-brand)):hover{color:var(--alert);background:var(--cream);text-decoration-thickness:2px}
+.lnk.is-visited{color:#663399}
+.lnk:focus-visible,.site a:focus-visible{outline:1px dotted #000;outline-offset:1px}
+
+/* ============ MENUS ============ */
+.ctx{position:fixed;z-index:20000;min-width:170px;padding:2px;background:#fff;border:1px solid #ACA899;box-shadow:3px 3px 4px -1px rgba(0,0,0,.42);display:flex;flex-direction:column;animation:menuin .12s ease-out;outline:none}
+@keyframes menuin{from{opacity:0;clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0)}}
+.ctx-item{display:flex;align-items:center;gap:4px;border:0;background:none;padding:3px 18px 3px 2px;text-align:left;font-size:11px;white-space:nowrap}
+.ctx-item .ctx-check{width:18px;text-align:center;flex:none}
+.ctx-item .ctx-hint{margin-left:auto;padding-left:22px;opacity:.8}
+.ctx-item.bold{font-weight:700}
+.ctx-item:hover:not(:disabled),.ctx-item:focus{background:var(--select);color:#fff;outline:none}
+.ctx-item:disabled{color:#ACA899}
+.ctx-sep{height:1px;margin:3px 1px;background:#ACA899}
+
+/* ============ TASKBAR ============ */
+#taskbar{position:fixed;left:0;right:0;bottom:0;height:var(--tb);z-index:5;display:flex;align-items:stretch;transition:filter 1.4s ease;
+  background:linear-gradient(#1F2F86 0,#3165C4 3%,#3682E5 6%,#4490E6 10%,#3883E5 12%,#2B71E0 15%,#2663DA 18%,#235BD6 20%,#2258D5 23%,#2157D6 38%,#245DDB 54%,#2562DF 86%,#245FDC 89%,#2158D4 92%,#1D4EC0 95%,#1941A5 98%)}
+#start{display:flex;align-items:center;gap:5px;padding:0 22px 2px 10px;border:0;border-radius:0 10px 10px 0;color:#fff;font:italic 700 18px/1 var(--font-display);text-shadow:1px 1px 2px rgba(0,0,0,.6);letter-spacing:.3px;
+  background:radial-gradient(ellipse at 40% -20%,#8EDB86,transparent 60%),linear-gradient(#3C9A3C,#48B048 12%,#3F9F3F 50%,#2F8A2F 88%,#1F6F1F);box-shadow:inset -2px -1px 3px rgba(0,0,0,.25),2px 0 3px rgba(0,0,0,.35)}
+#start .ico{--s:22px;filter:drop-shadow(1px 1px 1px rgba(0,0,0,.45));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+#start:hover{filter:brightness(1.1)}
+#start:hover .ico{transform:rotate(90deg)}
+#start[aria-expanded="true"]{filter:brightness(.88);box-shadow:inset 2px 2px 4px rgba(0,0,0,.4)}
+#start:focus-visible{outline:1px dotted #fff;outline-offset:-4px}
+.quick{display:flex;align-items:center;gap:1px;padding:0 6px 0 8px;border-right:1px solid #1845AF;box-shadow:1px 0 #4B8BEF}
+.qbtn{width:24px;height:24px;display:grid;place-items:center;border:1px solid transparent;border-radius:3px;background:none;padding:0}
+.qbtn .ico{--s:17px}
+.qbtn:hover{border-color:#6BA0F5;background:rgba(255,255,255,.14)}
+.qbtn:focus-visible{outline:1px dotted #fff}
+#tasks{flex:1;min-width:0;display:flex;gap:3px;align-items:center;padding:0 4px;overflow:hidden}
+.task{flex:0 1 160px;min-width:34px;height:24px;display:flex;align-items:center;gap:5px;padding:0 8px;border:0;border-radius:3px;color:#fff;font-size:11px;text-align:left;
+  background:linear-gradient(#3C81F3,#3B7FF2 50%,#3074EA);box-shadow:inset -1px -1px rgba(0,0,0,.25),inset 1px 1px rgba(255,255,255,.35);animation:taskin .2s ease-out}
+@keyframes taskin{from{flex-basis:0;opacity:0}}
+.task .ico{--s:16px}
+.task span.t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task:hover{filter:brightness(1.12)}
+.task[aria-pressed="true"]{background:linear-gradient(#1E52B7,#1C4FB5);box-shadow:inset 1px 1px 2px rgba(0,0,0,.5)}
+.task.min{opacity:.88}
+.task:focus-visible{outline:1px dotted #fff;outline-offset:-3px}
+.task.blink{animation:tblink .5s steps(1) 6}
+@keyframes tblink{50%{background:#F59E2B}}
+#tray{display:flex;align-items:center;gap:4px;padding:0 10px 0 10px;border-left:1px solid #1042AF;color:#fff;
+  background:linear-gradient(#0C59B9 1%,#139EE9 6%,#18B5F2 10%,#139BEB 14%,#1290E8 19%,#0D8DEA 63%,#0D9FF1 81%,#0F9EED 88%,#119BE9 91%,#1392E2 94%,#137ED7 97%,#095BC9)}
+.tray-ico{width:18px;height:18px;display:grid;place-items:center;border:0;background:none;padding:0;position:relative}
+.tray-ico .ico{--s:16px}
+.tray-ico:focus-visible,#clock:focus-visible{outline:1px dotted #fff}
+.badge{position:absolute;right:-4px;top:-3px;min-width:11px;height:11px;border-radius:6px;background:var(--alert);color:#fff;font:700 8px/11px var(--font-body);text-align:center;padding:0 2px;box-shadow:0 0 0 1px #fff}
+#clock{border:0;background:none;color:#fff;font-size:11px;padding:0 0 0 6px;white-space:nowrap}
+
+/* ============ START MENU ============ */
+.startmenu{position:fixed;left:0;bottom:var(--tb);z-index:15000;width:380px;max-width:100vw;border-radius:8px 8px 0 0;overflow:hidden;background:#fff;
+  box-shadow:3px 0 8px rgba(0,0,0,.45);border:1px solid #1C5FD6;border-bottom:0;transform-origin:bottom left}
+.startmenu.opening{animation:smin .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes smin{from{transform:translateY(12px);opacity:0}}
+.sm-head{display:flex;align-items:center;gap:8px;height:58px;padding:6px 8px;color:#fff;font:700 15px var(--font-display);text-shadow:1px 1px 2px #0A246A;
+  background:linear-gradient(#1868CE,#0E61CB 12%,#0E5FC5 45%,#0A58B8 88%,#0848A5);border-bottom:2px solid #F29B3D}
+.sm-avatar{width:44px;height:44px;border:2px solid #fff;border-radius:3px;box-shadow:0 0 3px rgba(0,0,0,.4);overflow:hidden;flex:none}
+.sm-avatar svg{width:100%;height:100%}
+.sm-cols{display:flex}
+.sm-left,.sm-right{list-style:none;margin:0;padding:6px 0}
+.sm-left{flex:1;background:#fff}
+.sm-right{width:48%;background:#D3E5FA;border-left:1px solid #95BDEE}
+.sm-item{width:100%;display:flex;align-items:center;gap:7px;padding:4px 8px;border:0;background:none;text-align:left;font-size:11px;color:#000}
+.sm-item .ico{--s:24px}
+.sm-item.big .ico{--s:32px}
+.sm-item span{display:flex;flex-direction:column}
+.sm-item small{color:#6B6B6B;font-size:10px}
+.sm-right .sm-item{color:#0A246A;font-weight:400}
+.sm-right .sm-item .ico{--s:22px}
+.sm-right .sm-item.bold{font-weight:700}
+.sm-item:hover,.sm-item:focus-visible{background:var(--select);color:#fff;outline:none}
+.sm-item:hover small,.sm-item:focus-visible small{color:#DDE8FA}
+.sm-sep{height:1px;margin:5px 8px;background:linear-gradient(90deg,transparent,#C4C4C4 20%,#C4C4C4 80%,transparent)}
+.sm-right .sm-sep{background:#95BDEE}
+.sm-all{justify-content:center;font-weight:700}
+.sm-all .arrow{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:3px;background:linear-gradient(#5CBF3E,#2E8A1E);color:#fff;font-size:10px}
+.sm-foot{display:flex;justify-content:flex-end;gap:4px;padding:6px 8px;background:linear-gradient(#4282D6,#3C7FD3 20%,#2E6DC8 60%,#1E57B3);border-top:1px solid #5A95E3}
+.sm-foot button{display:flex;align-items:center;gap:5px;padding:3px 8px;border:1px solid transparent;border-radius:3px;background:none;color:#fff}
+.sm-foot button .ico{--s:22px}
+.sm-foot button:hover,.sm-foot button:focus-visible{border-color:#8DB8F5;background:rgba(255,255,255,.14);outline:none}
+
+/* ============ BALLOON / TOOLTIP ============ */
+.balloon{position:fixed;z-index:16000;max-width:280px;padding:9px 26px 10px 10px;background:var(--cream);border:1px solid #000;border-radius:8px;box-shadow:2px 3px 6px rgba(0,0,0,.35);font-size:11px;animation:balloonin .3s cubic-bezier(.2,1.4,.4,1)}
+@keyframes balloonin{from{opacity:0;transform:translateY(8px) scale(.96)}}
+.balloon.out{animation:fadeout .25s forwards}
+@keyframes fadeout{to{opacity:0;transform:translateY(4px)}}
+.balloon::before,.balloon::after{content:"";position:absolute;width:0;height:0}
+.balloon::before{bottom:-15px;right:var(--tail,20px);border-left:15px solid transparent;border-top:15px solid #000}
+.balloon::after{bottom:-13px;right:calc(var(--tail,20px) + 1px);border-left:13px solid transparent;border-top:13px solid var(--cream)}
+.balloon b{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:4px}
+.balloon b .ico{--s:16px}
+.balloon p{margin:0}
+.balloon .bx{position:absolute;top:5px;right:5px;width:15px;height:15px;padding:0;border:1px solid transparent;border-radius:2px;background:none;display:grid;place-items:center;font-size:10px;line-height:1}
+.balloon .bx:hover{border-color:#ACA899;background:#fff}
+.balloon.clickable{cursor:var(--cur-hand),pointer}
+.tip-pop{position:fixed;z-index:21000;max-width:260px;padding:5px 8px;background:var(--cream);border:1px solid #000;box-shadow:2px 2px 3px rgba(0,0,0,.3);font-size:11px;pointer-events:none;animation:balloonin .18s ease-out}
+
+/* ============ EXPLORER ============ */
+.explorer{display:flex;flex-direction:column;flex:1;min-height:0}
+.toolbar{flex:none;display:flex;align-items:center;flex-wrap:wrap;gap:1px;padding:2px 4px;background:linear-gradient(#FEFEFD,#ECE9D8 70%,#E3DFCB);border-bottom:1px solid #D8D2BD}
+.tool{display:flex;align-items:center;gap:4px;height:34px;padding:0 6px;border:1px solid transparent;border-radius:3px;background:none;font-size:11px}
+.tool .ico{--s:22px}
+.tool:hover:not(:disabled){border-color:#CECEC3;background:linear-gradient(#fff,#F0EFE7 70%,#E4E2D5)}
+.tool:active:not(:disabled),.tool[aria-pressed="true"]{background:#E1DFD3;box-shadow:inset 1px 1px 2px rgba(0,0,0,.2);border-color:#C0BEB0}
+.tool:disabled{color:#ACA899}
+.tool:disabled .ico{filter:grayscale(1) opacity(.45)}
+.tool:focus-visible{outline:1px dotted #000;outline-offset:-3px}
+.tool-sep{width:1px;height:26px;margin:0 3px;background:#C6C3B1;box-shadow:1px 0 #fff}
+.addressbar{flex:none;display:flex;align-items:center;gap:5px;padding:3px 5px;background:var(--beige);border-bottom:1px solid #D8D2BD}
+.addressbar label{color:#6B6B6B}
+.addr-field{flex:1;min-width:0;display:flex;align-items:center;gap:4px;height:22px;padding:0 3px;border:1px solid #7F9DB9;background:#fff}
+.addr-field .ico{--s:16px}
+.addr-field input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:11px;height:100%}
+.go{display:flex;align-items:center;gap:3px;border:0;background:none;padding:0 3px;font-size:11px}
+.go .ico{--s:18px}
+.go:hover{text-decoration:underline}
+.ex-main{flex:1;min-height:0;display:flex}
+.taskpane{flex:none;width:190px;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(#7BA2E7,#6375D6)}
+.taskpane[hidden]{display:none}
+.tp-sec{border-radius:3px 3px 0 0;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.tp-head{width:100%;display:flex;align-items:center;justify-content:space-between;padding:5px 6px 5px 10px;border:0;font:700 11px var(--font-body);color:#215DC6;text-align:left;background:linear-gradient(90deg,#fff 30%,#C6D3F7)}
+.tp-head:hover{color:#428EFF}
+.tp-head .chev{width:17px;height:17px;border-radius:50%;background:#fff;border:1px solid #BDC8E9;display:grid;place-items:center;transition:transform .2s;font-size:9px;color:#215DC6}
+.tp-head[aria-expanded="false"] .chev{transform:rotate(180deg)}
+.tp-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows .22s ease;background:#D6DFF7;border:1px solid #fff;border-top:0}
+.tp-head[aria-expanded="false"]+.tp-body{grid-template-rows:0fr}
+.tp-body>div{overflow:hidden}
+.tp-body>div>*:first-child{margin-top:8px}
+.tp-body>div>*:last-child{margin-bottom:8px}
+.tp-link{display:flex;align-items:center;gap:6px;width:100%;margin:0;padding:2px 10px;border:0;background:none;color:#215DC6;text-align:left;font-size:11px}
+.tp-link .ico{--s:16px}
+.tp-link:hover,.tp-link:focus-visible{color:#428EFF;text-decoration:underline;outline:none}
+.tp-details{padding:0 10px;font-size:11px;color:#000}
+.tp-details strong{display:block;margin-bottom:3px}
+.tp-details p{margin:0 0 4px;color:#333}
+.ex-content{flex:1;min-width:0;overflow:auto;background:#fff}
+.cols,.row{display:grid;grid-template-columns:minmax(160px,2.4fr) 80px 70px minmax(90px,1.2fr);align-items:center}
+.cols{position:sticky;top:0;z-index:1;background:#EBEADB}
+.col{display:flex;align-items:center;justify-content:space-between;padding:3px 6px;border:0;border-right:1px solid #D6D2C2;border-bottom:1px solid #D6D2C2;background:linear-gradient(#fff,#F1EFE2 80%,#E2DFD0);font-size:11px;text-align:left;white-space:nowrap}
+.col:hover{background:linear-gradient(#fff,#FAF8F3);box-shadow:inset 0 -3px #F9B119}
+.col .arr{font-size:8px;color:#8C8A7E}
+.list{outline:none;padding:2px 0}
+.row{padding:1px 0;border:1px solid transparent;margin:0 2px;font-size:11px}
+.row>span{padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .nm{display:flex;align-items:center;gap:5px}
+.row .nm .ico{--s:16px}
+.row.sel{background:var(--select);color:#fff}
+.row:focus{outline:1px dotted #000;outline-offset:-1px}
+.row.sel:focus{outline-color:#fff}
+.row:hover:not(.sel) .nm span{text-decoration:underline;color:var(--luna-deep)}
+.row .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--grass);margin-left:4px;box-shadow:0 0 0 1px #fff}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;padding:10px;outline:none}
+.tile{display:flex;gap:10px;align-items:flex-start;padding:6px;border:1px solid transparent;border-radius:2px;font-size:11px;min-width:0}
+.tile .ico{--s:48px;transition:transform .2s cubic-bezier(.2,1.6,.4,1)}
+.tile:hover .ico{transform:translateY(-2px) rotate(-3deg)}
+.tile h3{margin:2px 0 3px;font:700 12px var(--font-body)}
+.tile p{margin:0 0 4px;color:#666;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tile .st{color:#8A8A8A}
+.tile.sel{background:#E0E8F7;border-color:#9DB6E3}
+.tile.sel h3{color:#fff;background:var(--select);display:inline-block;padding:0 3px;margin-left:-3px}
+.tile:focus{outline:1px dotted #000}
+.tiles[data-view="icons"]{grid-template-columns:repeat(auto-fill,96px)}
+.tiles[data-view="icons"] .tile{flex-direction:column;align-items:center;text-align:center}
+.tiles[data-view="icons"] .tile p,.tiles[data-view="icons"] .tile .st{display:none}
+.tiles[data-view="icons"] .tile .ico{--s:40px}
+.tiles[data-view="details"]{grid-template-columns:1fr;gap:0}
+.tiles[data-view="details"] .tile{align-items:center;padding:2px 6px}
+.tiles[data-view="details"] .tile .ico{--s:16px}
+.tiles[data-view="details"] .tile>div{display:grid;grid-template-columns:130px 1fr 130px;gap:10px;align-items:center;width:100%}
+.tiles[data-view="details"] .tile h3{margin:0;font-weight:400}
+.tiles[data-view="details"] .tile p{-webkit-line-clamp:1;margin:0}
+.empty{padding:30px 20px;color:#666;text-align:center}
+
+/* ============ NOTEPAD ============ */
+.np{flex:1;width:100%;min-height:0;border:0;border-top:1px solid #ACA899;resize:none;padding:4px 6px;font:13px/1.45 var(--font-mono);color:#000;background:#fff;outline:none;white-space:pre-wrap;tab-size:4}
+.np.nowrap{white-space:pre;overflow-x:auto}
+
+/* ============ BROWSER / SITE ============ */
+.ie{display:flex;flex-direction:column;flex:1;min-height:0}
+.ie .addressbar .field-ie{flex:1;min-width:0;display:flex;align-items:center;gap:4px;height:22px;padding:0 3px;border:1px solid #7F9DB9;background:#fff}
+.ie .addressbar input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:11px}
+.ie-throb{margin-left:auto;width:34px;height:30px;display:grid;place-items:center;border-left:1px solid #D8D2BD;padding-left:6px}
+.ie-throb .ico{--s:26px}
+.win.loading .ie-throb .ico{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ie-page{flex:1;min-height:0;overflow:auto;background:#fff;border-top:1px solid #ACA899;outline:none}
+.sb-prog{width:90px;height:11px;padding:1px;border:1px solid;border-color:#ACA899 #fff #fff #ACA899}
+.sb-prog i{display:block;height:100%;width:var(--p,0%);background:repeating-linear-gradient(90deg,#2F9E2F 0 5px,transparent 5px 7px);transition:width .35s ease-out}
+.sb-zone{display:flex;align-items:center;gap:4px}
+.sb-zone .ico{--s:14px}
+.site{max-width:680px;margin:0 auto;padding:0 22px 30px;font:13px/1.65 var(--font-body);color:#1A1A1A}
+.site-nav{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:12px 0;margin-bottom:18px;border-bottom:3px double #C9D6EE}
+.site-brand{display:flex;align-items:center;gap:7px;color:#000;text-decoration:none;font:700 15px var(--font-display)}
+.site-brand .ico{--s:22px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.site-brand:hover .ico{transform:rotate(180deg)}
+.site-links{display:flex;gap:2px;flex-wrap:wrap}
+.site-links a{padding:3px 9px;border:1px solid transparent;border-radius:3px;font-size:12px}
+.site .site-links a{text-decoration:none;color:var(--luna-deep);background:none}
+.site .site-links a:hover{background:linear-gradient(#fff,#E3ECFB);border-color:#9DB6E3;color:var(--luna-deep)}
+.site .site-links a[aria-current="page"]{background:linear-gradient(#3C81F3,#1E52B7);color:#fff;border-color:#003C9D;text-decoration:none}
+.eyebrow{margin:0 0 6px;font:700 11px var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--grass)}
+.site h1{margin:0 0 10px;font:700 28px/1.18 var(--font-display);letter-spacing:-.3px;color:#0B1F4D;text-wrap:balance}
+.site h2{margin:26px 0 8px;font:700 18px/1.3 var(--font-display);color:var(--luna-deep)}
+.site p{margin:0 0 12px}
+.site ul{padding-left:20px;margin:0 0 12px}
+.site li{margin-bottom:5px}
+.site code:not(.code code){font:12px var(--font-mono);background:#F1F0EA;border:1px solid #DDDACB;padding:0 3px;border-radius:2px}
+.lede{font-size:14px;color:#3A3A3A}
+.hero{padding:20px 20px 18px;margin:0 -20px 10px;border-radius:6px;background:linear-gradient(170deg,rgba(255,255,255,0) 45%,rgba(79,154,46,.12)),linear-gradient(#EAF3FD,#fff)}
+.hero .btn-row{justify-content:flex-start;margin-top:14px}
+.post-list{display:flex;flex-direction:column;gap:2px}
+.post-item{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:start;padding:8px 10px;border:1px solid transparent;border-radius:3px;text-decoration:none;color:inherit;font:12px/1.45 var(--font-body)}
+.post-item .ico{--s:30px}
+.post-item .pi-title{display:block;font:700 14px/1.3 var(--font-display);color:#0033CC}
+.post-item .pi-blurb{display:block;color:#555;margin-top:2px}
+.post-item .pi-meta{text-align:right;color:#777;font-size:11px;white-space:nowrap;display:flex;flex-direction:column}
+.post-item .new{display:inline-block;margin-left:6px;padding:0 5px;border-radius:7px;background:var(--grass);color:#fff;font:700 9px/14px var(--font-body);vertical-align:2px;letter-spacing:.05em}
+.post-item:hover,.post-item.is-hover{background:linear-gradient(#FDFEFF,#EAF1FC);border-color:#B7CBEF}
+.post-item:hover .pi-title,.post-item.is-hover .pi-title{color:var(--alert);text-decoration:underline}
+.post-item:focus-visible{outline:1px dotted #000}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.proj-card{display:flex;flex-direction:column;gap:6px;padding:0;border:1px solid #9DB6E3;border-radius:6px 6px 3px 3px;background:#fff;overflow:hidden;box-shadow:0 1px 0 #fff inset,2px 2px 0 rgba(0,60,157,.08);transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s;text-align:left;font:12px/1.45 var(--font-body);color:inherit}
+.proj-card .pc-head{display:flex;align-items:center;gap:7px;padding:6px 8px;background:linear-gradient(#3C81F3,#1E52B7);color:#fff;font:700 13px var(--font-display);text-shadow:1px 1px #0F1089}
+.proj-card .pc-head .ico{--s:20px}
+.proj-card .pc-blurb{display:block;padding:0 10px;color:#333}
+.proj-card .chips{padding:0 10px}
+.proj-card .pc-foot{display:flex;align-items:center;gap:6px;margin-top:auto;padding:5px 10px;border-top:1px solid #E3E8F2;background:#F7F9FD;color:#555;font-size:11px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--grass);box-shadow:0 0 0 2px rgba(79,154,46,.25)}
+.proj-card:hover,.proj-card.is-hover{transform:translateY(-3px);box-shadow:3px 6px 0 rgba(0,60,157,.12)}
+.proj-card:focus-visible{outline:1px dotted #000;outline-offset:2px}
+.post-meta{color:#666;font-size:12px;margin:0 0 4px!important}
+.post .chips{margin:0 0 18px}
+.codewrap{margin:14px 0 16px;border:1px solid #919B9C;background:var(--beige)}
+.code-head{display:flex;align-items:center;justify-content:space-between;padding:2px 3px 2px 8px;font:11px var(--font-body);color:#333;background:linear-gradient(#fff,#ECE9D8)}
+.code-head .btn{min-width:0;min-height:18px;padding:0 8px;font-size:10px}
+.code{margin:0;padding:10px 12px;overflow:auto;background:#fff;border-top:1px solid #919B9C;font:12px/1.6 var(--font-mono);color:#000;white-space:pre;counter-reset:ln}
+.code .k{color:#0000FF}.code .s{color:#A31515}.code .c{color:#008000;font-style:italic}.code .f{color:#795E26}.code .n{color:#098658}.code .p{color:#7A3E9D}
+.tip{display:grid;grid-template-columns:36px 1fr;gap:10px;margin:18px 0;padding:12px 14px;border:1px solid #C9B870;border-radius:4px;background:var(--cream);box-shadow:2px 2px 0 rgba(0,0,0,.06)}
+.tip .ico{--s:34px;grid-row:1/span 2;grid-column:1}
+.tip figcaption{grid-column:2;grid-row:1;font:700 11px var(--font-body);color:#6B5B12;letter-spacing:.06em;text-transform:uppercase}
+.tip blockquote{grid-column:2;grid-row:2;margin:0;font:italic 700 16px/1.4 var(--font-display);color:#2B2B2B}
+.tip blockquote p{margin:0}
+.post-next{display:flex;justify-content:space-between;gap:10px;margin-top:26px;padding-top:12px;border-top:1px solid #E3E3E3;font-size:12px}
+.site-foot{margin-top:30px;padding-top:10px;border-top:1px solid #E3E3E3;color:#888;font-size:11px}
+.errpage{font:12px/1.5 var(--font-body);padding:16px 10px}
+.errpage h1{font:700 17px var(--font-body)!important;color:#000!important;display:flex;align-items:center;gap:10px}
+.errpage h1 .ico{--s:34px}
+.errpage hr{border:0;border-top:1px solid #C9C9C9;margin:10px 0}
+
+/* ============ DIALOGS ============ */
+.msg{display:flex;gap:14px;padding:16px 16px 10px;align-items:flex-start;font-size:11px;line-height:1.5}
+.msg .ico{--s:32px;flex:none}
+.msg p{margin:0 0 6px}
+.dlg-foot{padding:6px 12px 12px}
+.run-body{padding:14px 14px 6px;display:grid;grid-template-columns:32px 1fr;gap:12px;font-size:11px}
+.run-body label{grid-column:1/-1;display:flex;align-items:center;gap:8px}
+.run-body .field{flex:1}
+.winver{padding:0 0 10px;font-size:11px}
+.winver-band{display:flex;align-items:center;gap:12px;padding:16px;background:linear-gradient(135deg,#0B2E86,#2D6FD6 60%,#5DA3E8);color:#fff}
+.winver-band .ico{--s:52px}
+.winver-band b{font:italic 700 26px/1 var(--font-display)}
+.winver-band sup{color:#FFB64D;font-size:13px}
+.winver-band small{display:block;font:11px var(--font-body);opacity:.85;margin-top:4px}
+.winver-stripe{height:4px;background:linear-gradient(90deg,#E8552B 25%,#6DB33F 0 50%,#2E8FE0 0 75%,#F4B400 0)}
+.winver p{margin:8px 16px}
+.dt{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:14px}
+.dt fieldset{margin:0;border:1px solid #D0D0BF;border-radius:3px;padding:6px 8px 10px}
+.dt legend{color:#0046D5;padding:0 3px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:10px;background:#fff;border:1px solid #7F9DB9}
+.cal b{background:#316AC5;color:#fff;font-weight:400;padding:2px 0}
+.cal span{padding:2px 0}
+.cal .today{background:var(--select);color:#fff;border-radius:2px;font-weight:700}
+.cal .dim{color:#bbb}
+.aclock{width:130px;height:130px;margin:6px auto}
+.dt-time{text-align:center;font:12px var(--font-mono)}
+
+/* ============ PROPERTIES / STYLE TILE ============ */
+.props{display:flex;flex-direction:column;flex:1;min-height:0;padding:8px 8px 0}
+.tabs{display:flex;flex-wrap:wrap;padding-left:3px;flex:none}
+.tab{position:relative;top:1px;margin-right:-1px;padding:3px 8px 4px;border:1px solid #919B9C;border-bottom:0;border-radius:3px 3px 0 0;background:linear-gradient(#fff,#ECEBE5);font-size:11px}
+.tab:hover{box-shadow:inset 0 2px #FFC83C;border-top-color:#E68B2C}
+.tab[aria-selected="true"]{z-index:1;padding-bottom:6px;margin-top:-2px;background:#FCFCFE;border-top:1px solid #E68B2C;box-shadow:inset 0 2px #FFC83C}
+.tab:focus-visible{outline:1px dotted #000;outline-offset:-4px}
+.tabpanel{flex:1;min-height:0;overflow:auto;padding:12px;border:1px solid #919B9C;background:linear-gradient(#FCFCFE,#F4F3EE);outline:none}
+.tabpanel[hidden]{display:none}
+.props .btn-row{padding:8px 0}
+.ph{margin:0 0 8px;font:700 12px var(--font-body);color:var(--luna-deep);display:flex;align-items:center;gap:6px}
+.ph::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#C9D3EA,transparent)}
+.note{color:#666;margin:0 0 10px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.sw{display:flex;flex-direction:column;padding:0;border:1px solid #ACA899;background:#fff;text-align:left;font-size:10px;overflow:hidden;transition:transform .15s}
+.sw:hover{transform:translateY(-2px);box-shadow:2px 3px 0 rgba(0,0,0,.08)}
+.sw:focus-visible{outline:1px dotted #000;outline-offset:2px}
+.sw i{height:44px;border-bottom:1px solid #ACA899;background:var(--c)}
+.sw span{padding:4px 6px 0;font-weight:700;font-size:11px}
+.sw code{padding:0 6px;font:11px var(--font-mono);color:#333}
+.sw small{padding:2px 6px 6px;color:#777;line-height:1.3}
+.spec{border:1px solid #D6D3C4;background:#fff;padding:10px 12px;margin-bottom:10px}
+.spec-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px;color:#666;font-size:10px}
+.spec-top b{color:#000;font-size:11px}
+.spec .s-display{font:700 30px/1.1 var(--font-display);letter-spacing:-.3px;color:#0B1F4D;margin:0}
+.spec .s-display.i{font-style:italic;font-size:20px;color:var(--luna-deep);margin-top:4px}
+.spec .s-body{font:13px/1.6 var(--font-body);margin:0}
+.spec .s-mono{font:12px/1.6 var(--font-mono);margin:0;white-space:pre-wrap}
+.scale{display:grid;grid-template-columns:52px 1fr;gap:4px 10px;align-items:baseline}
+.scale code{font:10px var(--font-mono);color:#888}
+.textures{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.tx{margin:0;font-size:10px;color:#555}
+.tx div{height:66px;border:1px solid #919B9C;margin-bottom:4px}
+.tx figcaption b{display:block;color:#000;font-size:11px}
+.tx-hills{background:radial-gradient(120% 55% at 25% 108%,#6CBF3A 60%,transparent 61%),radial-gradient(90% 45% at 90% 110%,#4F9A2E 60%,transparent 61%),radial-gradient(40% 18% at 70% 30%,#fff,transparent),linear-gradient(#2D6FD6,#9ACDF6)}
+.tx-teal{background:var(--teal)}
+.tx-dither{background:repeating-conic-gradient(#808080 0 25%,#fff 0 50%) 0 0/2px 2px}
+.tx-title{background:linear-gradient(#0997FF 0,#0053EE 8%,#0050EE 40%,#0066FF 88%,#0066FF 93%,#005BFF 95%,#003DD7 96%)}
+.tx-pane{background:linear-gradient(#7BA2E7,#6375D6)}
+.tx-prog{background:repeating-linear-gradient(90deg,transparent 0 8px,#fff 8px 10px),linear-gradient(#ACEDAD,#7BE47D 20%,#4DD74F 45%,#37CF3A 50%,#56D85A 75%,#ACEDAD)}
+.tx-raised{background:var(--chrome);box-shadow:inset -1px -1px #404040,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #DFDFDF}
+.tx-sunken{background:#fff;box-shadow:inset 1px 1px #808080,inset -1px -1px #fff,inset 2px 2px #404040,inset -2px -2px #DFDFDF}
+.tx-start{background:radial-gradient(ellipse at 40% -20%,#8EDB86,transparent 60%),linear-gradient(#3C9A3C,#48B048 12%,#3F9F3F 50%,#2F8A2F 88%,#1F6F1F)}
+.tx-task{background:linear-gradient(#1F2F86 0,#3165C4 6%,#3682E5 12%,#2B71E0 30%,#2157D6 60%,#1941A5)}
+.states{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px 8px;margin-bottom:14px}
+.states figure{margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px;font-size:10px;color:#777}
+.ctl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:14px}
+.ctl-grid>div{display:flex;flex-direction:column;gap:5px}
+.ctl-grid label.lbl{color:#555}
+.comp{margin-bottom:14px}
+.comp>small{display:block;color:#888;margin-bottom:4px;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.comp .site{padding:0;max-width:none}
+.comp .site-nav{margin:0;padding:6px 10px;background:#fff;border:1px solid #D6D3C4}
+.comp .site p{font-size:12px}
+.monitor{width:210px;margin:0 auto 12px;padding:10px 10px 22px;border-radius:6px 6px 4px 4px;background:linear-gradient(#E9E7DF,#C9C5B8);border:1px solid #8C8A7E;position:relative}
+.monitor::after{content:"";position:absolute;left:50%;bottom:-14px;width:70px;height:14px;transform:translateX(-50%);background:linear-gradient(#C9C5B8,#A9A597);clip-path:polygon(18% 0,82% 0,100% 100%,0 100%)}
+.screen{height:120px;position:relative;overflow:hidden;border:1px solid #333}
+.screen[data-wall="hills"]{background:radial-gradient(120% 55% at 25% 108%,#6CBF3A 60%,transparent 61%),radial-gradient(90% 45% at 90% 110%,#4F9A2E 60%,transparent 61%),linear-gradient(#2D6FD6,#9ACDF6)}
+.screen[data-wall="teal"]{background:var(--teal)}
+.screen[data-wall="dither"]{background:#5B7FA6 repeating-conic-gradient(#4B6E96 0 25%,#6A8EB5 0 50%) 0 0/2px 2px}
+.mini-win{position:absolute;left:28px;top:16px;width:120px;height:70px;background:#0842D8;padding:0 2px 2px;border-radius:4px 4px 0 0}
+.mini-win i{display:block;height:12px;margin:0 -2px;border-radius:4px 4px 0 0;background:linear-gradient(#0997FF,#0053EE 20%,#0066FF 90%,#003DD7)}
+.mini-win b{display:block;height:calc(100% - 12px);background:var(--beige)}
+.mini-task{position:absolute;left:0;right:0;bottom:0;height:10px;background:linear-gradient(#3682E5,#2157D6)}
+.mini-task::before{content:"";position:absolute;left:0;top:0;bottom:0;width:26px;border-radius:0 5px 5px 0;background:#3C9A3C}
+.screen[data-theme="classic"] .mini-win{background:var(--chrome);border-radius:0;padding:2px;box-shadow:inset -1px -1px #404040,inset 1px 1px #fff}
+.screen[data-theme="classic"] .mini-win i{margin:0;border-radius:0;height:9px;background:linear-gradient(90deg,#0A246A,#A6CAF0)}
+.screen[data-theme="classic"] .mini-win b{background:var(--chrome)}
+.screen[data-theme="classic"] .mini-task{background:var(--chrome);border-top:1px solid #fff}
+.screen[data-theme="classic"] .mini-task::before{background:var(--chrome);border-radius:0;box-shadow:inset -1px -1px #404040,inset 1px 1px #fff;width:22px;margin:1px}
+.theme-form{display:grid;grid-template-columns:auto 1fr;gap:8px 10px;align-items:center}
+.theme-form .opts{display:flex;flex-direction:column;gap:4px}
+
+/* ============ BOOT / POWER ============ */
+.boot{position:fixed;inset:0;z-index:100000;background:#000;color:#fff;display:grid;transition:opacity .45s}
+.boot.out{opacity:0;pointer-events:none}
+.boot[hidden]{display:none}
+.boot-stage{grid-area:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.boot-stage[hidden]{display:none}
+.boot-logo{display:flex;align-items:center;gap:14px;margin-bottom:60px}
+.boot-logo .ico{--s:74px}
+.boot-word{display:flex;flex-direction:column;line-height:1}
+.bw-small{font:13px var(--font-display);color:#ccc;letter-spacing:.02em}
+.bw-big{font:italic 700 54px/1 var(--font-display);letter-spacing:-1px}
+.bw-big sup{font-size:20px;color:#FF7B20;margin-left:3px;vertical-align:26px;font-style:normal}
+.bw-ed{font:700 15px var(--font-display);color:#ddd;margin-top:2px;margin-left:auto}
+.boot-bar{width:156px;height:20px;border:2px solid #B2B2B2;border-radius:5px;padding:2px 1px;overflow:hidden;position:relative;display:flex;gap:2px}
+.boot-bar i{width:9px;height:100%;border-radius:1px;background:linear-gradient(#2838C7,#3C5BF0 40%,#B6C3FF 50%,#3C5BF0 60%,#2838C7);animation:bootslide 1.9s linear infinite}
+@keyframes bootslide{from{transform:translateX(-40px)}to{transform:translateX(170px)}}
+.boot-foot{position:absolute;bottom:26px;left:0;right:0;display:flex;justify-content:space-between;padding:0 30px;margin:0;font:11px var(--font-body);color:#888;flex-wrap:wrap;gap:8px}
+.boot-foot .skip{color:#aaa}
+.welcome{background:#5A7EDC;justify-content:stretch;align-items:stretch}
+.wl-top,.wl-bot{flex:none;height:13vh;min-height:60px;background:#00309C}
+.wl-top{border-bottom:2px solid;border-image:linear-gradient(90deg,#00309C,#fff,#00309C) 1}
+.wl-bot{border-top:2px solid;border-image:linear-gradient(90deg,#00309C,#F29B3D,#00309C) 1;display:flex;align-items:center;justify-content:center;font-size:12px;color:#C9D6F5;padding:0 16px;text-align:center}
+.wl-mid{flex:1;display:flex;align-items:center;justify-content:center;gap:34px;background:radial-gradient(ellipse at 20% 30%,#95B4EE,#5A7EDC 55%);padding:0 16px}
+.wl-word{font:italic 700 clamp(34px,7vw,64px)/1 var(--font-display);text-shadow:2px 2px 4px rgba(0,0,50,.35)}
+.wl-divider{width:2px;align-self:stretch;margin:40px 0;background:linear-gradient(transparent,#fff,transparent);opacity:.7}
+.wl-user{display:flex;align-items:center;gap:12px;padding:8px 12px 8px 8px;border:0;border-radius:6px;background:none;color:#fff;text-align:left}
+.wl-user .sm-avatar{width:56px;height:56px;border-radius:5px;border:2px solid #fff}
+.wl-user b{display:block;font:16px var(--font-display)}
+.wl-user small{display:block;font-size:11px;color:#E1E9FB;margin-top:3px}
+.wl-user:hover:not(:disabled){background:linear-gradient(90deg,#0B3AA8,transparent)}
+.wl-user:focus-visible{outline:1px dotted #fff}
+.wl-user:disabled{cursor:inherit}
+.power{position:fixed;inset:0;z-index:50000;display:grid;place-items:center;background:rgba(0,0,0,.001)}
+.poweroff{width:min(314px,92vw);border-radius:6px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:balloonin .25s ease-out}
+.po-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#00309C;color:#fff;font:15px var(--font-display)}
+.po-head .ico{--s:26px}
+.po-body{display:flex;justify-content:space-around;padding:22px 10px;background:linear-gradient(#5A7EDC,#7B9BE6 50%,#5A7EDC);border-top:2px solid;border-bottom:2px solid;border-image:linear-gradient(90deg,#5A7EDC,#fff,#5A7EDC) 1}
+.po-body button{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:#fff;font-size:11px;padding:4px}
+.po-body button i{width:34px;height:34px;border-radius:6px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 2px 3px rgba(255,255,255,.5),0 1px 2px rgba(0,0,0,.4);transition:filter .15s,transform .15s}
+.po-body button:hover i,.po-body button:focus-visible i{filter:brightness(1.2);transform:scale(1.06)}
+.po-body button:focus-visible{outline:1px dotted #fff}
+.po-body svg{width:20px;height:20px}
+.po-foot{display:flex;justify-content:flex-end;padding:10px 14px;background:#00309C}
+.standby,.itsafe{position:fixed;inset:0;z-index:60000;background:#000;display:grid;place-items:center;text-align:center;animation:fadein .6s ease}
+@keyframes fadein{from{opacity:0}}
+.standby p{color:#333;font-size:11px}
+.itsafe p{font:700 clamp(18px,3.4vw,30px)/1.3 var(--font-body);color:#FF8A1E;margin:0 16px 20px}
+.itsafe small{display:block;color:#777;margin-bottom:16px;font-size:11px}
+
+/* ============ CORNER LABEL ============ */
+.tile-label{position:fixed;top:8px;right:8px;z-index:90000;padding:4px 9px;background:var(--cream);border:1px solid #000;border-radius:3px;box-shadow:2px 2px 0 rgba(0,0,0,.25);color:#000;font:11px var(--font-body);text-decoration:none}
+.tile-label:hover{background:#fff;text-decoration:underline}
+.tile-label:focus-visible{outline:2px solid var(--luna);outline-offset:2px}
+
+/* ============ CLASSIC 2000 THEME ============ */
+body[data-theme="classic"] .win{background:var(--chrome);padding:3px;border:0;border-radius:0;box-shadow:inset -1px -1px #404040,inset 1px 1px #DFDFDF,inset -2px -2px #808080,inset 2px 2px #fff,2px 2px 0 rgba(0,0,0,.18)}
+body[data-theme="classic"] .titlebar{height:20px;margin:0 0 1px;border-radius:0;padding:0 2px 0 3px;background:linear-gradient(90deg,#808080,#C0C0C0)}
+body[data-theme="classic"] .win.active .titlebar{background:linear-gradient(90deg,#0A246A,#A6CAF0)}
+body[data-theme="classic"] .t-text{font:700 11px var(--font-body);color:#D4D0C8;text-shadow:none}
+body[data-theme="classic"] .win.active .t-text{color:#fff;text-shadow:none}
+body[data-theme="classic"] .tbtn{width:16px;height:14px;border:0;border-radius:0;color:#000;background:var(--chrome);box-shadow:inset -1px -1px #404040,inset 1px 1px #fff,inset -2px -2px #808080;opacity:1}
+body[data-theme="classic"] .tbtn svg{width:8px;height:8px}
+body[data-theme="classic"] .tbtn.close{margin-left:2px}
+body[data-theme="classic"] .tbtn:active{box-shadow:inset 1px 1px #404040,inset -1px -1px #fff,inset 2px 2px #808080}
+body[data-theme="classic"] .tbtn.help{font:700 10px var(--font-body)}
+body[data-theme="classic"] .inner,body[data-theme="classic"] .menubar,body[data-theme="classic"] .statusbar,body[data-theme="classic"] .addressbar{background:var(--chrome)}
+body[data-theme="classic"] .toolbar{background:var(--chrome)}
+body[data-theme="classic"] .mb:hover,body[data-theme="classic"] .mb[aria-expanded="true"]{background:var(--navy)}
+body[data-theme="classic"] .btn{border:0;border-radius:0;background:var(--chrome);box-shadow:inset -1px -1px #404040,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #DFDFDF}
+body[data-theme="classic"] .btn:active,body[data-theme="classic"] .btn.is-active{box-shadow:inset 1px 1px #404040,inset -1px -1px #fff,inset 2px 2px #808080}
+body[data-theme="classic"] .btn.primary{color:#000;font-weight:700;background:var(--chrome);box-shadow:0 0 0 1px #000,inset -1px -1px #404040,inset 1px 1px #fff,inset -2px -2px #808080}
+body[data-theme="classic"] .btn:disabled{color:#808080;text-shadow:1px 1px #fff}
+body[data-theme="classic"] .ctx{background:var(--chrome);border:0;box-shadow:inset -1px -1px #404040,inset 1px 1px #DFDFDF,inset -2px -2px #808080,inset 2px 2px #fff;padding:3px}
+body[data-theme="classic"] .ctx-item:hover:not(:disabled),body[data-theme="classic"] .ctx-item:focus{background:var(--navy)}
+body[data-theme="classic"] .ctx-item:disabled{color:#808080;text-shadow:1px 1px #fff}
+body[data-theme="classic"] .ctx-sep{background:#808080;box-shadow:0 1px #fff}
+body[data-theme="classic"] #taskbar{background:var(--chrome);box-shadow:inset 0 1px #DFDFDF,inset 0 2px #fff}
+body[data-theme="classic"] #start{margin:3px 2px;padding:0 6px 0 3px;border-radius:0;color:#000;font:700 11px var(--font-body);text-shadow:none;background:var(--chrome);box-shadow:inset -1px -1px #000,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #DFDFDF}
+body[data-theme="classic"] #start .ico{--s:16px;filter:none}
+body[data-theme="classic"] #start[aria-expanded="true"]{box-shadow:inset 1px 1px #000,inset -1px -1px #fff,inset 2px 2px #808080;filter:none}
+body[data-theme="classic"] .quick{border-right:1px solid #808080;box-shadow:1px 0 #fff}
+body[data-theme="classic"] .qbtn:hover{border-color:transparent;background:none;box-shadow:inset -1px -1px #808080,inset 1px 1px #fff}
+body[data-theme="classic"] .task{color:#000;border-radius:0;background:var(--chrome);box-shadow:inset -1px -1px #000,inset 1px 1px #fff,inset -2px -2px #808080,inset 2px 2px #DFDFDF}
+body[data-theme="classic"] .task[aria-pressed="true"]{font-weight:700;background:#fff repeating-conic-gradient(#D4D0C8 0 25%,#fff 0 50%) 0 0/2px 2px;box-shadow:inset 1px 1px #000,inset -1px -1px #fff,inset 2px 2px #808080}
+body[data-theme="classic"] #tray{margin:3px 2px;background:var(--chrome);color:#000;border:0;box-shadow:inset 1px 1px #808080,inset -1px -1px #fff}
+body[data-theme="classic"] #clock{color:#000}
+body[data-theme="classic"] .tray-ico:focus-visible,body[data-theme="classic"] #clock:focus-visible,body[data-theme="classic"] .qbtn:focus-visible{outline-color:#000}
+body[data-theme="classic"] .startmenu{border-radius:0;border:0;background:var(--chrome);box-shadow:inset -1px -1px #404040,inset 1px 1px #DFDFDF,inset -2px -2px #808080,inset 2px 2px #fff,2px 2px 4px rgba(0,0,0,.4);padding:3px 3px 3px 26px}
+body[data-theme="classic"] .startmenu::before{content:"ZC 2000 Personal";position:absolute;left:3px;top:3px;bottom:3px;width:21px;background:linear-gradient(#0A246A,#A6CAF0);color:#D4D0C8;font:700 15px/21px var(--font-display);writing-mode:vertical-rl;transform:rotate(180deg);padding-top:8px}
+body[data-theme="classic"] .sm-head{display:none}
+body[data-theme="classic"] .sm-cols{flex-direction:column}
+body[data-theme="classic"] .sm-left,body[data-theme="classic"] .sm-right{background:var(--chrome);border:0;width:auto;padding:2px 0}
+body[data-theme="classic"] .sm-right .sm-item{color:#000}
+body[data-theme="classic"] .sm-item:hover,body[data-theme="classic"] .sm-item:focus-visible{background:var(--navy);color:#fff}
+body[data-theme="classic"] .sm-sep{background:#808080;box-shadow:0 1px #fff}
+body[data-theme="classic"] .sm-all .arrow{background:none;color:inherit}
+body[data-theme="classic"] .sm-foot{background:var(--chrome);border-top:1px solid #808080;justify-content:flex-start;flex-direction:column;padding:2px 0}
+body[data-theme="classic"] .sm-foot button{color:#000;border-radius:0}
+body[data-theme="classic"] .sm-foot button:hover{background:var(--navy);color:#fff;border-color:transparent}
+body[data-theme="classic"] .dicon.sel .lbl{background:var(--navy)}
+body[data-theme="classic"] .dicon.sel .ico{filter:brightness(.6) sepia(1) hue-rotate(190deg) saturate(4)}
+body[data-theme="classic"] .taskpane{background:#fff;border-right:1px solid #808080}
+body[data-theme="classic"] .tp-head{background:linear-gradient(90deg,#0A246A,#A6CAF0);color:#fff}
+body[data-theme="classic"] .tp-body{background:#fff;border:0}
+body[data-theme="classic"] .tp-link{color:#0000EE}
+body[data-theme="classic"] .row.sel,body[data-theme="classic"] .tile.sel h3{background:var(--navy)}
+body[data-theme="classic"] .tabpanel{background:var(--chrome);border-color:#fff #404040 #404040 #fff}
+body[data-theme="classic"] .tab{background:var(--chrome);border-color:#fff #404040 transparent #fff;border-radius:3px 3px 0 0;box-shadow:none}
+body[data-theme="classic"] .tab[aria-selected="true"]{background:var(--chrome);box-shadow:none;border-top-color:#fff}
+body[data-theme="classic"] .proj-card .pc-head,body[data-theme="classic"] .site .site-links a[aria-current="page"]{background:linear-gradient(90deg,#0A246A,#A6CAF0)}
+body[data-theme="classic"] .wbody ::-webkit-scrollbar-thumb,body[data-theme="classic"] .np::-webkit-scrollbar-thumb,body[data-theme="classic"] .tabpanel::-webkit-scrollbar-thumb{background:var(--chrome);border:0;border-radius:0;box-shadow:inset -1px -1px #404040,inset 1px 1px #fff,inset -2px -2px #808080}
+body[data-theme="classic"] .wbody ::-webkit-scrollbar-track,body[data-theme="classic"] .np::-webkit-scrollbar-track,body[data-theme="classic"] .tabpanel::-webkit-scrollbar-track{background:repeating-conic-gradient(#D4D0C8 0 25%,#fff 0 50%) 0 0/2px 2px}
+body[data-theme="classic"] .grip{background:linear-gradient(135deg,transparent 45%,#fff 45% 52%,#808080 52% 60%,transparent 60% 68%,#fff 68% 74%,#808080 74% 82%,transparent 82%)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:640px){
+  #desktop{top:26px}
+  .tile-label{top:0;left:0;right:0;height:26px;border:0;border-bottom:1px solid #000;border-radius:0;box-shadow:none;text-align:center;line-height:17px}
+  .win{left:0!important;top:0!important;width:100%!important;height:100%!important;border-radius:0;min-width:0}
+  .titlebar{border-radius:0;height:32px}
+  .tbtn{width:26px;height:26px}
+  .tbtn.max{display:none}
+  .grip{display:none}
+  #icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));align-content:start;justify-items:center;gap:14px 4px;padding:14px 8px;overflow:auto}
+  .dicon{position:static!important;transform:none!important}
+  .quick{display:none}
+  #start{padding:0 14px 2px 8px;font-size:16px}
+  .task{flex:0 1 auto;max-width:44px;padding:0 6px}
+  .task span.t{display:none}
+  #tray{padding:0 6px;gap:6px}
+  #tray .tray-ico.opt{display:none}
+  .startmenu{width:100vw;border-radius:0}
+  .sm-right{width:50%}
+  .taskpane{display:none}
+  .cols,.row{grid-template-columns:minmax(0,1fr) 70px}
+  .cols>:nth-child(n+3),.row>:nth-child(n+3){display:none}
+  .tiles{grid-template-columns:1fr}
+  .tiles[data-view="details"] .tile>div{grid-template-columns:1fr}
+  .tiles[data-view="details"] .tile p{display:none}
+  .toolbar .tool span{display:none}
+  .site{padding:0 14px 24px}
+  .site h1{font-size:23px}
+  .hero{margin:0 -14px 10px;padding:16px 14px}
+  .post-item{grid-template-columns:24px 1fr}
+  .post-item .ico{--s:22px}
+  .post-item .pi-meta{grid-column:2;flex-direction:row;gap:8px;text-align:left}
+  .ctl-grid,.dt{grid-template-columns:1fr}
+  .balloon{max-width:calc(100vw - 20px)}
+  .boot-logo{flex-direction:column;text-align:center}
+  .bw-ed{margin:2px auto 0}
+  .wl-mid{flex-direction:column;gap:14px}
+  .wl-divider{width:60%;height:2px;align-self:center;margin:0;background:linear-gradient(90deg,transparent,#fff,transparent)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  #wall .clouds{animation:none}
+  .boot-bar i{animation:none;opacity:.9}
+  .boot-bar i:nth-child(1){transform:translateX(20px)}.boot-bar i:nth-child(2){transform:translateX(24px)}.boot-bar i:nth-child(3){transform:translateX(28px)}
+}
+</style>
+</head>
+<body data-theme="luna" data-wall="hills">
+
+<svg id="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gFolder" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9A0"/><stop offset="1" stop-color="#F0BC3C"/></linearGradient>
+    <linearGradient id="gFolderBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2CB5E"/><stop offset="1" stop-color="#D99A1E"/></linearGradient>
+    <radialGradient id="gGlobe" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#9FD4FF"/><stop offset=".55" stop-color="#2E7BD6"/><stop offset="1" stop-color="#123F8C"/></radialGradient>
+    <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2D6FD6"/><stop offset="1" stop-color="#A9D6FA"/></linearGradient>
+    <linearGradient id="gAvatar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset="1" stop-color="#E8552B"/></linearGradient>
+    <radialGradient id="gInfo" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#9FC7FF"/><stop offset="1" stop-color="#1B55C4"/></radialGradient>
+    <radialGradient id="gErr" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FF9C86"/><stop offset="1" stop-color="#C21A00"/></radialGradient>
+    <linearGradient id="gWarn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE77A"/><stop offset="1" stop-color="#F2B300"/></linearGradient>
+    <radialGradient id="gGreen" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#A6EB8F"/><stop offset="1" stop-color="#2F8A1F"/></radialGradient>
+    <linearGradient id="gBin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C8D8EC"/><stop offset=".5" stop-color="#F4F8FC"/><stop offset="1" stop-color="#B3C6DF"/></linearGradient>
+  </defs>
+</svg>
+
+<a class="tile-label" href="index.html">Style tile 1/6 · Vintage Windows</a>
+
+<main id="desktop" aria-label="Desktop">
+  <div id="wall" aria-hidden="true">
+    <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="wSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1F5FC8"/><stop offset=".45" stop-color="#5DA3E8"/><stop offset=".75" stop-color="#B9DDF9"/><stop offset="1" stop-color="#E4F3FD"/></linearGradient>
+        <linearGradient id="wHillA" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#8FD24B"/><stop offset=".5" stop-color="#5DAA2C"/><stop offset="1" stop-color="#2E6E14"/></linearGradient>
+        <linearGradient id="wHillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6CBF3A"/><stop offset="1" stop-color="#3B7F1A"/></linearGradient>
+        <radialGradient id="wGlow" cx=".3" cy=".2" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+        <filter id="wBlur" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>
+        <filter id="wSoft"><feGaussianBlur stdDeviation="2"/></filter>
+      </defs>
+      <rect width="1600" height="1000" fill="url(#wSky)"/>
+      <g class="clouds" filter="url(#wBlur)" fill="#fff">
+        <ellipse cx="300" cy="190" rx="220" ry="42" opacity=".85"/>
+        <ellipse cx="420" cy="160" rx="120" ry="40" opacity=".9"/>
+        <ellipse cx="980" cy="120" rx="260" ry="36" opacity=".7"/>
+        <ellipse cx="1340" cy="250" rx="200" ry="44" opacity=".8"/>
+        <ellipse cx="760" cy="300" rx="160" ry="26" opacity=".6"/>
+        <ellipse cx="1700" cy="160" rx="200" ry="40" opacity=".75"/>
+      </g>
+      <g class="hill-back">
+        <path d="M-100 660 C 250 540 560 520 880 590 S 1420 700 1720 600 V1100 H-100Z" fill="url(#wHillB)"/>
+      </g>
+      <g class="hill-front">
+        <path d="M-100 720 C 280 540 720 560 1060 700 C 1260 780 1480 770 1720 730 V1100 H-100Z" fill="url(#wHillA)"/>
+        <path d="M-100 720 C 280 540 720 560 1060 700" fill="none" stroke="#C8F08A" stroke-width="6" opacity=".45" filter="url(#wSoft)"/>
+        <path d="M-100 880 C 300 800 740 830 1060 900 S 1500 940 1720 900 V1100 H-100Z" fill="#3E8A1C" opacity=".55"/>
+        <ellipse cx="420" cy="660" rx="380" ry="80" fill="url(#wGlow)"/>
+      </g>
+    </svg>
+  </div>
+  <div id="icons" role="group" aria-label="Desktop icons"></div>
+</main>
+
+<nav id="taskbar" aria-label="Taskbar">
+  <button id="start" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="startmenu" data-help="The Start button. Everything on this site is two clicks from here."><span class="ico" data-ico="pinwheel"></span>start</button>
+  <div class="quick" role="group" aria-label="Quick Launch">
+    <button class="qbtn" type="button" data-open="browser" title="Web Wanderer" aria-label="Open Web Wanderer"><span class="ico" data-ico="browser"></span></button>
+    <button class="qbtn" type="button" data-open="posts" title="Posts" aria-label="Open Posts"><span class="ico" data-ico="folderDoc"></span></button>
+    <button class="qbtn" type="button" id="showdesk" title="Show Desktop" aria-label="Show Desktop"><span class="ico" data-ico="desk"></span></button>
+  </div>
+  <div id="tasks" role="group" aria-label="Open windows"></div>
+  <div id="tray">
+    <button class="tray-ico" type="button" id="tray-posts" aria-label="3 new posts"><span class="ico" data-ico="mail"></span><span class="badge">3</span></button>
+    <button class="tray-ico opt" type="button" id="tray-net" aria-label="Network status"><span class="ico" data-ico="net"></span></button>
+    <button class="tray-ico opt" type="button" id="tray-vol" aria-label="Volume"><span class="ico" data-ico="speaker"></span></button>
+    <button id="clock" type="button" aria-label="Clock. Open Date and Time">--:--</button>
+  </div>
+</nav>
+
+<div id="startmenu" class="startmenu" role="dialog" aria-label="Start menu" hidden>
+  <div class="sm-head"><span class="sm-avatar" data-ico="avatar"></span><span>Z. Christensen</span></div>
+  <div class="sm-cols">
+    <ul class="sm-left">
+      <li><button class="sm-item big" type="button" data-open="browser"><span class="ico" data-ico="browser"></span><span><b>Web Wanderer</b><small>Browse the site</small></span></button></li>
+      <li><button class="sm-item big" type="button" data-open="posts"><span class="ico" data-ico="folderDoc"></span><span><b>Posts</b><small>3 new since you last looked</small></span></button></li>
+      <li class="sm-sep" role="separator"></li>
+      <li><button class="sm-item" type="button" data-open="projects"><span class="ico" data-ico="folderProj"></span><span>Projects</span></button></li>
+      <li><button class="sm-item" type="button" data-open="about"><span class="ico" data-ico="notepad"></span><span>Notepad: about.txt</span></button></li>
+      <li><button class="sm-item" type="button" data-open="props"><span class="ico" data-ico="props"></span><span>Display Properties</span></button></li>
+      <li><button class="sm-item" type="button" data-open="winver"><span class="ico" data-ico="pinwheel"></span><span>About ZC 2000</span></button></li>
+      <li class="sm-sep" role="separator"></li>
+      <li><button class="sm-item sm-all" type="button" id="allprogs" aria-haspopup="menu">All Programs <span class="arrow" aria-hidden="true">&#9654;</span></button></li>
+    </ul>
+    <ul class="sm-right">
+      <li><button class="sm-item bold" type="button" data-open="posts"><span class="ico" data-ico="folderDoc"></span><span>My Posts</span></button></li>
+      <li><button class="sm-item bold" type="button" data-open="projects"><span class="ico" data-ico="folderProj"></span><span>My Projects</span></button></li>
+      <li><button class="sm-item bold" type="button" data-open="bin"><span class="ico" data-ico="binFull"></span><span>Recycle Bin</span></button></li>
+      <li class="sm-sep" role="separator"></li>
+      <li><button class="sm-item" type="button" data-open="props"><span class="ico" data-ico="cpl"></span><span>Control Panel</span></button></li>
+      <li><button class="sm-item" type="button" data-open="datetime"><span class="ico" data-ico="clock"></span><span>Date and Time</span></button></li>
+      <li class="sm-sep" role="separator"></li>
+      <li><button class="sm-item" type="button" data-open="help"><span class="ico" data-ico="help"></span><span>Help and Support</span></button></li>
+      <li><button class="sm-item" type="button" data-open="search"><span class="ico" data-ico="search"></span><span>Search</span></button></li>
+      <li><button class="sm-item" type="button" data-open="run"><span class="ico" data-ico="run"></span><span>Run...</span></button></li>
+    </ul>
+  </div>
+  <div class="sm-foot">
+    <button type="button" data-power="logoff"><span class="ico" data-ico="key"></span>Log Off</button>
+    <button type="button" data-power="off"><span class="ico" data-ico="power"></span>Turn Off Computer</button>
+  </div>
+</div>
+
+<div id="boot" class="boot" role="status" aria-live="polite">
+  <div class="boot-stage" id="boot-post">
+    <div class="boot-logo">
+      <span class="ico" data-ico="pinwheel"></span>
+      <div class="boot-word"><span class="bw-small">Z. Christensen</span><span class="bw-big">ZC<sup>2000</sup></span><span class="bw-ed">Personal Edition</span></div>
+    </div>
+    <div class="boot-bar" aria-label="Starting up"><i></i><i></i><i></i></div>
+    <p class="boot-foot"><span>Copyright &copy; 2026 Z. Christensen</span><span class="skip">Press any key or click to skip</span></p>
+  </div>
+  <div class="boot-stage welcome" id="boot-welcome" hidden>
+    <div class="wl-top"></div>
+    <div class="wl-mid">
+      <span class="wl-word">welcome</span>
+      <div class="wl-divider"></div>
+      <button class="wl-user" id="wl-user" type="button" disabled><span class="sm-avatar" data-ico="avatar"></span><span><b>Z. Christensen</b><small id="wl-msg">Loading your personal settings...</small></span></button>
+    </div>
+    <div class="wl-bot"><span>After you log on, the desktop is yours. Double-click anything. Right-click everything.</span></div>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+/* ================= UTILITIES ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const RM = matchMedia('(prefers-reduced-motion: reduce)');
+const MOBILE = matchMedia('(max-width: 640px)');
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function el(html) { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+function ico(name, size) { return `<span class="ico"${size ? ` style="--s:${size}px"` : ''} aria-hidden="true">${ICONS[name] || ''}</span>`; }
+
+/* ================= ICONS (original artwork) ================= */
+const PETAL = 'M0 0C-2-6 1-12.5 9-13.5C11-6 7 0 0 0Z';
+const ICONS = {
+  pinwheel: `<svg viewBox="-16 -16 32 32"><path d="${PETAL}" fill="#E8552B"/><path d="${PETAL}" fill="#6DB33F" transform="rotate(90)"/><path d="${PETAL}" fill="#2E8FE0" transform="rotate(180)"/><path d="${PETAL}" fill="#F4B400" transform="rotate(270)"/><circle r="2.2" fill="#fff"/></svg>`,
+  folder: `<svg viewBox="0 0 32 32"><path d="M2.5 6.5h10l3 3h14v18h-27z" fill="url(#gFolderBack)" stroke="#A67A12"/><path d="M2.5 12.5h27v15h-27z" fill="url(#gFolder)" stroke="#A67A12"/><path d="M3.5 13.5h25" stroke="#FFF6D0"/></svg>`,
+  folderDoc: `<svg viewBox="0 0 32 32"><path d="M2.5 6.5h10l3 3h14v18h-27z" fill="url(#gFolderBack)" stroke="#A67A12"/><path d="M8 4.5h14l3 3v12H8z" fill="#fff" stroke="#6D7B8D"/><path d="M11 9h10M11 12h10M11 15h7" stroke="#6C9BE0"/><path d="M2.5 13.5h27v14h-27z" fill="url(#gFolder)" stroke="#A67A12"/><path d="M3.5 14.5h25" stroke="#FFF6D0"/></svg>`,
+  folderProj: `<svg viewBox="0 0 32 32"><path d="M2.5 6.5h10l3 3h14v18h-27z" fill="url(#gFolderBack)" stroke="#A67A12"/><rect x="8" y="3.5" width="7" height="7" fill="#E8552B" transform="rotate(-8 11 7)"/><rect x="16" y="4.5" width="7" height="7" fill="#2E8FE0" transform="rotate(10 19 8)"/><path d="M2.5 13.5h27v14h-27z" fill="url(#gFolder)" stroke="#A67A12"/><path d="M3.5 14.5h25" stroke="#FFF6D0"/><path d="M14 17l4 3-4 3" stroke="#A67A12" stroke-width="1.5" fill="none"/></svg>`,
+  doc: `<svg viewBox="0 0 32 32"><path d="M6.5 2.5h14l6 6v21h-20z" fill="#fff" stroke="#6D7B8D"/><path d="M20.5 2.5v6h6" fill="#DDE6F2" stroke="#6D7B8D"/><path d="M10 13h13M10 16h13M10 19h13M10 22h9" stroke="#8FA6C8"/></svg>`,
+  html: `<svg viewBox="0 0 32 32"><path d="M6.5 2.5h14l6 6v21h-20z" fill="#fff" stroke="#6D7B8D"/><path d="M20.5 2.5v6h6" fill="#DDE6F2" stroke="#6D7B8D"/><circle cx="16" cy="19" r="7" fill="url(#gGlobe)"/><path d="M9 19h14M16 12c-3 4-3 10 0 14M16 12c3 4 3 10 0 14" stroke="#CDE8FF" stroke-width=".8" fill="none"/></svg>`,
+  browser: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="url(#gGlobe)" stroke="#123F8C"/><path d="M5 16h22M16 5c-5 6-5 16 0 22M16 5c5 6 5 16 0 22M7 10.5h18M7 21.5h18" stroke="#CDE8FF" stroke-width=".9" fill="none" opacity=".85"/><path d="M3 23c4 2 16-2 24-10 3-3 3-5 1-5.5" fill="none" stroke="#F4B400" stroke-width="2.4" stroke-linecap="round"/></svg>`,
+  notepad: `<svg viewBox="0 0 32 32"><rect x="6.5" y="4.5" width="19" height="25" fill="#fff" stroke="#6D7B8D"/><rect x="6.5" y="4.5" width="19" height="5" fill="#5B8FD6" stroke="#3B67A8"/><path d="M10 3v4M14 3v4M18 3v4M22 3v4" stroke="#444" stroke-width="1.6" stroke-linecap="round"/><path d="M9.5 14h13M9.5 17h13M9.5 20h13M9.5 23h9" stroke="#A8B8CF"/></svg>`,
+  bin: `<svg viewBox="0 0 32 32"><path d="M7 9h18l-2.2 19.5H9.2z" fill="url(#gBin)" stroke="#5B7A9E"/><path d="M11.5 11.5l1 15M16 11.5v15M20.5 11.5l-1 15M8 16h16M8.6 21h14.8" stroke="#9DB4CF"/><rect x="5.5" y="6.5" width="21" height="3" rx="1.5" fill="#E9F0F8" stroke="#5B7A9E"/></svg>`,
+  binFull: `<svg viewBox="0 0 32 32"><path d="M7 9h18l-2.2 19.5H9.2z" fill="url(#gBin)" stroke="#5B7A9E"/><path d="M11.5 11.5l1 15M16 11.5v15M20.5 11.5l-1 15M8 16h16M8.6 21h14.8" stroke="#9DB4CF"/><path d="M9 7l3-4 5 1 2 3z" fill="#FFFDF2" stroke="#8C8C8C"/><circle cx="21" cy="6" r="3.4" fill="#F7F3E2" stroke="#8C8C8C"/><path d="M19 5l3 2M20 7.5l2.5-2.5" stroke="#B5B0A0" stroke-width=".8"/><rect x="5.5" y="7.5" width="21" height="3" rx="1.5" fill="#E9F0F8" stroke="#5B7A9E"/></svg>`,
+  props: `<svg viewBox="0 0 32 32"><rect x="3.5" y="4.5" width="25" height="18" rx="2" fill="#E3E0D6" stroke="#6B6B6B"/><rect x="5.5" y="6.5" width="21" height="14" fill="url(#gSky)"/><path d="M5.5 20.5c5-5 11-6 21-3v3z" fill="#4F9A2E"/><rect x="8" y="9" width="4" height="4" fill="#E8552B"/><rect x="13" y="9" width="4" height="4" fill="#F4B400"/><rect x="18" y="9" width="4" height="4" fill="#fff"/><path d="M12 22.5h8l2 5H10z" fill="#BDB9AE" stroke="#6B6B6B"/></svg>`,
+  cpl: `<svg viewBox="0 0 32 32"><g transform="translate(16 16)"><path d="M-2-12h4l1 3 3 1.3 2.8-1.6 2.9 2.9-1.6 2.8L11.4-2l3 1v4l-3 1-1.3 3 1.6 2.8-2.9 2.9-2.8-1.6L3 11.4l-1 3h-4l-1-3-3-1.3-2.8 1.6-2.9-2.9 1.6-2.8L-11.4 3l-3-1v-4l3-1 1.3-3-1.6-2.8 2.9-2.9 2.8 1.6L-3-11.4z" fill="#9DB4CF" stroke="#4E6A8E"/><circle r="4.5" fill="#fff" stroke="#4E6A8E"/></g></svg>`,
+  avatar: `<svg viewBox="0 0 48 48"><rect width="48" height="48" fill="url(#gAvatar)"/><circle cx="36" cy="12" r="5" fill="#FFE39A" opacity=".9"/><path d="M7 29l33-15-10 27-6-9.5z" fill="#fff"/><path d="M24 31.5l16-17.5-12 20z" fill="#C9DBF4"/><path d="M4 40c8-3 14-2 20 1" stroke="#fff" stroke-width="1.5" stroke-dasharray="2 3" fill="none" opacity=".8"/></svg>`,
+  info: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="url(#gInfo)" stroke="#123F8C"/><circle cx="16" cy="9.5" r="2.2" fill="#fff"/><path d="M16 14v10" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/></svg>`,
+  warn: `<svg viewBox="0 0 32 32"><path d="M16 3L30 28H2z" fill="url(#gWarn)" stroke="#9C7300" stroke-linejoin="round"/><path d="M16 11v9" stroke="#000" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="24" r="1.8"/></svg>`,
+  error: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="url(#gErr)" stroke="#7A0F00"/><path d="M11 11l10 10M21 11L11 21" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/></svg>`,
+  question: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="url(#gInfo)" stroke="#123F8C"/><path d="M12 12.5c0-2.5 2-4 4.2-4s4 1.5 4 3.6c0 3.4-4.2 3.2-4.2 6.6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="16" cy="23.5" r="2" fill="#fff"/></svg>`,
+  help: `<svg viewBox="0 0 32 32"><rect x="4.5" y="6.5" width="23" height="20" rx="2" fill="#fff" stroke="#6D7B8D"/><path d="M4.5 6.5h23v5h-23z" fill="#3E9A45"/><circle cx="16" cy="19" r="5" fill="url(#gInfo)"/><path d="M14.3 17.6c0-1 .8-1.6 1.7-1.6s1.7.6 1.7 1.5c0 1.3-1.7 1.3-1.7 2.6" stroke="#fff" stroke-width="1.3" fill="none"/></svg>`,
+  search: `<svg viewBox="0 0 32 32"><circle cx="13" cy="13" r="8" fill="#DDF0FF" stroke="#3B67A8" stroke-width="2.5"/><path d="M19 19l8 8" stroke="#7A5A2E" stroke-width="4" stroke-linecap="round"/><path d="M9 11a5 5 0 0 1 5-4" stroke="#fff" stroke-width="2" fill="none"/></svg>`,
+  run: `<svg viewBox="0 0 32 32"><rect x="3.5" y="7.5" width="25" height="18" rx="2" fill="#fff" stroke="#6D7B8D"/><path d="M3.5 7.5h25v4h-25z" fill="#2E6BD6"/><path d="M8 17l3 2.5L8 22M13 22h6" stroke="#333" stroke-width="1.6" fill="none"/></svg>`,
+  clock: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#fff" stroke="#3B67A8" stroke-width="2"/><path d="M16 8v8l5 3" stroke="#000" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="16" cy="16" r="1.4" fill="#E0301E"/></svg>`,
+  key: `<svg viewBox="0 0 32 32"><rect x="3" y="3" width="26" height="26" rx="4" fill="#F4B400" stroke="#9C7300"/><circle cx="12" cy="14" r="5" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M15.5 17.5l8 8M20 22l2-2M22.5 24.5l2-2" stroke="#fff" stroke-width="2.5"/></svg>`,
+  power: `<svg viewBox="0 0 32 32"><rect x="3" y="3" width="26" height="26" rx="4" fill="#E0301E" stroke="#8C1400"/><path d="M11 10.5a8 8 0 1 0 10 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M16 7v9" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>`,
+  mail: `<svg viewBox="0 0 16 16"><rect x=".5" y="3.5" width="15" height="10" fill="#FFFDF0" stroke="#5A5A5A"/><path d="M.5 3.5l7.5 6 7.5-6" fill="none" stroke="#5A5A5A"/></svg>`,
+  net: `<svg viewBox="0 0 16 16"><rect x=".5" y="2.5" width="9" height="7" fill="#6FB2F5" stroke="#1B3E7A"/><rect x="6.5" y="6.5" width="9" height="7" fill="#9ED2FF" stroke="#1B3E7A"/><path d="M3 11h3M11 15h2" stroke="#fff"/></svg>`,
+  speaker: `<svg viewBox="0 0 16 16"><path d="M2 6h3l4-3v10l-4-3H2z" fill="#E4E4E4" stroke="#333"/><path d="M11 5.5c1.3 1.3 1.3 3.7 0 5M13 4c2 2 2 6 0 8" stroke="#fff" fill="none"/></svg>`,
+  desk: `<svg viewBox="0 0 16 16"><rect x=".5" y="2.5" width="15" height="10" fill="#5DA3E8" stroke="#1B3E7A"/><path d="M.5 10c4-3 9-3 15-1v3.5H.5z" fill="#4F9A2E"/><rect x="2.5" y="4.5" width="5" height="3" fill="#fff" stroke="#1B3E7A" stroke-width=".6"/></svg>`,
+  back: `<svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="10" fill="url(#gGreen)" stroke="#2A7A1E"/><path d="M12.5 6L7.5 11l5 5M8 11h7.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  fwd: `<svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="10" fill="url(#gGreen)" stroke="#2A7A1E"/><path d="M9.5 6l5 5-5 5M14 11H6.5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  up: `<svg viewBox="0 0 22 22"><path d="M1.5 5.5h7l2 2h10v12h-19z" fill="url(#gFolder)" stroke="#A67A12"/><path d="M11 17v-7M7.5 13L11 9.5l3.5 3.5" stroke="#2A8A1E" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  folders: `<svg viewBox="0 0 22 22"><path d="M5.5 3.5h5l1.5 1.5h7v7h-13.5z" fill="url(#gFolder)" stroke="#A67A12"/><path d="M2 6v12h4M2 12h4" stroke="#777" fill="none" stroke-dasharray="1 1"/><path d="M6.5 14.5h4l1 1h6v4.5h-11z" fill="url(#gFolder)" stroke="#A67A12"/></svg>`,
+  views: `<svg viewBox="0 0 22 22"><rect x="2.5" y="3.5" width="7" height="6" fill="#6C9BE0" stroke="#2F5DA8"/><rect x="12.5" y="3.5" width="7" height="6" fill="#F4B400" stroke="#9C7300"/><rect x="2.5" y="12.5" width="7" height="6" fill="#6DB33F" stroke="#3B7F1A"/><rect x="12.5" y="12.5" width="7" height="6" fill="#E8552B" stroke="#8C2A10"/></svg>`,
+  go: `<svg viewBox="0 0 22 22"><rect x="1.5" y="1.5" width="19" height="19" rx="3" fill="url(#gGreen)" stroke="#2A7A1E"/><path d="M8 6l5.5 5L8 16" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  stop: `<svg viewBox="0 0 22 22"><path d="M7 1.5h8l5.5 5.5v8L15 20.5H7L1.5 15V7z" fill="url(#gErr)" stroke="#7A0F00"/><path d="M8 8l6 6M14 8l-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+  refresh: `<svg viewBox="0 0 22 22"><path d="M17.5 8A7 7 0 1 0 18 13" stroke="#2A8A1E" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M19.5 3v6h-6z" fill="#2A8A1E"/></svg>`,
+  home: `<svg viewBox="0 0 22 22"><path d="M3 11L11 3.5 19 11" stroke="#8C2A10" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M5.5 10v9.5h11V10" fill="#FFF4DA" stroke="#6B4A1E"/><rect x="9" y="13.5" width="4" height="6" fill="#E8552B"/></svg>`,
+  bulb: `<svg viewBox="0 0 32 32"><path d="M16 3a9 9 0 0 0-5 16.5c1 .8 1.5 2 1.5 3.5h7c0-1.5.5-2.7 1.5-3.5A9 9 0 0 0 16 3z" fill="#FFE77A" stroke="#9C7300"/><path d="M12.5 25h7M13 28h6" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round"/><path d="M12 11a4.5 4.5 0 0 1 4-4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`,
+  zone: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="url(#gGlobe)" stroke="#123F8C"/><path d="M1.5 8h13M8 1.5c-3 3-3 10 0 13M8 1.5c3 3 3 10 0 13" stroke="#CDE8FF" stroke-width=".6" fill="none"/></svg>`,
+  pFeedback: `<svg viewBox="0 0 32 32"><path d="M3.5 5.5h25v16h-13l-6 6v-6h-6z" fill="#FFFFE1" stroke="#8A7A2E" stroke-linejoin="round"/><path d="M7 10h13M7 13.5h10M7 17h8" stroke="#B5A763"/><circle cx="23.5" cy="10.5" r="4" fill="#E0301E" stroke="#8C1400"/><path d="M23.5 14.5v5" stroke="#8C1400" stroke-width="1.5"/><circle cx="22.3" cy="9.3" r="1.2" fill="#fff" opacity=".8"/></svg>`,
+  pMorning: `<svg viewBox="0 0 32 32"><g stroke="#E09A00" stroke-width="1.6" stroke-linecap="round"><path d="M16 2v3M7 5.5l2 2M25 5.5l-2 2M4 13h3M25 13h3"/></g><circle cx="16" cy="13" r="6" fill="#F4B400" stroke="#C88600"/><rect x="4.5" y="14.5" width="23" height="14" fill="#fff" stroke="#6D7B8D"/><rect x="7" y="17" width="8" height="5" fill="#9DB4CF"/><path d="M17 17.5h8M17 20h8M7 24.5h18M7 26.5h14" stroke="#8FA6C8"/></svg>`,
+  pTiles: `<svg viewBox="0 0 32 32"><rect x="3.5" y="3.5" width="11" height="11" rx="1.5" fill="#0058EE" stroke="#003C9D"/><rect x="17.5" y="3.5" width="11" height="11" rx="1.5" fill="#FFFFE1" stroke="#8A7A2E"/><rect x="3.5" y="17.5" width="11" height="11" rx="1.5" fill="#D4D0C8" stroke="#808080"/><rect x="17.5" y="17.5" width="11" height="11" rx="1.5" fill="#3C9A3C" stroke="#1F6F1F"/><path d="M20 6h6M20 8.5h4" stroke="#8A7A2E"/></svg>`
+};
+const TITLE_GLYPHS = {
+  min: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 8.5h5" stroke="currentColor" stroke-width="2.2"/></svg>',
+  max: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1h8v8H1z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M1 1.8h8" stroke="currentColor" stroke-width="2"/></svg>',
+  restore: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 .8h6.2V7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M.8 3h6v6h-6z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M.8 3.6h6" stroke="currentColor" stroke-width="1.6"/></svg>',
+  close: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="2"/></svg>'
+};
+
+/* ================= CONTENT ================= */
+const CODE_PROXY = `<span class="c">// proxy.js: inject the overlay into every proxied HTML page</span>
+<span class="k">const</span> TAG = <span class="s">'&lt;script src="/__feedback/overlay.js" defer&gt;&lt;/script&gt;'</span>;
+
+proxy.<span class="f">on</span>(<span class="s">'proxyRes'</span>, <span class="k">async</span> (res, req, out) =&gt; {
+  <span class="k">const</span> type = res.headers[<span class="s">'content-type'</span>] ?? <span class="s">''</span>;
+  <span class="k">if</span> (!type.<span class="f">includes</span>(<span class="s">'text/html'</span>)) <span class="k">return</span> res.<span class="f">pipe</span>(out);
+
+  <span class="k">const</span> html = <span class="k">await</span> <span class="f">collect</span>(res);          <span class="c">// buffer the body</span>
+  out.<span class="f">end</span>(html.<span class="f">replace</span>(<span class="s">'&lt;/body&gt;'</span>, TAG + <span class="s">'&lt;/body&gt;'</span>));
+});`;
+const CODE_DIGEST = `<span class="c"># briefing.yml: the protocol, not a prompt</span>
+<span class="p">schedule</span>: <span class="s">"40 6 * * 1-5"</span>      <span class="c"># 6:40am, weekdays</span>
+<span class="p">outlets</span>:                       <span class="c"># checked in this order, every time</span>
+  - <span class="s">wire-services</span>
+  - <span class="s">trade-press</span>
+  - <span class="s">regional-papers</span>
+<span class="p">threads</span>: [<span class="s">budget-talks</span>, <span class="s">campus-expansion</span>]
+<span class="p">exclude</span>:
+  - <span class="s">"rankings press releases"</span>
+  - <span class="s">"anything already in yesterday's issue"</span>
+<span class="p">max_items</span>: <span class="n">8</span>`;
+const CODE_MOTION = `<span class="c">/* one duration scale, two curves, one escape hatch */</span>
+<span class="p">:root</span> {
+  <span class="f">--t-fast</span>: <span class="n">150ms</span>;  <span class="f">--t-base</span>: <span class="n">220ms</span>;  <span class="f">--t-slow</span>: <span class="n">360ms</span>;
+  <span class="f">--ease-out</span>: <span class="k">cubic-bezier</span>(<span class="n">.2</span>, <span class="n">.8</span>, <span class="n">.2</span>, <span class="n">1</span>);
+  <span class="f">--ease-in</span>:  <span class="k">cubic-bezier</span>(<span class="n">.4</span>, <span class="n">0</span>, <span class="n">1</span>, <span class="n">1</span>);
+}
+<span class="k">@media</span> (prefers-reduced-motion: reduce) {
+  <span class="p">.window</span> { <span class="f">animation</span>: <span class="s">fade</span> <span class="k">var</span>(--t-fast) <span class="k">linear</span>; }
+}`;
+
+function codeBlock(name, lines, code) {
+  return `<div class="codewrap"><div class="code-head"><span>${esc(name)} &middot; ${lines} lines</span><button class="btn copy-code" type="button">Copy</button></div><pre class="code" tabindex="0"><code>${code}</code></pre></div>`;
+}
+function quote(text, cap) {
+  return `<figure class="tip">${ICONS.bulb ? ico('bulb') : ''}<figcaption>${esc(cap)}</figcaption><blockquote><p>${esc(text)}</p></blockquote></figure>`;
+}
+
+const POSTS = [
+  { slug: 'comment-overlay', title: 'Building a comment overlay for prototypes', date: '2026-09-14', label: 'Sep 2026', read: 6, tags: ['tools', 'prototyping', 'agents'], isNew: true,
+    blurb: 'A proxy that lets me point at the thing instead of describing where it is.',
+    body: () => `
+<p>Reviewing a prototype used to go like this: open the local build, notice six things, then type a paragraph describing <em>where</em> each one was. "The second card. No, the one below the fold. Its shadow is doing something odd." Half of every note was coordinates.</p>
+<p><a href="#" data-open="project:claude-feedback">claude-feedback</a> fixes that by sitting in front of whatever dev server I'm running. Visit <code>localhost:4599/5173/</code> instead of <code>localhost:5173/</code> and every page gets a thin overlay: click anything, type a note, and it's pinned to that element along with a screenshot of what I was looking at.</p>
+<h2>The whole trick is one script tag</h2>
+<p>The proxy passes everything through untouched except HTML, where it adds a single tag before the closing body. The pins, the drawer and the screenshot capture all live in that one injected script, so the app under review never knows it's being reviewed.</p>
+${codeBlock('proxy.js', 10, CODE_PROXY)}
+<p>Comments land in a single JSON file: the URL, a CSS selector, the viewport size, and a path to the PNG. That boring format is the point. An agent can read it with no special tooling, fix what each note describes, and flip <code>resolved</code> to true.</p>
+${quote('The best feedback tool is the one where pointing at the thing is the whole sentence.', 'Did you know?')}
+<h2>What surprised me</h2>
+<ul>
+<li>Selectors rot fast in hot-reloading apps, so the screenshot crop is the source of truth and the selector is only a hint.</li>
+<li>Service workers will happily cache the un-proxied page. The overlay now unregisters them on the proxied origin.</li>
+<li>Iframes need the tag too, or comments quietly vanish inside embedded previews.</li>
+</ul>
+<p>Next up is threaded replies, so the agent can ask "did you mean the 12px gap or the 16px one?" right on the pin.</p>` },
+  { slug: 'news-digest-agent', title: 'What I learned shipping a daily news digest agent', date: '2026-08-19', label: 'Aug 2026', read: 8, tags: ['agents', 'automation', 'writing'], isNew: true,
+    blurb: 'The protocol is the product. Also: most editing is saying no.',
+    body: () => `
+<p>For a few months now an agent has written me a news digest every weekday at 6:40. It reads a fixed list of outlets, picks what matters, and writes it up in a house style I care about far too much. <a href="#" data-open="project:morning-briefing">Morning Briefing</a> is small, but shipping it taught me more than most big projects have.</p>
+<h2>1. The protocol is the product</h2>
+<p>My first version said "find the important news." It found the same four stories every aggregator finds. What worked was a boring, explicit protocol: check these outlets in this order, follow these running threads, skip these categories. Quality came from the checklist, not the model.</p>
+${codeBlock('briefing.yml', 12, CODE_DIGEST)}
+<h2>2. Write the style guide like a test suite</h2>
+<p>"No bullet points. No bold summaries. Label opinion pieces as opinion." Rules that can be checked beat vibes that can't. When a digest breaks one, I add an example rather than another adjective.</p>
+${quote('Every rule in the style guide is scar tissue from a morning I had to fix something by hand.', 'Tip of the day')}
+<h2>3. Exclusion is most of the editing</h2>
+<p>The hard part isn't finding stories; it's saying no to the ninth one. The agent logs everything it considered and dropped, and reading that log is how I tune it. A good digest is mostly the stories that aren't in it.</p>
+<h2>4. Boring delivery is a feature</h2>
+<p>Same time, same shape, same length. The day I stopped tweaking the format was the day I started actually reading it with coffee instead of reviewing it like a pull request.</p>` },
+  { slug: 'designing-for-motion', title: 'Notes on designing for motion', date: '2026-06-08', label: 'Jun 2026', read: 5, tags: ['design', 'motion', 'css'], isNew: true,
+    blurb: 'Every animation should say where something came from or where it went.',
+    body: () => `
+<p>Notes I keep coming back to, written down so I stop re-deriving them every project.</p>
+<ul>
+<li><strong>Motion is a sentence, not a decoration.</strong> Every animation should say where something came from or where it went. A window that grows out of its icon tells you how to get it back.</li>
+<li><strong>Fast in, slow settle.</strong> 150 to 250ms for interface feedback, ease-out for entrances, ease-in for exits. Anything over 400ms needs a reason you can say out loud.</li>
+<li><strong>Animate one thing at a time.</strong> If three elements move at once, none of them is the point.</li>
+<li><strong>Reduced motion is not "no motion."</strong> Swap travel for fades and keep the state change legible.</li>
+</ul>
+${codeBlock('motion.css', 9, CODE_MOTION)}
+${quote("If you can't say what the animation is telling the user, it's telling them to wait.", 'Did you know?')}
+<h2>Try it here</h2>
+<p>This style tile is a small exercise in exactly that. Every window zooms out of the thing you clicked, and minimizing sends it back into its taskbar button so you always know where it went. Turn on reduced motion in your OS and the zooms become instant swaps.</p>` }
+];
+
+const PROJECTS = [
+  { slug: 'claude-feedback', name: 'claude-feedback', icon: 'pFeedback', year: '2026', status: 'In daily use', tags: ['node', 'proxy', 'dev-tools'],
+    blurb: 'A comment-overlay proxy for reviewing local prototypes. Click anything, leave a pinned note with a screenshot, and an agent picks it up from a JSON file.',
+    readme: `claude-feedback
+===============
+
+A comment-overlay proxy for reviewing local prototypes.
+
+USAGE
+  npm start                        proxy listens on :4599
+  open http://localhost:4599/5173/ any dev server, by port
+
+Every HTML page served through the proxy gets a small overlay.
+Click any element, type a note, and it is saved with:
+
+  - the page URL and a CSS selector
+  - the viewport size
+  - a screenshot crop of what you were looking at
+
+Comments are written to ~/.claude-feedback/comments.json.
+An agent reads the unresolved ones, fixes what they describe,
+and flips "resolved" to true. That's the whole loop.
+
+STATUS    In daily use. Rough edges are filed as comments on itself.
+` },
+  { slug: 'morning-briefing', name: 'Morning Briefing', icon: 'pMorning', year: '2026', status: 'Runs weekdays 6:40', tags: ['agents', 'scheduling', 'writing'],
+    blurb: 'An automated daily news digest. An agent follows a fixed outlet-by-outlet protocol every weekday and writes it up in a strict house style.',
+    readme: `Morning Briefing
+================
+
+An automated daily news digest, written by an agent, read with coffee.
+
+HOW IT WORKS
+  1. At 6:40 on weekdays, a scheduled task wakes up.
+  2. It checks a fixed list of outlets, in order, every time.
+  3. It follows a short list of running story threads.
+  4. It drops anything on the exclude list (and logs why).
+  5. It writes up to eight items in the house style.
+
+HOUSE STYLE (abridged)
+  No bullet points. No bold summaries.
+  Opinion pieces are labeled as opinion.
+  If it was in yesterday's issue, it isn't news.
+
+STATUS    Has not missed a weekday since spring.
+` },
+  { slug: 'style-tiles', name: 'Style Tiles', icon: 'pTiles', year: '2026', status: '1 of 6 open', tags: ['design', 'css', 'motion'],
+    blurb: 'This exploration: six competing visual directions for this site, each pushed as far as it will go. You are inside tile one.',
+    readme: `Style Tiles
+===========
+
+Six competing visual directions for this site, each one a single
+HTML file, each one pushed as far as it will go.
+
+YOU ARE HERE
+  Tile 1/6: Vintage Windows. A working desktop from the
+  2000-to-XP era. Posts are documents, projects are folders,
+  and the style guide is hiding in Display Properties.
+
+WHAT EACH TILE MUST SHOW
+  - display, body and mono type, with sizes
+  - the palette, with hex values
+  - textures and patterns
+  - nav, post item, project card, buttons, tags, code, quote, links
+
+STATUS    Tile 1 of 6 open. The other five are one click away,
+          via the label in the corner.
+` }
+];
+
+const ABOUT_TXT = `ABOUT.TXT
+=========
+
+Hi, I'm Z. Christensen.
+
+I build small tools that make working with agents feel less
+like dictating over the phone and more like pointing at the
+screen.
+
+This site is where I put them, and where I write about what
+building them taught me.
+
+  Currently ....... closing the feedback loop on prototypes
+  Previously ...... automating my morning news
+  Always .......... fiddling with easing curves
+
+Start with Posts if you like reading, Projects if you like
+poking at things.
+
+(This file is editable. Go ahead. Nothing here gets saved.)
+`;
+
+let BIN = [
+  { name: 'blog_redesign_v7.psd', from: 'C:\\Z\\Drafts', date: 'Mar 2026', icon: 'doc', why: 'Versions one through six are also in here, spiritually.' },
+  { name: 'hot_takes_2019.txt', from: 'C:\\Z\\Writing', date: 'Jan 2020', icon: 'notepad', why: 'Aged like milk. Kept as a reminder.', stubborn: true },
+  { name: 'todo-app-4', from: 'C:\\Z\\Projects', date: 'Nov 2025', icon: 'folder', why: 'Every developer builds a to-do app. I built four. This was the fourth.' },
+  { name: 'bounce.css', from: 'C:\\Z\\Motion', date: 'Jun 2026', icon: 'doc', why: 'A 900ms elastic ease on a dropdown menu. We do not talk about it.' }
+];
+
+const PALETTE = [
+  { n: 'Luna Blue', hex: '#0058EE', r: 'Title bars, primary actions' },
+  { n: 'Luna Deep', hex: '#003C9D', r: 'Headings on light chrome' },
+  { n: 'Start Green', hex: '#3C9A3C', r: 'The one button that matters' },
+  { n: 'Chrome Gray', hex: '#D4D0C8', r: '2000-era bevels and gutters' },
+  { n: 'Luna Beige', hex: '#ECE9D8', r: 'Window and dialog surfaces' },
+  { n: 'Hills Sky', hex: '#5DA3E8', r: 'Wallpaper, hero wash' },
+  { n: 'Hills Grass', hex: '#4F9A2E', r: 'Success, "new" badges' },
+  { n: 'Balloon Cream', hex: '#FFFFE1', r: 'Tooltips, quotes, link hover' },
+  { n: 'Highlight', hex: '#316AC5', r: 'Selection, menu hover' },
+  { n: 'Alert Red', hex: '#E0301E', r: 'Close, errors, hovered links' },
+  { n: 'Classic Navy', hex: '#0A246A', r: '2000 title bars, focus' },
+  { n: 'Ink', hex: '#000000', r: 'Body text' }
+];
+
+/* ================= STATE ================= */
+const state = { theme: 'luna', wall: 'hills', balloons: true };
+function applyTheme(s) {
+  document.body.dataset.theme = s.theme;
+  document.body.dataset.wall = s.wall;
+  Object.assign(state, s);
+}
+
+/* ================= WINDOW MANAGER ================= */
+const desktop = $('#desktop');
+const tasksEl = $('#tasks');
+const WM = { z: 100, wins: new Map(), seq: 0, nextFrom: null, nextGeom: null, modal: null, cascade: 0 };
+
+function deskSize() { return { w: desktop.clientWidth, h: desktop.clientHeight }; }
+
+function createWindow(o) {
+  const id = o.id || ('w' + (++WM.seq));
+  if (WM.nextGeom) { o = Object.assign({}, o, WM.nextGeom); WM.nextGeom = null; }
+  if (WM.wins.has(id)) {
+    const ex = WM.wins.get(id);
+    WM.nextFrom = null;
+    if (ex.min) restoreWin(ex); else focusWin(ex, true);
+    return ex;
+  }
+  const d = deskSize();
+  const w = Math.min(o.w || 520, d.w - 16);
+  const h = Math.min(o.h || 360, d.h - 16);
+  const off = (WM.cascade++ % 7) * 26;
+  const x = o.x != null ? o.x : Math.round((d.w - w) / 2 - 90 + off);
+  const y = o.y != null ? o.y : Math.round(Math.max(10, (d.h - h) / 2 - 70 + off));
+  const node = document.createElement('section');
+  node.className = 'win' + (o.dialog ? ' dialog' : '') + (o.cls ? ' ' + o.cls : '');
+  node.setAttribute('role', o.dialog ? 'alertdialog' : 'dialog');
+  node.setAttribute('aria-labelledby', id + '-t');
+  node.tabIndex = -1;
+  node.dataset.win = id;
+  node.style.cssText = `left:${Math.max(0, Math.min(x, d.w - w))}px;top:${Math.max(0, Math.min(y, d.h - h))}px;width:${w}px;height:${o.autoH ? 'auto' : h + 'px'}`;
+  const btns = o.dialog
+    ? (o.help ? `<button class="tbtn help" type="button" data-act="help" aria-label="What's this?">?</button>` : '')
+    : `<button class="tbtn min" type="button" data-act="min" aria-label="Minimize">${TITLE_GLYPHS.min}</button><button class="tbtn max" type="button" data-act="max" aria-label="Maximize">${TITLE_GLYPHS.max}</button>`;
+  node.innerHTML = `
+    <header class="titlebar">
+      <button class="t-ico" type="button" data-act="sys" aria-label="Window menu" tabindex="-1">${ICONS[o.icon] || ''}</button>
+      <h2 class="t-text" id="${id}-t">${esc(o.title)}</h2>
+      <div class="t-btns">${btns}<button class="tbtn close" type="button" data-act="close" aria-label="Close">${TITLE_GLYPHS.close}</button></div>
+    </header>
+    <div class="inner">
+      ${o.menus ? `<div class="menubar" role="menubar">${Object.keys(o.menus).map(m => `<button class="mb" type="button" role="menuitem" aria-haspopup="menu" aria-expanded="false" data-menu="${m}">${m}</button>`).join('')}</div>` : ''}
+      <div class="wbody"></div>
+      ${o.status != null ? `<div class="statusbar"><span class="sb-main">${esc(o.status)}</span><span class="sb-cell"></span></div>` : ''}
+    </div>
+    ${o.dialog ? '' : '<div class="grip" aria-hidden="true"></div>'}`;
+  const win = { id, el: node, o, min: false, max: false, title: o.title, onClose: o.onClose };
+  WM.wins.set(id, win);
+  desktop.append(node);
+  if (!o.noTask) addTask(win);
+  if (o.build) o.build($('.wbody', node), win);
+  wireWin(win);
+  if (o.modal) setModal(win);
+  focusWin(win, true);
+  const from = WM.nextFrom; WM.nextFrom = null;
+  zoom(node, from, false);
+  if (o.shake && !RM.matches) setTimeout(() => { node.classList.add('shake'); setTimeout(() => node.classList.remove('shake'), 400); }, 260);
+  return win;
+}
+
+function zoom(node, rect, reverse, keep) {
+  if (RM.matches || !node.animate) return Promise.resolve();
+  const r = node.getBoundingClientRect();
+  let from;
+  if (rect) {
+    const dx = (rect.left + rect.width / 2) - (r.left + r.width / 2);
+    const dy = (rect.top + rect.height / 2) - (r.top + r.height / 2);
+    const s = Math.max(0.06, Math.min(0.3, rect.width / Math.max(1, r.width)));
+    from = { transform: `translate(${dx}px,${dy}px) scale(${s})`, opacity: 0.1 };
+  } else {
+    from = { transform: 'scale(.94)', opacity: 0 };
+  }
+  const frames = [from, { transform: 'none', opacity: 1 }];
+  if (reverse) frames.reverse();
+  const a = node.animate(frames, { duration: reverse ? 190 : 240, easing: reverse ? 'cubic-bezier(.4,0,1,1)' : 'cubic-bezier(.2,.8,.2,1)', fill: keep ? 'forwards' : 'none' });
+  return a.finished.then(() => a, () => a);
+}
+
+function addTask(win) {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'task';
+  b.innerHTML = `${ico(win.o.icon)}<span class="t">${esc(win.title)}</span>`;
+  b.title = win.title;
+  b.addEventListener('click', () => {
+    if (WM.modal && WM.modal !== win) { flash(WM.modal); return; }
+    if (win.min) restoreWin(win);
+    else if (WM.active === win) minimizeWin(win);
+    else focusWin(win, true);
+  });
+  b.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); sysMenu(win, e.clientX, e.clientY, true); });
+  tasksEl.append(b);
+  win.task = b;
+}
+
+function setTitle(win, t) {
+  win.title = t;
+  $('.t-text', win.el).textContent = t;
+  if (win.task) { $('.t', win.task).textContent = t; win.task.title = t; }
+}
+function setStatus(win, t) { const s = $('.sb-main', win.el); if (s) s.textContent = t; }
+
+function focusWin(win, moveFocus) {
+  if (!win || !win.el.isConnected) return;
+  if (WM.modal && WM.modal !== win && WM.modal.el.isConnected) { flash(WM.modal); win = WM.modal; }
+  if (WM.active !== win) win.el.style.zIndex = ++WM.z;
+  WM.active = win;
+  WM.wins.forEach(w => {
+    const on = w === win;
+    w.el.classList.toggle('active', on);
+    if (w.task) w.task.setAttribute('aria-pressed', on && !w.min ? 'true' : 'false');
+  });
+  if (moveFocus && !win.el.contains(document.activeElement)) {
+    const t = $('[autofocus]', win.el) || win.el;
+    t.focus({ preventScroll: true });
+  }
+}
+function topWindow(except) {
+  let best = null, bz = -1;
+  WM.wins.forEach(w => { if (w !== except && !w.min && +w.el.style.zIndex > bz) { bz = +w.el.style.zIndex; best = w; } });
+  return best;
+}
+function deactivate() {
+  WM.active = null;
+  WM.wins.forEach(w => { w.el.classList.remove('active'); if (w.task) w.task.setAttribute('aria-pressed', 'false'); });
+}
+
+async function minimizeWin(win) {
+  if (win.min || win.o.dialog) return;
+  win.min = true;
+  if (win.task) win.task.classList.add('min');
+  const target = win.task ? win.task.getBoundingClientRect() : null;
+  const a = await zoom(win.el, target, true, true);
+  win.el.hidden = true;
+  if (a && a.cancel) a.cancel();
+  const next = topWindow(win);
+  if (next) focusWin(next, true); else deactivate();
+}
+function restoreWin(win) {
+  win.min = false;
+  win.el.hidden = false;
+  if (win.task) win.task.classList.remove('min');
+  focusWin(win, true);
+  zoom(win.el, win.task ? win.task.getBoundingClientRect() : null, false);
+}
+function toggleMax(win) {
+  if (win.o.dialog || MOBILE.matches) return;
+  win.max = !win.max;
+  win.el.classList.toggle('max', win.max);
+  const b = $('.tbtn.max', win.el);
+  if (b) { b.innerHTML = win.max ? TITLE_GLYPHS.restore : TITLE_GLYPHS.max; b.setAttribute('aria-label', win.max ? 'Restore' : 'Maximize'); }
+  if (!RM.matches && win.el.animate) win.el.animate([{ opacity: .6, transform: 'scale(.985)' }, { opacity: 1, transform: 'none' }], { duration: 160, easing: 'ease-out' });
+}
+async function closeWin(win) {
+  if (!WM.wins.has(win.id)) return;
+  WM.wins.delete(win.id);
+  if (WM.modal === win) clearModal();
+  if (win.task) win.task.remove();
+  if (win.onClose) win.onClose();
+  if (!RM.matches && win.el.animate && !win.min) {
+    const a = win.el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(.92)' }], { duration: 150, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' });
+    await a.finished.catch(() => {});
+  }
+  win.el.remove();
+  if (WM.active === win) { const n = topWindow(); if (n) focusWin(n, true); else deactivate(); }
+}
+function flash(win) {
+  if (!win) return;
+  win.el.classList.remove('flash'); void win.el.offsetWidth; win.el.classList.add('flash');
+  if (win.task) { win.task.classList.remove('blink'); void win.task.offsetWidth; win.task.classList.add('blink'); }
+  const f = $('.btn', win.el); if (f) f.focus({ preventScroll: true });
+}
+function setModal(win) {
+  const shield = document.createElement('div');
+  shield.className = 'modal-shield';
+  shield.style.zIndex = WM.z + 1;
+  shield.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); flash(win); });
+  desktop.append(shield);
+  WM.modal = win; win.shield = shield;
+  WM.z += 2;
+}
+function clearModal() { if (WM.modal && WM.modal.shield) WM.modal.shield.remove(); WM.modal = null; }
+
+function wireWin(win) {
+  const node = win.el, bar = $('.titlebar', node);
+  node.addEventListener('pointerdown', () => { if (WM.active !== win) focusWin(win, false); }, true);
+  node.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && win.o.dialog && !openMenu) { e.stopPropagation(); (win.o.onEscape || (() => closeWin(win)))(); }
+  });
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const act = b.dataset.act;
+    if (act === 'close') (win.o.onEscape && win.o.dialog ? win.o.onEscape : () => closeWin(win))();
+    else if (act === 'min') minimizeWin(win);
+    else if (act === 'max') toggleMax(win);
+    else if (act === 'help') enterWhatsThis();
+    else if (act === 'sys') { const r = b.getBoundingClientRect(); sysMenu(win, r.left, r.bottom); }
+  });
+  bar.addEventListener('dblclick', e => { if (e.target.closest('.tbtn')) return; if (e.target.closest('.t-ico')) closeWin(win); else toggleMax(win); });
+  bar.addEventListener('contextmenu', e => { e.preventDefault(); e.stopPropagation(); sysMenu(win, e.clientX, e.clientY); });
+  bar.addEventListener('pointerdown', e => {
+    if (e.button !== 0 || e.target.closest('.tbtn,.t-ico') || win.max || MOBILE.matches) return;
+    const sx = e.clientX - node.offsetLeft, sy = e.clientY - node.offsetTop;
+    const d = deskSize();
+    let moved = false;
+    bar.setPointerCapture(e.pointerId);
+    const move = ev => {
+      if (!moved) { moved = true; document.body.classList.add('dragging-win'); }
+      const nx = Math.max(-node.offsetWidth + 90, Math.min(d.w - 90, ev.clientX - sx));
+      const ny = Math.max(0, Math.min(d.h - 28, ev.clientY - sy));
+      node.style.left = nx + 'px'; node.style.top = ny + 'px';
+    };
+    const up = () => { document.body.classList.remove('dragging-win'); bar.removeEventListener('pointermove', move); bar.removeEventListener('pointerup', up); bar.removeEventListener('pointercancel', up); };
+    bar.addEventListener('pointermove', move); bar.addEventListener('pointerup', up); bar.addEventListener('pointercancel', up);
+  });
+  const grip = $('.grip', node);
+  if (grip) grip.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    const sw = node.offsetWidth, sh = node.offsetHeight, sx = e.clientX, sy = e.clientY;
+    grip.setPointerCapture(e.pointerId);
+    document.body.classList.add('resizing');
+    const move = ev => { node.style.width = Math.max(260, sw + ev.clientX - sx) + 'px'; node.style.height = Math.max(160, sh + ev.clientY - sy) + 'px'; };
+    const up = () => { document.body.classList.remove('resizing'); grip.removeEventListener('pointermove', move); grip.removeEventListener('pointerup', up); };
+    grip.addEventListener('pointermove', move); grip.addEventListener('pointerup', up);
+  });
+  if (win.o.menus) {
+    $$('.mb', node).forEach(b => b.addEventListener('click', () => {
+      if (b.getAttribute('aria-expanded') === 'true') { closeMenu(); return; }
+      const r = b.getBoundingClientRect();
+      b.setAttribute('aria-expanded', 'true');
+      const items = win.o.menus[b.dataset.menu];
+      showMenu(r.left, r.bottom, typeof items === 'function' ? items() : items, { onClose: () => b.setAttribute('aria-expanded', 'false'), owner: b });
+    }));
+  }
+}
+
+function sysMenu(win, x, y, above) {
+  showMenu(x, y, [
+    { label: 'Restore', disabled: !win.min && !win.max, action: () => win.min ? restoreWin(win) : toggleMax(win) },
+    { label: 'Minimize', disabled: win.min || !!win.o.dialog, action: () => minimizeWin(win) },
+    { label: 'Maximize', disabled: win.max || !!win.o.dialog || MOBILE.matches, action: () => { if (win.min) restoreWin(win); toggleMax(win); } },
+    '-',
+    { label: 'Close', hint: 'Alt+F4', bold: true, action: () => closeWin(win) }
+  ], { above });
+}
+
+/* ================= MENUS ================= */
+let openMenu = null;
+function showMenu(x, y, items, opts = {}) {
+  closeMenu();
+  const m = document.createElement('div');
+  m.className = 'ctx'; m.setAttribute('role', 'menu'); m.tabIndex = -1;
+  items.forEach(it => {
+    if (it === '-') { m.append(el('<div class="ctx-sep" role="separator"></div>')); return; }
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ctx-item' + (it.bold ? ' bold' : '');
+    b.setAttribute('role', it.checked != null ? 'menuitemcheckbox' : 'menuitem');
+    if (it.checked != null) b.setAttribute('aria-checked', it.checked ? 'true' : 'false');
+    b.disabled = !!it.disabled;
+    b.innerHTML = `<span class="ctx-check" aria-hidden="true">${it.checked ? '&#10003;' : (it.radio ? '&#9679;' : '')}</span><span>${esc(it.label)}</span>${it.hint ? `<span class="ctx-hint">${esc(it.hint)}</span>` : ''}`;
+    b.addEventListener('click', e => { e.stopPropagation(); closeMenu(true); if (it.action) it.action(b); });
+    m.append(b);
+  });
+  document.body.append(m);
+  const r = m.getBoundingClientRect();
+  if (opts.above) y -= r.height;
+  m.style.left = Math.max(2, Math.min(x, innerWidth - r.width - 2)) + 'px';
+  m.style.top = Math.max(2, Math.min(y, innerHeight - r.height - 2)) + 'px';
+  openMenu = { el: m, ret: document.activeElement, onClose: opts.onClose, owner: opts.owner };
+  m.addEventListener('keydown', e => {
+    const all = $$('.ctx-item:not(:disabled)', m);
+    const i = all.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); (all[(i + 1) % all.length] || all[0]).focus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); (all[(i - 1 + all.length) % all.length] || all[0]).focus(); }
+    else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeMenu(); }
+    else if (e.key === 'Tab') { e.preventDefault(); closeMenu(); }
+  });
+  const first = $('.ctx-item:not(:disabled)', m);
+  (first || m).focus({ preventScroll: true });
+}
+function closeMenu(chosen) {
+  if (!openMenu) return;
+  const { el: m, ret, onClose } = openMenu;
+  openMenu = null;
+  m.remove();
+  if (onClose) onClose();
+  if (!chosen && ret && ret.focus && ret.isConnected) ret.focus({ preventScroll: true });
+}
+
+/* ================= DIALOGS, BALLOONS, TIPS ================= */
+function msgBox({ title, icon = 'info', text, buttons = ['OK'], modal = true, shake }) {
+  return new Promise(resolve => {
+    let done = false;
+    const finish = (v, win) => { if (done) return; done = true; closeWin(win); resolve(v); };
+    const cancel = buttons.includes('Cancel') ? 'Cancel' : buttons.includes('No') ? 'No' : buttons[buttons.length - 1];
+    const w = createWindow({
+      title, icon, dialog: true, w: 380, h: 170, autoH: true, modal, noTask: false, shake: shake != null ? shake : icon === 'error',
+      onEscape: () => finish(cancel, w),
+      build(body, win) {
+        const paras = (Array.isArray(text) ? text : [text]).map(t => `<p>${esc(t)}</p>`).join('');
+        body.innerHTML = `<div class="msg">${ico(icon)}<div>${paras}</div></div><div class="dlg-foot"><div class="btn-row" style="justify-content:center">${buttons.map((b, i) => `<button class="btn" type="button" data-v="${esc(b)}"${i === 0 ? ' autofocus' : ''}>${esc(b)}</button>`).join('')}</div></div>`;
+        $$('.btn', body).forEach(b => b.addEventListener('click', () => finish(b.dataset.v, win)));
+      }
+    });
+    w.o.onEscape = () => finish(cancel, w);
+    const bx = $('[data-act="close"]', w.el);
+    bx.replaceWith(bx.cloneNode(true));
+    $('[data-act="close"]', w.el).addEventListener('click', e => { e.stopPropagation(); finish(cancel, w); });
+  });
+}
+const oops = (text, title = 'ZC 2000', icon = 'error') => msgBox({ title, icon, text });
+
+let activeBalloon = null;
+function balloon({ title, text, icon = 'info', anchor = $('#tray-posts'), onClick, ms = 10000 }) {
+  if (!state.balloons) return;
+  if (activeBalloon) activeBalloon.remove();
+  const b = el(`<div class="balloon${onClick ? ' clickable' : ''}" role="status"><b>${ico(icon, 16)}${esc(title)}</b><p>${esc(text)}</p><button class="bx" type="button" aria-label="Close notification">&#10005;</button></div>`);
+  document.body.append(b);
+  activeBalloon = b;
+  const place = () => {
+    const ar = anchor.getBoundingClientRect(), br = b.getBoundingClientRect();
+    const right = Math.max(6, innerWidth - ar.right - 14);
+    b.style.right = right + 'px';
+    b.style.bottom = (innerHeight - ar.top + 14) + 'px';
+    const tailFromRight = innerWidth - right - (ar.left + ar.width / 2);
+    b.style.setProperty('--tail', Math.max(10, Math.min(br.width - 24, tailFromRight - 6)) + 'px');
+  };
+  place();
+  const kill = () => { if (!b.isConnected) return; b.classList.add('out'); setTimeout(() => b.remove(), 260); if (activeBalloon === b) activeBalloon = null; };
+  $('.bx', b).addEventListener('click', e => { e.stopPropagation(); kill(); });
+  if (onClick) b.addEventListener('click', () => { kill(); onClick(); });
+  setTimeout(kill, ms);
+  return b;
+}
+let tipEl = null;
+function tipAt(x, y, text, ms = 2600) {
+  if (tipEl) tipEl.remove();
+  tipEl = el(`<div class="tip-pop" role="status">${esc(text)}</div>`);
+  document.body.append(tipEl);
+  const r = tipEl.getBoundingClientRect();
+  tipEl.style.left = Math.max(4, Math.min(x + 10, innerWidth - r.width - 4)) + 'px';
+  tipEl.style.top = Math.max(4, Math.min(y + 16, innerHeight - r.height - 4)) + 'px';
+  const t = tipEl;
+  setTimeout(() => { if (t.isConnected) t.remove(); }, ms);
+}
+function busy(ms = 450) { document.body.classList.add('busy'); clearTimeout(busy.t); busy.t = setTimeout(() => document.body.classList.remove('busy'), ms); }
+
+function enterWhatsThis() {
+  document.body.classList.add('whats-this');
+  const handler = e => {
+    e.preventDefault(); e.stopPropagation();
+    document.removeEventListener('pointerdown', handler, true);
+    document.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); }, { capture: true, once: true });
+    document.body.classList.remove('whats-this');
+    const h = e.target.closest('[data-help]');
+    tipAt(e.clientX, e.clientY, h ? h.dataset.help : 'No Help topic is associated with this item. It is exactly what it looks like.', 4200);
+  };
+  setTimeout(() => document.addEventListener('pointerdown', handler, true), 0);
+}
+
+async function copyText(text, x, y, label) {
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (err) { ok = false; }
+  tipAt(x, y, ok ? `Copied ${label || text} to the Clipboard.` : `The Clipboard is busy. It's ${label || text}, write it down.`);
+}
+
+/* ================= DESKTOP ICONS ================= */
+const iconLayer = $('#icons');
+const GX = 86, GY = 88, OX = 10, OY = 12;
+let DICONS = [
+  { id: 'posts', label: 'Posts', icon: 'folderDoc', app: 'posts', locked: true, help: 'Posts: three essays, filed like it is 2001.' },
+  { id: 'projects', label: 'Projects', icon: 'folderProj', app: 'projects', locked: true, help: 'Projects: things I built and still maintain.' },
+  { id: 'about', label: 'about.txt', icon: 'notepad', app: 'about', locked: true, help: 'about.txt: the short version.' },
+  { id: 'browser', label: 'Web Wanderer', icon: 'browser', app: 'browser', locked: true, help: 'Web Wanderer: the site, rendered like a site.' },
+  { id: 'props', label: 'Style Tile', icon: 'props', app: 'props', locked: true, help: 'Display Properties: palette, type, textures and components.' },
+  { id: 'bin', label: 'Recycle Bin', icon: 'binFull', app: 'bin', locked: true, help: 'Recycle Bin: ideas that did not make it.' }
+];
+let newFolderN = 0;
+
+function rows() { return Math.max(1, Math.floor((desktop.clientHeight - OY) / GY)); }
+function layoutIcons() { const r = rows(); DICONS.forEach((d, i) => { d.x = OX + Math.floor(i / r) * GX; d.y = OY + (i % r) * GY; place(d); }); }
+function place(d) { if (d.el) { d.el.style.left = d.x + 'px'; d.el.style.top = d.y + 'px'; } }
+function renderIcon(d) {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'dicon'; b.dataset.id = d.id;
+  b.dataset.help = d.help || 'A folder you made. It is empty, but it is yours.';
+  b.innerHTML = `${ico(d.icon)}<span class="lbl">${esc(d.label)}</span>`;
+  d.el = b; place(d);
+  iconLayer.append(b);
+  return b;
+}
+function updateBinIcon() {
+  const d = DICONS.find(x => x.id === 'bin'); if (!d) return;
+  d.icon = BIN.length ? 'binFull' : 'bin';
+  $('.ico', d.el).innerHTML = ICONS[d.icon];
+}
+const sel = () => DICONS.filter(d => d.el.classList.contains('sel'));
+function selectIcons(list) { DICONS.forEach(d => d.el.classList.toggle('sel', list.includes(d))); }
+
+iconLayer.addEventListener('pointerdown', e => {
+  const b = e.target.closest('.dicon'); if (!b || e.button !== 0) return;
+  const d = DICONS.find(x => x.el === b);
+  if (e.ctrlKey || e.metaKey) { b.classList.toggle('sel'); return; }
+  if (!b.classList.contains('sel')) selectIcons([d]);
+  if (MOBILE.matches) { b._tapStart = { x: e.clientX, y: e.clientY }; return; }
+  const group = sel(), sx = e.clientX, sy = e.clientY;
+  const starts = group.map(g => ({ g, x: g.x, y: g.y }));
+  let dragging = false;
+  const move = ev => {
+    const dx = ev.clientX - sx, dy = ev.clientY - sy;
+    if (!dragging && Math.hypot(dx, dy) < 5) return;
+    if (!dragging) { dragging = true; group.forEach(g => g.el.classList.add('dragging')); }
+    starts.forEach(s => { s.g.el.style.left = (s.x + dx) + 'px'; s.g.el.style.top = (s.y + dy) + 'px'; });
+  };
+  const up = ev => {
+    removeEventListener('pointermove', move); removeEventListener('pointerup', up);
+    if (!dragging) { if (ev.pointerType === 'touch') launch(d.app, b, d); return; }
+    const dx = ev.clientX - sx, dy = ev.clientY - sy;
+    const r = rows(), maxCol = Math.max(0, Math.floor((desktop.clientWidth - OX - 70) / GX));
+    const taken = new Set(DICONS.filter(x => !group.includes(x)).map(x => Math.round((x.x - OX) / GX) + ':' + Math.round((x.y - OY) / GY)));
+    starts.forEach(s => {
+      let c = Math.max(0, Math.min(maxCol, Math.round((s.x + dx - OX) / GX)));
+      let rr = Math.max(0, Math.min(r - 1, Math.round((s.y + dy - OY) / GY)));
+      let guard = 0;
+      while (taken.has(c + ':' + rr) && guard++ < 400) { rr++; if (rr >= r) { rr = 0; c = (c + 1) % (maxCol + 1); } }
+      taken.add(c + ':' + rr);
+      s.g.x = OX + c * GX; s.g.y = OY + rr * GY;
+      s.g.el.classList.remove('dragging');
+      if (!RM.matches && s.g.el.animate) {
+        const from = { left: s.g.el.style.left, top: s.g.el.style.top };
+        place(s.g);
+        s.g.el.animate([{ left: from.left, top: from.top }, { left: s.g.x + 'px', top: s.g.y + 'px' }], { duration: 160, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      } else place(s.g);
+    });
+  };
+  addEventListener('pointermove', move); addEventListener('pointerup', up);
+});
+iconLayer.addEventListener('click', e => {
+  const b = e.target.closest('.dicon'); if (!b || !MOBILE.matches) return;
+  const d = DICONS.find(x => x.el === b); if (d) launch(d.app, b, d);
+});
+iconLayer.addEventListener('dblclick', e => {
+  const b = e.target.closest('.dicon'); if (!b || MOBILE.matches) return;
+  const d = DICONS.find(x => x.el === b); if (d) launch(d.app, b, d);
+});
+iconLayer.addEventListener('keydown', e => {
+  const b = e.target.closest('.dicon'); if (!b) return;
+  const i = DICONS.findIndex(x => x.el === b), d = DICONS[i], r = rows();
+  const go = j => { const t = DICONS[Math.max(0, Math.min(DICONS.length - 1, j))]; selectIcons([t]); t.el.focus(); };
+  if (e.key === 'Enter') { e.preventDefault(); launch(d.app, b, d); }
+  else if (e.key === 'ArrowDown') { e.preventDefault(); go(i + 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); go(i - 1); }
+  else if (e.key === 'ArrowRight') { e.preventDefault(); go(i + r); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - r); }
+  else if (e.key === 'F2') { e.preventDefault(); renameIcon(d); }
+  else if (e.key === 'Delete') { e.preventDefault(); deleteIcon(d); }
+});
+iconLayer.addEventListener('focusin', e => { const b = e.target.closest('.dicon'); if (b && !b.classList.contains('sel') && !sel().length) b.classList.add('sel'); });
+
+function renameIcon(d) {
+  const inp = document.createElement('textarea');
+  inp.className = 'rename'; inp.value = d.label; inp.rows = 2; inp.setAttribute('aria-label', 'New name');
+  inp.style.left = (d.x - 2) + 'px'; inp.style.top = (d.y + 42) + 'px';
+  $('.lbl', d.el).style.visibility = 'hidden';
+  iconLayer.append(inp); inp.focus(); inp.select();
+  let done = false;
+  const commit = ok => {
+    if (done) return; done = true;
+    const v = inp.value.replace(/\s+/g, ' ').trim().slice(0, 40);
+    if (ok && v) { d.label = v; $('.lbl', d.el).textContent = v; }
+    $('.lbl', d.el).style.visibility = '';
+    inp.remove(); d.el.focus();
+  };
+  inp.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); commit(true); } else if (e.key === 'Escape') { e.preventDefault(); commit(false); } });
+  inp.addEventListener('blur', () => commit(true));
+  inp.addEventListener('pointerdown', e => e.stopPropagation());
+}
+async function deleteIcon(d) {
+  if (d.id === 'bin') { oops('The Recycle Bin cannot be put in the Recycle Bin. We tried. It got weird.'); return; }
+  const v = await msgBox({ title: 'Confirm File Delete', icon: 'warn', text: `Are you sure you want to send '${d.label}' to the Recycle Bin?`, buttons: ['Yes', 'No'] });
+  if (v !== 'Yes') return;
+  if (d.locked) { oops([`Cannot delete ${d.label}: it is load-bearing.`, 'Removing it would leave a very quiet website.'], 'Error Deleting File or Folder'); return; }
+  BIN.push({ name: d.label, from: 'C:\\Z\\Desktop', date: 'Just now', icon: 'folder', why: 'You made it, you named it, you let it go.' });
+  DICONS = DICONS.filter(x => x !== d);
+  if (!RM.matches && d.el.animate) {
+    const bin = DICONS.find(x => x.id === 'bin');
+    const a = d.el.getBoundingClientRect(), b = bin.el.getBoundingClientRect();
+    await d.el.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${b.left - a.left}px,${b.top - a.top}px) scale(.3)`, opacity: 0 }], { duration: 320, easing: 'cubic-bezier(.4,0,.6,1)', fill: 'forwards' }).finished.catch(() => {});
+  }
+  d.el.remove();
+  updateBinIcon(); refreshBin();
+}
+function newFolder() {
+  const r = rows(), maxCol = Math.floor((desktop.clientWidth - OX - 70) / GX);
+  const taken = new Set(DICONS.map(x => Math.round((x.x - OX) / GX) + ':' + Math.round((x.y - OY) / GY)));
+  let c = 0, rr = 0;
+  while (taken.has(c + ':' + rr)) { rr++; if (rr >= r) { rr = 0; c++; if (c > maxCol) break; } }
+  newFolderN++;
+  const d = { id: 'nf' + newFolderN, label: newFolderN > 1 ? `New Folder (${newFolderN})` : 'New Folder', icon: 'folder', app: 'folder', x: OX + c * GX, y: OY + rr * GY };
+  DICONS.push(d); renderIcon(d); selectIcons([d]);
+  if (!RM.matches) d.el.animate([{ transform: 'scale(.4)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 200, easing: 'cubic-bezier(.2,1.4,.4,1)' });
+  renameIcon(d);
+}
+
+/* Marquee selection + desktop context menu */
+desktop.addEventListener('pointerdown', e => {
+  if (e.button !== 0 || e.target.closest('.dicon,.win,.rename,.modal-shield')) return;
+  closeStart();
+  if (!e.ctrlKey && !e.metaKey) selectIcons([]);
+  deactivate();
+  if (MOBILE.matches) return;
+  const dr = desktop.getBoundingClientRect();
+  const sx = e.clientX - dr.left, sy = e.clientY - dr.top;
+  const base = sel();
+  let m = null;
+  desktop.setPointerCapture(e.pointerId);
+  const move = ev => {
+    const x = ev.clientX - dr.left, y = ev.clientY - dr.top;
+    if (!m) { if (Math.hypot(x - sx, y - sy) < 3) return; m = document.createElement('div'); m.className = 'marquee'; desktop.append(m); }
+    const l = Math.min(sx, x), t = Math.min(sy, y), w = Math.abs(x - sx), h = Math.abs(y - sy);
+    Object.assign(m.style, { left: l + 'px', top: t + 'px', width: w + 'px', height: h + 'px' });
+    const hit = DICONS.filter(d => { const b = d.el.getBoundingClientRect(); const bx = b.left - dr.left, by = b.top - dr.top; return bx < l + w && bx + b.width > l && by < t + h && by + b.height > t; });
+    selectIcons([...new Set(base.concat(hit))]);
+  };
+  const up = () => { if (m) m.remove(); desktop.removeEventListener('pointermove', move); desktop.removeEventListener('pointerup', up); desktop.removeEventListener('pointercancel', up); };
+  desktop.addEventListener('pointermove', move); desktop.addEventListener('pointerup', up); desktop.addEventListener('pointercancel', up);
+});
+desktop.addEventListener('contextmenu', e => {
+  if (e.target.closest('textarea,input')) return;
+  if (e.target.closest('.win')) return;
+  e.preventDefault();
+  const b = e.target.closest('.dicon');
+  if (b) {
+    const d = DICONS.find(x => x.el === b);
+    if (!b.classList.contains('sel')) selectIcons([d]);
+    const items = [{ label: 'Open', bold: true, action: () => launch(d.app, b, d) }];
+    if (d.id === 'bin') items.push({ label: 'Empty Recycle Bin', disabled: !BIN.length, action: emptyBin });
+    if (d.id === 'posts' || d.id === 'projects') items.push({ label: 'Explore as web page', action: () => { WM.nextFrom = b.getBoundingClientRect(); openBrowser('/' + d.id); } });
+    items.push('-', { label: 'Rename', hint: 'F2', action: () => renameIcon(d) }, { label: 'Delete', hint: 'Del', action: () => deleteIcon(d) }, '-',
+      { label: 'Properties', action: () => oops([`${d.label}`, `Type: ${d.app === 'about' ? 'Text Document' : d.app === 'bin' ? 'System folder' : d.app === 'browser' ? 'Application' : d.app === 'props' ? 'Control Panel item' : 'File Folder'}`, `Size: ${d.app === 'posts' ? '3 posts, 19 minutes of reading' : d.app === 'projects' ? '3 projects, 0 abandoned (see Recycle Bin)' : 'Small, on purpose'}`], `${d.label} Properties`, 'info') });
+    showMenu(e.clientX, e.clientY, items);
+    return;
+  }
+  showMenu(e.clientX, e.clientY, [
+    { label: 'Arrange Icons by Name', action: () => { DICONS.sort((a, b) => a.label.localeCompare(b.label)); layoutIcons(); } },
+    { label: 'Line Up Icons', action: layoutIcons },
+    { label: 'Refresh', action: refreshDesk },
+    '-',
+    { label: 'New Folder', action: newFolder },
+    { label: 'New Text Document', action: () => openNotepad('new') },
+    '-',
+    { label: 'Properties', action: () => { WM.nextFrom = { left: e.clientX, top: e.clientY, width: 1, height: 1 }; openProps(); } }
+  ]);
+});
+function refreshDesk() { document.body.classList.add('refresh-blink'); setTimeout(() => document.body.classList.remove('refresh-blink'), 90); }
+
+/* ================= LAUNCHER ================= */
+function launch(app, from, d) {
+  closeStart();
+  if (from && from.getBoundingClientRect) WM.nextFrom = from.getBoundingClientRect();
+  busy(380);
+  const map = {
+    posts: openPosts, projects: openProjects, about: () => openNotepad('about'), bin: openBin,
+    browser: () => openBrowser('/'), props: openProps, datetime: openDateTime, run: openRun, winver: openWinver,
+    folder: () => openEmptyFolder(d),
+    help: () => oops(['Help and Support is out to lunch.', 'Try reading a post instead. They are mostly help.'], 'Help and Support Center', 'question'),
+    search: () => oops(['Search is unavailable.', 'The animated dog who used to do this has retired to a farm upstate.'], 'Search Results', 'info')
+  };
+  if (app && app.startsWith('project:')) { openReadme(app.slice(8)); return; }
+  (map[app] || (() => {}))();
+}
+
+/* ================= LIST HELPER ================= */
+function wireList(list, { item, onSelect, onOpen, onContext }) {
+  const items = () => $$(item, list);
+  const select = (it, focus = true) => {
+    items().forEach(x => { const on = x === it; x.classList.toggle('sel', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); x.tabIndex = on ? 0 : -1; });
+    if (!it) { const f = items()[0]; if (f) f.tabIndex = 0; }
+    else if (focus) it.focus({ preventScroll: false });
+    if (onSelect) onSelect(it);
+  };
+  list.addEventListener('click', e => {
+    const it = e.target.closest(item);
+    if (!it) { if (e.target === list) select(null, false); return; }
+    select(it);
+    if (e.pointerType === 'touch' || MOBILE.matches) onOpen && onOpen(it);
+  });
+  list.addEventListener('dblclick', e => { const it = e.target.closest(item); if (it && !MOBILE.matches && onOpen) onOpen(it); });
+  list.addEventListener('keydown', e => {
+    const all = items(); const i = all.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); select(all[Math.min(all.length - 1, i + 1)]); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); select(all[Math.max(0, i - 1)]); }
+    else if (e.key === 'Home') { e.preventDefault(); select(all[0]); }
+    else if (e.key === 'End') { e.preventDefault(); select(all[all.length - 1]); }
+    else if (e.key === 'Enter' && i >= 0) { e.preventDefault(); onOpen && onOpen(all[i]); }
+  });
+  list.addEventListener('contextmenu', e => {
+    const it = e.target.closest(item); if (!it) return;
+    e.preventDefault(); e.stopPropagation(); select(it, false); onContext && onContext(it, e);
+  });
+  const f = items()[0]; if (f) f.tabIndex = 0;
+  return { select, items };
+}
+
+/* ================= EXPLORER ================= */
+function paneSection(title, inner) {
+  return `<div class="tp-sec"><button class="tp-head" type="button" aria-expanded="true">${esc(title)}<span class="chev" aria-hidden="true">&#9650;</span></button><div class="tp-body"><div>${inner}</div></div></div>`;
+}
+function explorer(win, { address, icon, pane, views, webPath }) {
+  const root = el(`<div class="explorer">
+    <div class="toolbar" role="toolbar" aria-label="Standard buttons">
+      <button class="tool" type="button" data-t="back" disabled>${ico('back')}<span>Back</span></button>
+      <button class="tool" type="button" data-t="fwd" disabled aria-label="Forward">${ico('fwd')}</button>
+      <button class="tool" type="button" data-t="up" aria-label="Up one level">${ico('up')}</button>
+      <span class="tool-sep"></span>
+      <button class="tool" type="button" data-t="search">${ico('search')}<span>Search</span></button>
+      <button class="tool" type="button" data-t="folders" aria-pressed="false">${ico('folders')}<span>Folders</span></button>
+      <span class="tool-sep"></span>
+      <button class="tool" type="button" data-t="views" ${views ? '' : 'disabled'} aria-haspopup="menu" aria-label="Views">${ico('views')}<span aria-hidden="true">&#9662;</span></button>
+    </div>
+    <div class="addressbar"><label for="${win.id}-addr">Address</label><div class="addr-field">${ico(icon, 16)}<input id="${win.id}-addr" value="${esc(address)}" readonly></div><button class="go" type="button" title="View this folder as a web page">${ico('go')}Go</button></div>
+    <div class="ex-main"><aside class="taskpane" aria-label="Tasks">${pane}</aside><div class="ex-content"></div></div>
+  </div>`);
+  root.addEventListener('click', e => {
+    const h = e.target.closest('.tp-head');
+    if (h) { h.setAttribute('aria-expanded', h.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); return; }
+    const t = e.target.closest('[data-t]'); if (!t) return;
+    const act = t.dataset.t;
+    if (act === 'up') oops(["You're already at the top.", "It's a small site. That's the charm."], address, 'info');
+    else if (act === 'search') launch('search');
+    else if (act === 'folders') { const p = $('.taskpane', root); p.hidden = !p.hidden; t.setAttribute('aria-pressed', p.hidden ? 'true' : 'false'); }
+    else if (act === 'views' && views) { const r = t.getBoundingClientRect(); showMenu(r.left, r.bottom, views()); }
+  });
+  $('.go', root).addEventListener('click', e => { WM.nextFrom = e.currentTarget.getBoundingClientRect(); openBrowser(webPath || '/'); });
+  return { root, content: $('.ex-content', root), pane: $('.taskpane', root) };
+}
+const helpMenu = () => [{ label: 'Help Topics', action: () => launch('help') }, '-', { label: 'About ZC 2000', action: openWinver }];
+
+/* ---- Posts ---- */
+function openPosts() {
+  return createWindow({
+    id: 'posts', title: 'Posts', icon: 'folderDoc', w: 640, h: 390, status: '3 objects',
+    menus: {
+      File: () => [{ label: 'Open', bold: true, action: () => { const s = $('#posts-list .row.sel'); if (s) openBrowser('/posts/' + s.dataset.slug); else openBrowser('/posts'); } }, '-', { label: 'Close', action: () => closeWin(WM.wins.get('posts')) }],
+      Edit: [{ label: 'Select All', disabled: true }, { label: 'Undo Publish', disabled: true }],
+      View: [{ label: 'Details', checked: true }, { label: 'As web page', action: () => openBrowser('/posts') }],
+      Favorites: [{ label: 'Building a comment overlay...', action: () => openBrowser('/posts/comment-overlay') }],
+      Help: helpMenu
+    },
+    build(body, win) {
+      const ex = explorer(win, { address: 'C:\\Z\\Posts', icon: 'folderDoc', webPath: '/posts', pane:
+        paneSection('Post Tasks', `<button class="tp-link" type="button" data-pt="open">${ico('html', 16)}Read selected post</button><button class="tp-link" type="button" data-pt="rss">${ico('mail', 16)}Subscribe to this folder</button><button class="tp-link" type="button" data-open="browser">${ico('browser', 16)}View as web page</button>`) +
+        paneSection('Other Places', `<button class="tp-link" type="button" data-open="projects">${ico('folderProj', 16)}Projects</button><button class="tp-link" type="button" data-open="about">${ico('notepad', 16)}about.txt</button><button class="tp-link" type="button" data-open="bin">${ico('binFull', 16)}Recycle Bin</button>`) +
+        paneSection('Details', `<div class="tp-details" id="posts-det"><strong>Posts</strong><p>File Folder</p><p>3 posts, all new. Select one to see what it is about.</p></div>`) });
+      body.append(ex.root);
+      const sort = { key: 'date', dir: -1 };
+      ex.content.innerHTML = `<div class="cols" role="row">${[['title', 'Name'], ['date', 'Date'], ['read', 'Read'], ['tags', 'Tags']].map(([k, l]) => `<button class="col" type="button" data-k="${k}">${l}<span class="arr" aria-hidden="true"></span></button>`).join('')}</div><div class="list" id="posts-list" role="listbox" aria-label="Posts"></div>`;
+      const list = $('#posts-list', ex.content);
+      const render = () => {
+        const rowsData = [...POSTS].sort((a, b) => { const va = sort.key === 'tags' ? a.tags.join() : a[sort.key], vb = sort.key === 'tags' ? b.tags.join() : b[sort.key]; return (va > vb ? 1 : va < vb ? -1 : 0) * sort.dir; });
+        list.innerHTML = rowsData.map(p => `<div class="row" role="option" aria-selected="false" tabindex="-1" data-slug="${p.slug}"><span class="nm">${ico('html', 16)}<span>${esc(p.title)}</span>${p.isNew ? '<i class="dot" title="New"></i>' : ''}</span><span>${p.label}</span><span>${p.read} min</span><span>${esc(p.tags.join(', '))}</span></div>`).join('');
+        $$('.col', ex.content).forEach(c => { $('.arr', c).textContent = c.dataset.k === sort.key ? (sort.dir > 0 ? '\u25B2' : '\u25BC') : ''; c.setAttribute('aria-sort', c.dataset.k === sort.key ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none'); });
+        const f = $('.row', list); if (f) f.tabIndex = 0;
+      };
+      render();
+      $$('.col', ex.content).forEach(c => c.addEventListener('click', () => { if (sort.key === c.dataset.k) sort.dir *= -1; else { sort.key = c.dataset.k; sort.dir = c.dataset.k === 'date' ? -1 : 1; } render(); }));
+      const det = $('#posts-det', ex.root);
+      const open = it => { WM.nextFrom = it.getBoundingClientRect(); openBrowser('/posts/' + it.dataset.slug); };
+      wireList(list, {
+        item: '.row',
+        onSelect: it => {
+          const p = it && POSTS.find(x => x.slug === it.dataset.slug);
+          det.innerHTML = p ? `<strong>${esc(p.title)}</strong><p>${p.label} &middot; ${p.read} min read</p><p>${esc(p.blurb)}</p>` : '<strong>Posts</strong><p>File Folder</p><p>3 posts, all new.</p>';
+          setStatus(win, p ? `Type: Web Page, ${p.read} min read, Modified: ${p.label}` : '3 objects');
+        },
+        onOpen: open,
+        onContext: (it, e) => showMenu(e.clientX, e.clientY, [
+          { label: 'Open', bold: true, action: () => open(it) },
+          { label: 'Open in Notepad', action: () => { const p = POSTS.find(x => x.slug === it.dataset.slug); openNotepad('post:' + p.slug); } },
+          '-', { label: 'Copy Address', action: () => copyText('http://zc.local/posts/' + it.dataset.slug, e.clientX, e.clientY, 'the address') },
+          { label: 'Delete', action: () => oops(['Cannot delete this post.', 'It has already been read by at least one person, and that person was me.'], 'Error Deleting File') }
+        ])
+      });
+      ex.root.addEventListener('click', e => {
+        const t = e.target.closest('[data-pt]'); if (!t) return;
+        if (t.dataset.pt === 'open') { const s = $('.row.sel', list); if (s) open(s); else oops('Select a post first. Any of them. They are all good.', 'Posts', 'info'); }
+        if (t.dataset.pt === 'rss') oops(['Feed found!', 'Unfortunately your feed reader was last seen in 2013.'], 'Subscribe', 'warn');
+      });
+    }
+  });
+}
+
+/* ---- Projects ---- */
+function openProjects() {
+  return createWindow({
+    id: 'projects', title: 'Projects', icon: 'folderProj', w: 660, h: 400, status: '3 objects',
+    menus: {
+      File: () => [{ label: 'Open README', bold: true, action: () => { const s = $('#proj-list .tile.sel'); openReadme(s ? s.dataset.slug : 'claude-feedback'); } }, '-', { label: 'Close', action: () => closeWin(WM.wins.get('projects')) }],
+      Edit: [{ label: 'Select All', disabled: true }],
+      View: () => viewItems(),
+      Help: helpMenu
+    },
+    build(body, win) {
+      const ex = explorer(win, { address: 'C:\\Z\\Projects', icon: 'folderProj', webPath: '/projects', views: () => viewItems(), pane:
+        paneSection('Project Tasks', `<button class="tp-link" type="button" data-pt="readme">${ico('notepad', 16)}Open README</button><button class="tp-link" type="button" data-pt="web">${ico('browser', 16)}View on the site</button>`) +
+        paneSection('Other Places', `<button class="tp-link" type="button" data-open="posts">${ico('folderDoc', 16)}Posts</button><button class="tp-link" type="button" data-open="bin">${ico('binFull', 16)}Recycle Bin (abandoned ones)</button>`) +
+        paneSection('Details', `<div class="tp-details" id="proj-det"><strong>Projects</strong><p>File Folder</p><p>Three things I built and still use.</p></div>`) });
+      body.append(ex.root);
+      ex.content.innerHTML = `<div class="tiles" id="proj-list" role="listbox" aria-label="Projects" data-view="tiles">${PROJECTS.map(p => `<div class="tile" role="option" aria-selected="false" tabindex="-1" data-slug="${p.slug}">${ico(p.icon)}<div><h3>${esc(p.name)}</h3><p>${esc(p.blurb)}</p><span class="st">${esc(p.status)} &middot; ${p.year}</span></div></div>`).join('')}</div>`;
+      const list = $('#proj-list', ex.content);
+      const det = $('#proj-det', ex.root);
+      wireList(list, {
+        item: '.tile',
+        onSelect: it => {
+          const p = it && PROJECTS.find(x => x.slug === it.dataset.slug);
+          det.innerHTML = p ? `<strong>${esc(p.name)}</strong><p>${esc(p.status)}</p><p>${esc(p.blurb)}</p><div class="chips">${p.tags.map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>` : '<strong>Projects</strong><p>File Folder</p>';
+          setStatus(win, p ? `${p.name}: ${p.status}` : '3 objects');
+        },
+        onOpen: it => { WM.nextFrom = it.getBoundingClientRect(); openReadme(it.dataset.slug); },
+        onContext: (it, e) => showMenu(e.clientX, e.clientY, [
+          { label: 'Open README', bold: true, action: () => openReadme(it.dataset.slug) },
+          { label: 'View on the site', action: () => openBrowser('/projects') },
+          '-', { label: 'Delete', action: () => oops(['Access is denied.', 'This project is still in use by its only user.'], 'Error Deleting File') }
+        ])
+      });
+      ex.root.addEventListener('click', e => {
+        const t = e.target.closest('[data-pt]'); if (!t) return;
+        const s = $('.tile.sel', list);
+        if (t.dataset.pt === 'readme') openReadme(s ? s.dataset.slug : 'claude-feedback');
+        if (t.dataset.pt === 'web') openBrowser('/projects');
+      });
+    }
+  });
+}
+function viewItems() {
+  const list = $('#proj-list'); const cur = list ? list.dataset.view : 'tiles';
+  return ['tiles', 'icons', 'details'].map(v => ({ label: v[0].toUpperCase() + v.slice(1), radio: v === cur, action: () => { const l = $('#proj-list'); if (!l) return; l.dataset.view = v; if (!RM.matches) l.animate([{ opacity: .3 }, { opacity: 1 }], { duration: 180 }); } }));
+}
+
+/* ---- Recycle Bin ---- */
+function openBin() {
+  return createWindow({
+    id: 'bin', title: 'Recycle Bin', icon: BIN.length ? 'binFull' : 'bin', w: 620, h: 360, status: '',
+    menus: { File: [{ label: 'Empty Recycle Bin', action: emptyBin }, '-', { label: 'Close', action: () => closeWin(WM.wins.get('bin')) }], Edit: [{ label: 'Undo Delete', disabled: true }], Help: helpMenu },
+    build(body, win) {
+      const ex = explorer(win, { address: 'Recycle Bin', icon: 'binFull', webPath: '/', pane:
+        paneSection('Recycle Bin Tasks', `<button class="tp-link" type="button" data-pt="empty">${ico('bin', 16)}Empty the Recycle Bin</button><button class="tp-link" type="button" data-pt="restore">${ico('back', 16)}Restore all items</button>`) +
+        paneSection('Details', `<div class="tp-details" id="bin-det"><strong>Recycle Bin</strong><p>Where ideas go to think about what they did.</p></div>`) });
+      body.append(ex.root);
+      ex.content.innerHTML = `<div class="cols"><span class="col">Name</span><span class="col">Deleted</span><span class="col">From</span><span class="col">Original Location</span></div><div class="list" id="bin-list" role="listbox" aria-label="Deleted items"></div>`;
+      wireList($('#bin-list', ex.content), {
+        item: '.row',
+        onSelect: it => { const b = it && BIN[+it.dataset.i]; $('#bin-det').innerHTML = b ? `<strong>${esc(b.name)}</strong><p>Why it's here:</p><p>${esc(b.why)}</p>` : '<strong>Recycle Bin</strong><p>Where ideas go to think about what they did.</p>'; },
+        onOpen: () => oops('Items in the Recycle Bin cannot be opened. Some doors stay closed for good reasons.', 'Recycle Bin', 'warn'),
+        onContext: (it, e) => showMenu(e.clientX, e.clientY, [{ label: 'Restore', action: restoreBin }, '-', { label: 'Delete', action: emptyBin }, { label: 'Properties', action: () => { const b = BIN[+it.dataset.i]; oops([b.name, `Deleted: ${b.date}`, b.why], b.name + ' Properties', 'info'); } }])
+      });
+      ex.root.addEventListener('click', e => { const t = e.target.closest('[data-pt]'); if (!t) return; if (t.dataset.pt === 'empty') emptyBin(); else restoreBin(); });
+      refreshBin();
+    }
+  });
+}
+function refreshBin() {
+  const list = $('#bin-list'); const w = WM.wins.get('bin');
+  if (list) {
+    list.innerHTML = BIN.length ? BIN.map((b, i) => `<div class="row" role="option" aria-selected="false" tabindex="${i ? -1 : 0}" data-i="${i}"><span class="nm">${ico(b.icon, 16)}<span>${esc(b.name)}</span></span><span>${esc(b.date)}</span><span>${esc(b.from.split('\\').pop())}</span><span>${esc(b.from)}</span></div>`).join('') : '<p class="empty">The Recycle Bin is empty. Suspiciously so.</p>';
+  }
+  if (w) { setStatus(w, `${BIN.length} object${BIN.length === 1 ? '' : 's'}`); $('.t-ico', w.el).innerHTML = ICONS[BIN.length ? 'binFull' : 'bin']; }
+}
+async function emptyBin() {
+  if (!BIN.length) { oops('The Recycle Bin is already empty. You are free.', 'Recycle Bin', 'info'); return; }
+  const v = await msgBox({ title: 'Confirm Multiple File Delete', icon: 'warn', text: `Are you sure you want to delete these ${BIN.length} items? They were bad ideas, but they were my bad ideas.`, buttons: ['Yes', 'No'] });
+  if (v !== 'Yes') return;
+  const prog = createWindow({ title: 'Deleting...', icon: 'bin', dialog: true, w: 340, h: 150, autoH: true, modal: true,
+    build(body) { body.innerHTML = `<div class="msg">${ico('bin')}<div style="flex:1"><p id="del-name">Deleting blog_redesign_v7.psd</p><div class="progress"><i id="del-bar" style="--p:0%"></i></div></div></div>`; } });
+  const names = BIN.filter(b => !b.stubborn).map(b => b.name);
+  for (let i = 0; i < names.length; i++) {
+    const n = $('#del-name'), bar = $('#del-bar');
+    if (n) n.textContent = 'Deleting ' + names[i];
+    if (bar) bar.style.setProperty('--p', Math.round(((i + 1) / (names.length + 1)) * 100) + '%');
+    await wait(RM.matches ? 60 : 420);
+  }
+  closeWin(prog);
+  const stubborn = BIN.find(b => b.stubborn);
+  BIN = BIN.filter(b => b.stubborn);
+  refreshBin(); updateBinIcon();
+  if (stubborn) {
+    await wait(200);
+    oops([`Cannot delete ${stubborn.name}: It is being used by another person or program.`, 'The internet has screenshots. Close any programs that might be using the file and try again in about ten years.'], 'Error Deleting File or Folder');
+  }
+}
+function restoreBin() { oops(['These items cannot be restored.', 'They were deleted for a reason, and the reason still stands.'], 'Recycle Bin', 'warn'); }
+
+function openEmptyFolder(d) {
+  const name = d ? d.label : 'New Folder';
+  return createWindow({ id: 'folder-' + (d ? d.id : 'x'), title: name, icon: 'folder', w: 460, h: 300, status: '0 objects',
+    menus: { File: [{ label: 'Close', action: () => closeWin(WM.wins.get('folder-' + (d ? d.id : 'x'))) }], Help: helpMenu },
+    build(body, win) {
+      const ex = explorer(win, { address: 'C:\\Z\\Desktop\\' + name, icon: 'folder', pane: paneSection('File and Folder Tasks', `<button class="tp-link" type="button" data-open="posts">${ico('folderDoc', 16)}Go read something instead</button>`) });
+      body.append(ex.root);
+      ex.content.innerHTML = '<p class="empty">This folder is empty.<br>Like my drafts folder, but honest about it.</p>';
+    } });
+}
+
+/* ================= NOTEPAD ================= */
+function openNotepad(key) {
+  let file = 'about.txt', text = ABOUT_TXT;
+  if (key === 'new') { file = 'New Text Document.txt'; text = ''; }
+  else if (key.startsWith('readme:')) { const p = PROJECTS.find(x => x.slug === key.slice(7)); file = 'README.txt'; text = p.readme; }
+  else if (key.startsWith('post:')) {
+    const p = POSTS.find(x => x.slug === key.slice(5));
+    const tmp = document.createElement('div');
+    tmp.innerHTML = p.body().replace(/<li>/g, '<li>  - ').replace(/<\/(p|h2|li|ul|figure|pre)>/g, '</$1>\n\n');
+    $$('.code-head', tmp).forEach(n => n.remove());
+    $$('figcaption', tmp).forEach(n => n.remove());
+    file = p.slug + '.html';
+    text = p.title.toUpperCase() + '\n' + p.label + ' \u00B7 ' + p.read + ' min read\n\n' + tmp.textContent.split('\n').map(l => l.replace(/\s+$/, '')).join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+  }
+  const id = 'np-' + key.replace(/[^a-z0-9]/gi, '-');
+  const title = `${file} - Notepad` + (key.startsWith('readme:') ? ` (${PROJECTS.find(x => x.slug === key.slice(7)).name})` : '');
+  const w = createWindow({
+    id, title, icon: 'notepad', w: 560, h: 400, status: 'Ln 1, Col 1',
+    menus: {
+      File: () => [{ label: 'Save', hint: 'Ctrl+S', action: saveNope }, { label: 'Save As...', action: saveNope }, '-', { label: 'Exit', action: () => closeWin(w) }],
+      Edit: () => [{ label: 'Select All', hint: 'Ctrl+A', action: () => { const t = $('.np', w.el); t.focus(); t.select(); } }, { label: 'Time/Date', hint: 'F5', action: () => insertDate($('.np', w.el)) }],
+      Format: () => [{ label: 'Word Wrap', checked: !$('.np', w.el).classList.contains('nowrap'), action: () => $('.np', w.el).classList.toggle('nowrap') }, { label: 'Font...', action: () => oops(['Font: Cousine, 13px.', 'It is the only font. Notepad does not do choices.'], 'Font', 'info') }],
+      View: [{ label: 'Status Bar', checked: true, disabled: true }],
+      Help: helpMenu
+    },
+    build(body, win) {
+      const ta = document.createElement('textarea');
+      ta.className = 'np'; ta.spellcheck = false; ta.value = text; ta.setAttribute('aria-label', file);
+      ta.setAttribute('autofocus', '');
+      body.append(ta);
+      const upd = () => { const v = ta.value.slice(0, ta.selectionStart).split('\n'); setStatus(win, `Ln ${v.length}, Col ${v[v.length - 1].length + 1}`); };
+      ['keyup', 'click', 'input', 'select'].forEach(ev => ta.addEventListener(ev, upd));
+      ta.addEventListener('keydown', e => {
+        if (e.key === 'F5') { e.preventDefault(); insertDate(ta); }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); saveNope(); }
+      });
+    }
+  });
+  return w;
+}
+function insertDate(ta) {
+  const n = new Date();
+  const s = n.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) + ' ' + n.toLocaleDateString();
+  ta.setRangeText(s, ta.selectionStart, ta.selectionEnd, 'end'); ta.focus();
+}
+function saveNope() { oops(['Save is disabled in this edition.', 'Your edits live exactly as long as this tab does. Like all of us.'], 'Notepad', 'warn'); }
+function openReadme(slug) { return openNotepad('readme:' + slug); }
+
+/* ================= WEB WANDERER (site pages) ================= */
+function siteNav(path) {
+  const items = [['/', 'Home'], ['/posts', 'Posts'], ['/projects', 'Projects'], ['/about', 'About']];
+  const cur = p => p === '/' ? path === '/' : path.startsWith(p);
+  return `<nav class="site-nav" aria-label="Site"><a href="#" class="site-brand" data-href="/">${ico('pinwheel')}<span>Z. Christensen</span></a><div class="site-links">${items.map(([p, l]) => `<a href="#" data-href="${p}"${cur(p) ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</div></nav>`;
+}
+function postItem(p, extra = '') {
+  return `<a href="#" class="post-item${extra}" data-href="/posts/${p.slug}">${ico('html')}<span><span class="pi-title">${esc(p.title)}${p.isNew ? '<span class="new">NEW</span>' : ''}</span><span class="pi-blurb">${esc(p.blurb)}</span></span><span class="pi-meta"><time datetime="${p.date}">${p.label}</time><span>${p.read} min read</span></span></a>`;
+}
+function projCard(p, extra = '') {
+  return `<button type="button" class="proj-card${extra}" data-open="project:${p.slug}"><span class="pc-head">${ico(p.icon)}${esc(p.name)}</span><span class="pc-blurb">${esc(p.blurb)}</span><span class="chips">${p.tags.map(t => `<span class="chip">${esc(t)}</span>`).join('')}</span><span class="pc-foot"><span class="status-dot"></span>${esc(p.status)}</span></button>`;
+}
+function route(path) {
+  const [p, q] = path.split('?');
+  const tag = new URLSearchParams(q || '').get('tag');
+  const foot = '<footer class="site-foot">Best viewed at 1024&times;768 in any browser from this century. &copy; 2026 Z. Christensen.</footer>';
+  if (p === '/' || p === '') return { title: 'Z. Christensen', html: siteNav('/') + `
+    <header class="hero"><p class="eyebrow">Projects &amp; writing</p><h1>I build small tools for working with agents, then write down what they taught me.</h1><p class="lede">Feedback loops, automation, and interfaces that move with intent. Three posts, three projects, and one very old-fashioned desktop.</p><div class="btn-row"><button class="btn primary" type="button" data-href="/posts">Read the posts</button><button class="btn" type="button" data-href="/projects">See projects</button></div></header>
+    <h2>Recent posts</h2><div class="post-list">${POSTS.map(x => postItem(x)).join('')}</div>
+    <h2>Projects</h2><div class="proj-grid">${PROJECTS.map(x => projCard(x)).join('')}</div>` + foot };
+  if (p === '/posts') {
+    const list = tag ? POSTS.filter(x => x.tags.includes(tag)) : POSTS;
+    const tags = [...new Set(POSTS.flatMap(x => x.tags))];
+    return { title: tag ? `Posts tagged ${tag}` : 'Posts', html: siteNav('/posts') + `<h1>${tag ? `Posts tagged <em>${esc(tag)}</em>` : 'Posts'}</h1><p class="lede">Longer notes on things I built and what went sideways.</p><div class="chips" style="margin:0 0 14px">${tags.map(t => `<a href="#" class="chip" data-href="/posts?tag=${t}" aria-pressed="${t === tag}">${esc(t)}</a>`).join('')}${tag ? ' <a href="#" data-href="/posts">clear filter</a>' : ''}</div><div class="post-list">${list.map(x => postItem(x)).join('')}</div>` + foot };
+  }
+  if (p === '/projects') return { title: 'Projects', html: siteNav('/projects') + `<h1>Projects</h1><p class="lede">Small, useful, and still running. Click a card to open its README.</p><div class="proj-grid">${PROJECTS.map(x => projCard(x)).join('')}</div>` + foot };
+  if (p === '/about') return { title: 'About', html: siteNav('/about') + `<h1>About</h1><p class="lede">Hi, I'm Z. Christensen.</p><p>I build small tools that make working with agents feel less like dictating over the phone and more like pointing at the screen. This site is where I put them, and where I write about what building them taught me.</p><p>The long version lives in <a href="#" data-open="about">about.txt</a>, which you are welcome to edit. Nothing gets saved.</p>` + foot };
+  const m = p.match(/^\/posts\/([\w-]+)$/);
+  const post = m && POSTS.find(x => x.slug === m[1]);
+  if (post) {
+    const i = POSTS.indexOf(post), prev = POSTS[i + 1], next = POSTS[i - 1];
+    return { title: post.title, html: siteNav(p) + `<article class="post"><p class="post-meta"><time datetime="${post.date}">${post.label}</time> &middot; ${post.read} min read</p><h1>${esc(post.title)}</h1><div class="chips">${post.tags.map(t => `<a href="#" class="chip" data-href="/posts?tag=${t}">${esc(t)}</a>`).join('')}</div>${post.body()}<nav class="post-next" aria-label="More posts">${prev ? `<a href="#" data-href="/posts/${prev.slug}">&larr; ${esc(prev.title)}</a>` : '<span></span>'}${next ? `<a href="#" data-href="/posts/${next.slug}">${esc(next.title)} &rarr;</a>` : ''}</nav></article>` + foot };
+  }
+  return { title: 'Cannot find server', html: `<div class="errpage"><h1>${ico('info')}The page cannot be displayed</h1><p>The page you are looking for, <b>${esc(path)}</b>, is currently unavailable. The page might be having technical difficulties, or it might never have existed, which is its own kind of difficulty.</p><hr><p>Please try the following:</p><ul><li>Click the <a href="#" data-href="/">Home</a> button, which has never let anyone down.</li><li>Check the spelling. Every page on this site fits in the Start menu.</li><li>Browse the <a href="#" data-href="/posts">posts</a> instead. They definitely exist.</li></ul><hr><p style="color:#777">HTTP 404 - File not found<br>Web Wanderer</p></div>` };
+}
+
+const BR = { hist: [], idx: -1, w: null, timer: 0 };
+function openBrowser(path = '/') {
+  const w = createWindow({
+    id: 'browser', title: 'Web Wanderer', icon: 'browser', w: 740, h: 540, status: 'Done',
+    menus: {
+      File: () => [{ label: 'New Window', action: () => oops('One window is plenty. This is a personal site, not a newsroom.', 'Web Wanderer', 'info') }, { label: 'Close', action: () => closeWin(WM.wins.get('browser')) }],
+      Edit: [{ label: 'Copy', hint: 'Ctrl+C', disabled: true }],
+      View: [{ label: 'Refresh', hint: 'F5', action: () => navigate(BR.hist[BR.idx], false) }, { label: 'Source', action: () => { const cur = BR.hist[BR.idx] || '/'; const m = cur.match(/^\/posts\/([\w-]+)/); if (m) openNotepad('post:' + m[1]); else openNotepad('about'); } }],
+      Favorites: () => POSTS.map(p => ({ label: p.title, action: () => navigate('/posts/' + p.slug) })),
+      Tools: [{ label: 'Internet Options...', action: () => { closeMenu(); openProps(); } }],
+      Help: helpMenu
+    },
+    onClose: () => { clearTimeout(BR.timer); BR.w = null; BR.hist = []; BR.idx = -1; },
+    build(body, win) {
+      body.innerHTML = `<div class="ie">
+        <div class="toolbar" role="toolbar" aria-label="Navigation">
+          <button class="tool" type="button" data-b="back" disabled>${ico('back')}<span>Back</span></button>
+          <button class="tool" type="button" data-b="fwd" disabled aria-label="Forward">${ico('fwd')}</button>
+          <button class="tool" type="button" data-b="stop" disabled aria-label="Stop">${ico('stop')}</button>
+          <button class="tool" type="button" data-b="refresh" aria-label="Refresh">${ico('refresh')}</button>
+          <button class="tool" type="button" data-b="home" aria-label="Home">${ico('home')}</button>
+          <span class="tool-sep"></span>
+          <button class="tool" type="button" data-b="fav">${ico('folderDoc')}<span>Favorites</span></button>
+          <span class="ie-throb">${ico('pinwheel')}</span>
+        </div>
+        <form class="addressbar" autocomplete="off"><label for="ie-addr">Address</label><span class="field-ie">${ico('html', 16)}<input id="ie-addr" class="ie-addr" spellcheck="false"></span><button class="go" type="submit">${ico('go')}Go</button></form>
+        <div class="ie-page" tabindex="0" aria-label="Page content"><div class="site"></div></div>
+      </div>`;
+      $('.sb-cell', win.el).innerHTML = `<span class="sb-prog" aria-hidden="true"><i></i></span><span class="sb-zone">${ico('zone', 14)}Local intranet</span>`;
+      $('.toolbar', body).addEventListener('click', e => {
+        const b = e.target.closest('[data-b]'); if (!b || b.disabled) return;
+        const a = b.dataset.b;
+        if (a === 'back' && BR.idx > 0) { BR.idx--; navigate(BR.hist[BR.idx], false); }
+        else if (a === 'fwd' && BR.idx < BR.hist.length - 1) { BR.idx++; navigate(BR.hist[BR.idx], false); }
+        else if (a === 'stop') { clearTimeout(BR.timer); win.el.classList.remove('loading'); b.disabled = true; setStatus(win, 'Stopped. You were one click away from something good.'); $('.sb-prog i', win.el).style.setProperty('--p', '0%'); }
+        else if (a === 'refresh') navigate(BR.hist[BR.idx] || '/', false);
+        else if (a === 'home') navigate('/');
+        else if (a === 'fav') { const r = b.getBoundingClientRect(); showMenu(r.left, r.bottom, POSTS.map(p => ({ label: p.title, action: () => navigate('/posts/' + p.slug) })).concat(['-', { label: 'Projects', action: () => navigate('/projects') }])); }
+      });
+      $('form', body).addEventListener('submit', e => {
+        e.preventDefault();
+        let v = $('.ie-addr', body).value.trim().replace(/^(https?:\/\/)?(www\.)?zc\.local/i, '');
+        if (/^https?:\/\//i.test(v)) { oops(['Web Wanderer is set to work offline.', 'Only zc.local is reachable from this desktop. Everything else is somebody else\'s website.'], 'Web Wanderer', 'warn'); return; }
+        if (!v.startsWith('/')) v = '/' + v;
+        navigate(v);
+      });
+    }
+  });
+  BR.w = w;
+  navigate(path);
+  return w;
+}
+function navigate(path, push = true) {
+  const w = BR.w; if (!w || !w.el.isConnected) return;
+  if (push && BR.hist[BR.idx] !== path) { BR.hist = BR.hist.slice(0, BR.idx + 1); BR.hist.push(path); BR.idx = BR.hist.length - 1; }
+  const node = w.el, page = $('.ie-page', node), site = $('.site', node), prog = $('.sb-prog i', node);
+  $('.ie-addr', node).value = 'http://zc.local' + path;
+  $('[data-b=back]', node).disabled = BR.idx <= 0;
+  $('[data-b=fwd]', node).disabled = BR.idx >= BR.hist.length - 1;
+  $('[data-b=stop]', node).disabled = false;
+  clearTimeout(BR.timer);
+  node.classList.add('loading');
+  setStatus(w, `Opening page http://zc.local${path}...`);
+  prog.style.setProperty('--p', '15%');
+  requestAnimationFrame(() => prog.style.setProperty('--p', '72%'));
+  BR.timer = setTimeout(() => {
+    const r = route(path);
+    site.innerHTML = r.html;
+    page.scrollTop = 0;
+    setTitle(w, r.title + ' - Web Wanderer');
+    prog.style.setProperty('--p', '100%');
+    setStatus(w, 'Done');
+    node.classList.remove('loading');
+    $('[data-b=stop]', node).disabled = true;
+    if (!RM.matches && site.animate) site.animate([{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 240, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    setTimeout(() => prog.style.setProperty('--p', '0%'), 450);
+  }, RM.matches ? 0 : 420);
+}
+
+/* ================= DISPLAY PROPERTIES (the style tile) ================= */
+function openProps() {
+  const pending = { theme: state.theme, wall: state.wall, balloons: state.balloons };
+  const TABS = ['Themes', 'Palette', 'Type', 'Textures', 'Controls', 'Components'];
+  const w = createWindow({
+    id: 'props', title: 'Display Properties', icon: 'props', dialog: true, help: true, w: 480, h: 560,
+    x: undefined, y: undefined,
+    build(body, win) {
+      const post = POSTS[0];
+      body.innerHTML = `<div class="props">
+        <div class="tabs" role="tablist" aria-label="Display Properties">${TABS.map((t, i) => `<button class="tab" type="button" role="tab" id="pt-${i}" aria-controls="pp-${i}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${t}</button>`).join('')}</div>
+
+        <div class="tabpanel" role="tabpanel" id="pp-0" aria-labelledby="pt-0" tabindex="0">
+          <div class="monitor" data-help="Live preview. Change a setting below and watch it here before you commit."><div class="screen" id="pv-screen"><div class="mini-win"><i></i><b></b></div><div class="mini-task"></div></div></div>
+          <div class="theme-form">
+            <label for="pv-theme">Theme:</label>
+            <select class="field" id="pv-theme" data-help="Luna is the blue XP chrome. Classic is the gray Windows 2000 bevel. Same site, two decades of nostalgia."><option value="luna">ZC Luna (Blue)</option><option value="classic">ZC Classic (2000)</option></select>
+            <span>Background:</span>
+            <div class="opts" role="radiogroup" aria-label="Background">
+              <label class="chk"><input type="radio" name="pv-wall" value="hills"> Rolling Hills</label>
+              <label class="chk"><input type="radio" name="pv-wall" value="teal"> Classic Teal</label>
+              <label class="chk"><input type="radio" name="pv-wall" value="dither"> Blue Dither</label>
+            </div>
+            <span></span>
+            <label class="chk"><input type="checkbox" id="pv-balloons"> Show notification balloons</label>
+          </div>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="pp-1" aria-labelledby="pt-1" tabindex="0" hidden>
+          <h3 class="ph">Color scheme</h3>
+          <p class="note">Twelve colors, lifted from a decade of gray bevels and blue title bars. Click a swatch to copy its hex.</p>
+          <div class="swatches">${PALETTE.map(c => `<button class="sw" type="button" style="--c:${c.hex}" data-hex="${c.hex}" data-help="${esc(c.n)} (${c.hex}): ${esc(c.r)}."><i></i><span>${esc(c.n)}</span><code>${c.hex}</code><small>${esc(c.r)}</small></button>`).join('')}</div>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="pp-2" aria-labelledby="pt-2" tabindex="0" hidden>
+          <div class="spec" data-help="Display face: Trebuchet MS Bold, the title bar font. Fira Sans stands in where Trebuchet is missing.">
+            <div class="spec-top"><b>Display &middot; Trebuchet MS Bold</b><span>fallback Fira Sans &middot; 30 / 22 / 18px</span></div>
+            <p class="s-display">Notes on designing for motion</p>
+            <p class="s-display i">Title bars speak in italics</p>
+          </div>
+          <div class="spec" data-help="Body face: Tahoma at 13px for reading, 11px for chrome. Verdana is the backup.">
+            <div class="spec-top"><b>Body &middot; Tahoma</b><span>fallback Verdana &middot; 13/21px, UI 11px</span></div>
+            <p class="s-body">Reviewing a prototype used to mean typing coordinates into chat. Now I click the thing and say what's wrong with it.</p>
+            <p class="s-body" style="font-size:11px;color:#555;margin-top:6px">11px UI label &middot; Status bar &middot; Menu item &middot; 3 objects</p>
+          </div>
+          <div class="spec" data-help="Mono face: Cousine, a metric-compatible cousin of the classic Courier. Used for code, file paths and Notepad.">
+            <div class="spec-top"><b>Mono &middot; Cousine</b><span>fallback Lucida Console &middot; 12/19px, Notepad 13px</span></div>
+            <p class="s-mono">C:\\Z\\Posts&gt; open comment-overlay.html
+const TAG = '&lt;script src="overlay.js"&gt;';</p>
+          </div>
+          <h3 class="ph">Scale</h3>
+          <div class="scale">
+            <code>30px</code><span style="font:700 30px/1.1 var(--font-display)">Aa Display XL</span>
+            <code>22px</code><span style="font:700 22px var(--font-display)">Aa Post title</span>
+            <code>18px</code><span style="font:700 18px var(--font-display);color:var(--luna-deep)">Aa Section heading</span>
+            <code>13px</code><span style="font:13px var(--font-body)">Aa Body copy for reading</span>
+            <code>11px</code><span style="font:11px var(--font-body)">Aa Interface, captions, menus</span>
+            <code>12px</code><span style="font:12px var(--font-mono)">Aa monospace &amp; code</span>
+          </div>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="pp-3" aria-labelledby="pt-3" tabindex="0" hidden>
+          <p class="note">Surfaces are gradients, never photos. Every texture below is pure CSS.</p>
+          <div class="textures">
+            <figure class="tx" data-help="Rolling Hills: three radial gradients and a sky. The default wallpaper, made from scratch."><div class="tx-hills"></div><figcaption><b>Rolling Hills</b>Wallpaper, hero wash</figcaption></figure>
+            <figure class="tx" data-help="The flat teal-blue of a fresh 2000 install."><div class="tx-teal"></div><figcaption><b>Classic Teal</b>#3A6EA5, flat</figcaption></figure>
+            <figure class="tx" data-help="50% checker dither. Disabled states, pressed taskbar buttons, scrollbar tracks."><div class="tx-dither"></div><figcaption><b>50% Dither</b>Pressed &amp; disabled</figcaption></figure>
+            <figure class="tx" data-help="The Luna title bar: eight color stops and a hard shadow line at the bottom."><div class="tx-title"></div><figcaption><b>Luna Title</b>8-stop gradient</figcaption></figure>
+            <figure class="tx" data-help="The Explorer task pane wash behind collapsible sections."><div class="tx-pane"></div><figcaption><b>Task Pane</b>#7BA2E7 &rarr; #6375D6</figcaption></figure>
+            <figure class="tx" data-help="Segmented progress: stripes over a glossy green."><div class="tx-prog"></div><figcaption><b>Progress Blocks</b>Loading, deleting</figcaption></figure>
+            <figure class="tx" data-help="Two-pixel raised bevel: white and light gray on the top-left, dark gray and black on the bottom-right."><div class="tx-raised"></div><figcaption><b>Raised Bevel</b>Classic buttons</figcaption></figure>
+            <figure class="tx" data-help="Sunken bevel: the same four lines, flipped. Wells, inputs, status cells."><div class="tx-sunken"></div><figcaption><b>Sunken Bevel</b>Wells &amp; fields</figcaption></figure>
+            <figure class="tx" data-help="The Start button gloss."><div class="tx-start"></div><figcaption><b>Start Gloss</b>Primary CTA</figcaption></figure>
+            <figure class="tx" data-help="The taskbar: a 16-stop blue with a bright rim."><div class="tx-task"></div><figcaption><b>Taskbar</b>Nav background</figcaption></figure>
+          </div>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="pp-4" aria-labelledby="pt-4" tabindex="0" hidden>
+          <h3 class="ph">Button states</h3>
+          <div class="states">
+            <figure><button class="btn" type="button">Default</button><figcaption>Default</figcaption></figure>
+            <figure><button class="btn is-hover" type="button">Hover</button><figcaption>Hover: amber rim</figcaption></figure>
+            <figure><button class="btn is-active" type="button">Pressed</button><figcaption>Pressed: sunk</figcaption></figure>
+            <figure><button class="btn is-focus" type="button">Focused</button><figcaption>Focus: blue rim + dots</figcaption></figure>
+            <figure><button class="btn" type="button" disabled>Disabled</button><figcaption>Disabled</figcaption></figure>
+            <figure><button class="btn primary" type="button">Primary</button><figcaption>Primary (Start green)</figcaption></figure>
+          </div>
+          <h3 class="ph">Inputs</h3>
+          <div class="ctl-grid">
+            <div><label class="lbl" for="c-name">Text field</label><input class="field" id="c-name" value="Z. Christensen"></div>
+            <div><label class="lbl" for="c-sel">Dropdown</label><select class="field" id="c-sel"><option>Newest first</option><option>Oldest first</option></select></div>
+            <div><span class="lbl">Checkboxes</span><label class="chk"><input type="checkbox" checked> Email me new posts</label><label class="chk"><input type="checkbox"> Also the old ones</label><label class="chk"><input type="checkbox" disabled> Disabled</label></div>
+            <div><span class="lbl">Radios</span><label class="chk"><input type="radio" name="c-r" checked> Tiles</label><label class="chk"><input type="radio" name="c-r"> Details</label></div>
+            <div><label class="lbl" for="c-range">Slider drives the progress bar</label><input class="slider" type="range" id="c-range" min="0" max="100" value="45"></div>
+            <div><span class="lbl">Progress</span><div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45" id="c-prog"><i style="--p:45%"></i></div></div>
+          </div>
+          <h3 class="ph">Tags</h3>
+          <div class="chips"><a href="#" class="chip" data-href="/posts?tag=agents">agents</a><a href="#" class="chip is-hover" data-href="/posts?tag=motion">motion (hover)</a><a href="#" class="chip" data-href="/posts?tag=tools" aria-pressed="true">tools (active)</a><a href="#" class="chip" data-href="/posts?tag=css">css</a></div>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="pp-5" aria-labelledby="pt-5" tabindex="0" hidden>
+          <div class="site">
+            <div class="comp" data-help="Site nav: brand pinwheel spins on hover; the current page wears a pressed taskbar-button look."><small>Site nav</small>${siteNav('/posts')}</div>
+            <div class="comp" data-help="Post list item: document icon, title in display face, blurb and meta. Hover turns the title Alert Red."><small>Post list item &middot; default / hover</small><div class="post-list">${postItem(post)}${postItem(POSTS[1], ' is-hover')}</div></div>
+            <div class="comp" data-help="Project card: a tiny window. Lifts 3px on hover."><small>Project card</small><div class="proj-grid" style="grid-template-columns:1fr 1fr">${projCard(PROJECTS[0])}${projCard(PROJECTS[1], ' is-hover')}</div></div>
+            <div class="comp" data-help="Links: underlined blue; on hover they turn Alert Red on a Balloon Cream highlight."><small>Links</small><p>Read <a href="#" class="lnk" data-href="/posts/comment-overlay">the overlay post</a>, hover state: <a href="#" class="lnk is-hover" data-href="/about">about me</a>, visited: <a href="#" class="lnk is-visited" data-href="/projects">projects</a>.</p></div>
+            <div class="comp" data-help="Code block: a sunken well with a file tab, colored like a 1998 IDE."><small>Code block</small>${codeBlock('motion.css', 9, CODE_MOTION)}</div>
+            <div class="comp" data-help="Quote: styled as a Tip of the Day card."><small>Quote</small>${quote('The best feedback tool is the one where pointing at the thing is the whole sentence.', 'Did you know?')}</div>
+          </div>
+        </div>
+
+        <div class="btn-row"><button class="btn" type="button" data-pb="ok">OK</button><button class="btn" type="button" data-pb="cancel">Cancel</button><button class="btn" type="button" data-pb="apply" disabled>Apply</button></div>
+      </div>`;
+
+      const tabs = $$('.tab', body);
+      const show = i => { tabs.forEach((t, j) => { t.setAttribute('aria-selected', j === i ? 'true' : 'false'); t.tabIndex = j === i ? 0 : -1; $('#pp-' + j, body).hidden = j !== i; }); };
+      tabs.forEach((t, i) => {
+        t.addEventListener('click', () => show(i));
+        t.addEventListener('keydown', e => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length; show(n); tabs[n].focus(); }
+        });
+      });
+      const screen = $('#pv-screen', body), selTheme = $('#pv-theme', body), chkB = $('#pv-balloons', body), apply = $('[data-pb=apply]', body);
+      const sync = () => {
+        screen.dataset.theme = pending.theme; screen.dataset.wall = pending.wall;
+        selTheme.value = pending.theme; chkB.checked = pending.balloons;
+        $$('input[name=pv-wall]', body).forEach(r => { r.checked = r.value === pending.wall; });
+        apply.disabled = pending.theme === state.theme && pending.wall === state.wall && pending.balloons === state.balloons;
+      };
+      sync();
+      selTheme.addEventListener('change', () => { pending.theme = selTheme.value; sync(); });
+      $$('input[name=pv-wall]', body).forEach(r => r.addEventListener('change', () => { pending.wall = r.value; sync(); }));
+      chkB.addEventListener('change', () => { pending.balloons = chkB.checked; sync(); });
+      const commit = () => { applyTheme({ ...pending }); sync(); };
+      $('[data-pb=ok]', body).addEventListener('click', () => { commit(); closeWin(win); });
+      $('[data-pb=cancel]', body).addEventListener('click', () => closeWin(win));
+      apply.addEventListener('click', () => { commit(); apply.blur(); $('[data-pb=ok]', body).focus(); });
+      $$('.sw', body).forEach(s => s.addEventListener('click', e => { const r = s.getBoundingClientRect(); copyText(s.dataset.hex, e.clientX || r.left, e.clientY || r.bottom); }));
+      const range = $('#c-range', body), prog = $('#c-prog', body);
+      range.addEventListener('input', () => { $('i', prog).style.setProperty('--p', range.value + '%'); prog.setAttribute('aria-valuenow', range.value); });
+    }
+  });
+  return w;
+}
+
+/* ================= SMALL DIALOGS ================= */
+function openWinver() {
+  return createWindow({ id: 'winver', title: 'About ZC 2000', icon: 'pinwheel', dialog: true, w: 400, h: 330, autoH: true,
+    build(body, win) {
+      body.innerHTML = `<div class="winver"><div class="winver-band">${ico('pinwheel')}<div><b>ZC<sup>2000</sup></b><small>Personal Edition &middot; Version 6.1 (Build 2026.09)</small></div></div><div class="winver-stripe"></div>
+      <p>This product is licensed to:<br><b>Z. Christensen</b></p>
+      <p>Physical memory available to this website: plenty.<br>Posts installed: 3 &middot; Projects installed: 3 &middot; Tiles: 1 of 6</p>
+      <p style="color:#666">No real operating systems were harmed in the making of this desktop. All artwork is original.</p>
+      <div class="btn-row" style="padding:0 16px"><button class="btn" type="button" autofocus>OK</button></div></div>`;
+      $('.btn', body).addEventListener('click', () => closeWin(win));
+    } });
+}
+function openRun() {
+  const w = createWindow({ id: 'run', title: 'Run', icon: 'run', dialog: true, help: true, w: 380, h: 190, autoH: true, x: 8, y: Math.max(8, deskSize().h - 210),
+    build(body, win) {
+      body.innerHTML = `<form class="run-form"><div class="run-body">${ico('run')}<p style="margin:0">Type the name of a program, folder, or post, and ZC 2000 will open it for you.<br><span style="color:#666">Try: posts, projects, about, notepad, desk.cpl, winver, bin, restart</span></p><label for="run-in">Open: <input class="field" id="run-in" list="run-list" autofocus autocomplete="off" spellcheck="false"></label><datalist id="run-list"><option value="posts"><option value="projects"><option value="about"><option value="notepad"><option value="desk.cpl"><option value="winver"><option value="bin"><option value="restart"></datalist></div><div class="dlg-foot"><div class="btn-row"><button class="btn" type="submit">OK</button><button class="btn" type="button" data-r="cancel">Cancel</button><button class="btn" type="button" data-r="browse">Browse...</button></div></div></form>`;
+      $('form', body).addEventListener('submit', e => {
+        e.preventDefault();
+        const v = $('#run-in', body).value.trim().toLowerCase();
+        const cmds = { posts: 'posts', projects: 'projects', about: 'about', 'about.txt': 'about', notepad: 'about', 'desk.cpl': 'props', control: 'props', winver: 'winver', bin: 'bin', recycle: 'bin', browser: 'browser', iexplore: 'browser', wanderer: 'browser', clock: 'datetime', 'timedate.cpl': 'datetime' };
+        if (!v) return;
+        if (v === 'restart' || v === 'shutdown -r') { closeWin(win); restart(); return; }
+        if (v === 'cmd' || v === 'command') { oops(['C:\\Z> _', 'The command prompt is shy. Try "posts".'], 'C:\\WINNT\\cmd.exe', 'info'); return; }
+        if (cmds[v]) { closeWin(win); launch(cmds[v]); return; }
+        const p = POSTS.find(x => x.slug === v || x.title.toLowerCase().includes(v));
+        if (p) { closeWin(win); openBrowser('/posts/' + p.slug); return; }
+        oops([`ZC 2000 cannot find '${v}'.`, 'Make sure you typed the name correctly, then try again. Or accept that some things were never meant to be found.'], v);
+      });
+      $('[data-r=cancel]', body).addEventListener('click', () => closeWin(win));
+      $('[data-r=browse]', body).addEventListener('click', () => oops('Browsing is what the Web Wanderer is for. This is a Run box. It runs.', 'Browse', 'info'));
+    } });
+  return w;
+}
+function openDateTime() {
+  let timer = 0;
+  return createWindow({ id: 'datetime', title: 'Date and Time Properties', icon: 'clock', dialog: true, help: true, w: 420, h: 300, autoH: true,
+    onClose: () => clearInterval(timer),
+    build(body, win) {
+      const n = new Date(), y = n.getFullYear(), m = n.getMonth();
+      const first = new Date(y, m, 1).getDay(), days = new Date(y, m + 1, 0).getDate(), prevDays = new Date(y, m, 0).getDate();
+      let cells = '';
+      for (let i = 0; i < first; i++) cells += `<span class="dim">${prevDays - first + 1 + i}</span>`;
+      for (let d = 1; d <= days; d++) cells += `<span class="${d === n.getDate() ? 'today' : ''}">${d}</span>`;
+      const ticks = Array.from({ length: 12 }, (_, i) => `<line x1="0" y1="-44" x2="0" y2="${i % 3 ? -40 : -37}" stroke="${i % 3 ? '#6B6B6B' : '#003C9D'}" stroke-width="${i % 3 ? 1.5 : 3}" transform="rotate(${i * 30})"/>`).join('');
+      body.innerHTML = `<div class="dt">
+        <fieldset data-help="The calendar. Today is highlighted, the way it always has been."><legend>${n.toLocaleDateString([], { month: 'long', year: 'numeric' })}</legend><div class="cal">${'SMTWTFS'.split('').map(c => `<b>${c}</b>`).join('')}${cells}</div></fieldset>
+        <fieldset data-help="An analog clock, ticking in real time. Silently."><legend>Time</legend><svg class="aclock" viewBox="-50 -50 100 100" role="img" aria-label="Analog clock"><circle r="48" fill="#fff" stroke="#7F9DB9" stroke-width="2"/><circle r="45" fill="none" stroke="#E3E8F2"/>${ticks}<line id="h-h" y2="-24" stroke="#000" stroke-width="4" stroke-linecap="round"/><line id="h-m" y2="-36" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line id="h-s" y1="8" y2="-40" stroke="#E0301E" stroke-width="1.2"/><circle r="3" fill="#E0301E"/></svg><div class="dt-time" id="dt-time"></div></fieldset>
+      </div><div class="dlg-foot"><div class="btn-row"><button class="btn" type="button" autofocus data-d="ok">OK</button><button class="btn" type="button" data-d="set">Set time...</button></div></div>`;
+      const tick = () => {
+        const t = new Date(), s = t.getSeconds(), mi = t.getMinutes(), h = t.getHours() % 12;
+        $('#h-s', body).setAttribute('transform', `rotate(${s * 6})`);
+        $('#h-m', body).setAttribute('transform', `rotate(${mi * 6 + s * 0.1})`);
+        $('#h-h', body).setAttribute('transform', `rotate(${h * 30 + mi * 0.5})`);
+        $('#dt-time', body).textContent = t.toLocaleTimeString();
+      };
+      tick(); timer = setInterval(tick, 1000);
+      $('[data-d=ok]', body).addEventListener('click', () => closeWin(win));
+      $('[data-d=set]', body).addEventListener('click', () => oops(['You do not have permission to change the time.', 'Nobody does. We have all tried.'], 'Date and Time', 'warn'));
+    } });
+}
+
+/* ================= START MENU ================= */
+const startBtn = $('#start'), startMenu = $('#startmenu');
+function openStart() {
+  if (WM.modal) { flash(WM.modal); return; }
+  startMenu.hidden = false; startMenu.classList.remove('opening'); void startMenu.offsetWidth; startMenu.classList.add('opening');
+  startBtn.setAttribute('aria-expanded', 'true');
+  const f = $('.sm-item', startMenu); if (f) f.focus({ preventScroll: true });
+}
+function closeStart() { if (startMenu.hidden) return; startMenu.hidden = true; startBtn.setAttribute('aria-expanded', 'false'); }
+startBtn.addEventListener('click', () => { startMenu.hidden ? openStart() : closeStart(); });
+startMenu.addEventListener('keydown', e => {
+  const all = $$('.sm-item, .sm-foot button', startMenu); const i = all.indexOf(document.activeElement);
+  if (e.key === 'Escape') { closeStart(); startBtn.focus(); }
+  else if (e.key === 'ArrowDown') { e.preventDefault(); all[(i + 1) % all.length].focus(); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); all[(i - 1 + all.length) % all.length].focus(); }
+});
+$('#allprogs').addEventListener('click', e => {
+  const r = e.currentTarget.getBoundingClientRect();
+  showMenu(r.right - 4, r.top, [
+    ...POSTS.map(p => ({ label: p.title, action: () => { closeStart(); openBrowser('/posts/' + p.slug); } })), '-',
+    ...PROJECTS.map(p => ({ label: p.name + ' (README)', action: () => { closeStart(); openReadme(p.slug); } })), '-',
+    { label: 'Run...', action: () => { closeStart(); openRun(); } }
+  ]);
+});
+$$('[data-power]', startMenu).forEach(b => b.addEventListener('click', () => { closeStart(); b.dataset.power === 'off' ? turnOffDialog() : logOff(); }));
+
+/* ================= TRAY & CLOCK ================= */
+const clockEl = $('#clock');
+function tickClock() {
+  const n = new Date();
+  clockEl.textContent = n.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  clockEl.title = n.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+tickClock(); setInterval(tickClock, 1000);
+clockEl.addEventListener('click', () => { WM.nextFrom = clockEl.getBoundingClientRect(); openDateTime(); });
+$('#tray-posts').addEventListener('click', () => { WM.nextFrom = $('#tray-posts').getBoundingClientRect(); openPosts(); });
+$('#tray-vol').addEventListener('click', () => balloon({ title: 'Volume', text: 'This is the sound-free edition. Every error here is silent, which is its own kind of mercy.', icon: 'info', anchor: $('#tray-vol'), ms: 6000 }));
+$('#tray-net').addEventListener('click', () => balloon({ title: 'Local Area Connection', text: 'Connected to zc.local at 100 Mbps. Everything else is outside the modem.', icon: 'info', anchor: $('#tray-net'), ms: 6000 }));
+let deskShown = null;
+$('#showdesk').addEventListener('click', () => {
+  if (deskShown) { deskShown.forEach(w => { if (w.el.isConnected) restoreWin(w); }); deskShown = null; return; }
+  deskShown = [...WM.wins.values()].filter(w => !w.min && !w.o.dialog);
+  deskShown.forEach(w => minimizeWin(w));
+});
+$('#taskbar').addEventListener('contextmenu', e => {
+  if (e.target.closest('.task')) return;
+  e.preventDefault();
+  showMenu(e.clientX, e.clientY, [
+    { label: 'Cascade Windows', action: () => { let i = 0; [...WM.wins.values()].filter(w => !w.min).forEach(w => { w.max = false; w.el.classList.remove('max'); w.el.style.left = (40 + i * 30) + 'px'; w.el.style.top = (20 + i * 30) + 'px'; focusWin(w); i++; }); } },
+    { label: 'Tile Windows Vertically', action: () => { const ws = [...WM.wins.values()].filter(w => !w.min && !w.o.dialog); const d = deskSize(); const cw = Math.floor(d.w / Math.max(1, ws.length)); ws.forEach((w, i) => { w.max = false; w.el.classList.remove('max'); Object.assign(w.el.style, { left: i * cw + 'px', top: '0px', width: cw + 'px', height: d.h + 'px' }); }); } },
+    { label: 'Show the Desktop', action: () => $('#showdesk').click() },
+    '-',
+    { label: 'Properties', action: openProps }
+  ], { above: true });
+});
+
+/* ================= POWER: BOOT / LOG OFF / STAND BY / OFF ================= */
+const bootEl = $('#boot'), bootPost = $('#boot-post'), bootWelcome = $('#boot-welcome'), wlUser = $('#wl-user'), wlMsg = $('#wl-msg');
+let skipBoot = null;
+function skippable(ms) { return new Promise(r => { const t = setTimeout(r, ms); skipBoot = () => { clearTimeout(t); r(); }; }); }
+bootEl.addEventListener('pointerdown', () => { if (skipBoot && !bootPost.hidden) skipBoot(); });
+addEventListener('keydown', e => { if (skipBoot && !bootEl.hidden && !bootPost.hidden) { skipBoot(); } });
+
+async function boot(first) {
+  closeStart(); closeMenu();
+  [...WM.wins.values()].forEach(w => { w.el.remove(); if (w.task) w.task.remove(); });
+  WM.wins.clear(); clearModal(); BR.w = null; BR.hist = []; BR.idx = -1; WM.cascade = 0;
+  document.body.classList.add('busy');
+  bootEl.hidden = false; bootEl.classList.remove('out');
+  bootPost.hidden = false; bootWelcome.hidden = true;
+  await skippable(RM.matches ? 500 : 2600);
+  skipBoot = null;
+  bootPost.hidden = true; bootWelcome.hidden = false;
+  wlUser.disabled = true; wlMsg.textContent = 'Loading your personal settings...';
+  await wait(RM.matches ? 300 : 1300);
+  wlMsg.textContent = 'Welcome back.';
+  await wait(RM.matches ? 100 : 500);
+  await revealDesktop(first);
+}
+async function revealDesktop(openDefaults) {
+  bootEl.classList.add('out');
+  await wait(RM.matches ? 0 : 450);
+  bootEl.hidden = true;
+  document.body.classList.remove('busy');
+  startBtn.focus({ preventScroll: true });
+  if (openDefaults) {
+    const d = deskSize();
+    if (!MOBILE.matches && d.w >= 1000) {
+      await wait(RM.matches ? 0 : 250);
+      WM.nextFrom = DICONS.find(x => x.id === 'browser').el.getBoundingClientRect();
+      WM.nextGeom = { x: 110, y: 18, w: Math.max(560, Math.min(720, d.w - 560)), h: Math.min(560, d.h - 40) };
+      openBrowser('/posts/comment-overlay');
+      await wait(RM.matches ? 0 : 320);
+      WM.nextFrom = DICONS.find(x => x.id === 'props').el.getBoundingClientRect();
+      WM.nextGeom = { x: Math.max(120, d.w - 510), y: 52, h: Math.min(560, d.h - 70) };
+      openProps();
+    }
+  }
+  setTimeout(() => balloon({ title: 'You have 3 new posts', text: 'Click here to read them before they get old. (They are already a little old.)', icon: 'info', onClick: () => { WM.nextFrom = $('#tray-posts').getBoundingClientRect(); openPosts(); } }), RM.matches ? 400 : 2200);
+}
+function restart() { boot(false); }
+function logOff() {
+  document.body.classList.add('fading');
+  setTimeout(() => {
+    document.body.classList.remove('fading');
+    bootEl.hidden = false; bootEl.classList.remove('out');
+    bootPost.hidden = true; bootWelcome.hidden = false;
+    wlUser.disabled = false; wlMsg.textContent = 'Click your name to log on';
+    wlUser.focus();
+  }, RM.matches ? 0 : 900);
+}
+wlUser.addEventListener('click', async () => {
+  wlUser.disabled = true; wlMsg.textContent = 'Loading your personal settings...';
+  await wait(RM.matches ? 200 : 1000);
+  revealDesktop(false);
+});
+function turnOffDialog() {
+  document.body.classList.add('fading');
+  const ov = el(`<div class="power" role="dialog" aria-modal="true" aria-labelledby="po-t"><div class="poweroff">
+    <div class="po-head"><span id="po-t">Turn off computer</span>${ico('pinwheel')}</div>
+    <div class="po-body">
+      <button type="button" data-p="standby"><i style="background:linear-gradient(#FFD466,#E5A000)"><svg viewBox="0 0 20 20"><path d="M13 3a7 7 0 1 0 4 11A6 6 0 0 1 13 3z" fill="#fff"/></svg></i>Stand By</button>
+      <button type="button" data-p="off"><i style="background:linear-gradient(#FF8A6B,#D0300E)"><svg viewBox="0 0 20 20"><path d="M6 5.5a6.5 6.5 0 1 0 8 0" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M10 2v7" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></i>Turn Off</button>
+      <button type="button" data-p="restart"><i style="background:linear-gradient(#8EE06E,#2F8A1F)"><svg viewBox="0 0 20 20"><path d="M15.5 7A6 6 0 1 0 16 12" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M17 2.5v5.5h-5.5z" fill="#fff"/></svg></i>Restart</button>
+    </div>
+    <div class="po-foot"><button class="btn" type="button" data-p="cancel">Cancel</button></div></div></div>`);
+  document.body.append(ov);
+  $('[data-p=off]', ov).focus();
+  const done = () => { ov.remove(); document.body.classList.remove('fading'); };
+  ov.addEventListener('keydown', e => { if (e.key === 'Escape') { done(); startBtn.focus(); } });
+  ov.addEventListener('click', e => {
+    const b = e.target.closest('[data-p]'); if (!b) return;
+    const p = b.dataset.p; done();
+    if (p === 'standby') standBy();
+    else if (p === 'off') itsSafe();
+    else if (p === 'restart') restart();
+  });
+}
+function standBy() {
+  const s = el('<div class="standby" role="dialog" aria-label="Standing by" tabindex="-1"><p>Standing by. Click or press any key to wake.</p></div>');
+  document.body.append(s); s.focus();
+  const wake = () => { s.remove(); balloon({ title: 'Welcome back', text: 'Nothing happened while you were gone. That is the beauty of a static site.', icon: 'info', anchor: clockEl, ms: 5000 }); };
+  s.addEventListener('click', wake); s.addEventListener('keydown', wake);
+}
+function itsSafe() {
+  const s = el(`<div class="itsafe" role="dialog" aria-label="Shut down"><div><p>It's now safe to turn off your computer.</p><small>Or close this tab. Or press the button, if you miss us already.</small><button class="btn" type="button">Power On</button></div></div>`);
+  document.body.append(s);
+  const b = $('button', s); b.focus();
+  b.addEventListener('click', () => { s.remove(); boot(true); });
+}
+
+/* ================= GLOBAL DELEGATION ================= */
+document.addEventListener('click', e => {
+  const cc = e.target.closest('.copy-code');
+  if (cc) { const code = cc.closest('.codewrap').querySelector('code').innerText; copyText(code, e.clientX, e.clientY, 'the code'); cc.textContent = 'Copied'; setTimeout(() => { cc.textContent = 'Copy'; }, 1400); return; }
+  const h = e.target.closest('[data-href]');
+  if (h) {
+    e.preventDefault();
+    const inBrowser = h.closest('.ie-page');
+    if (!inBrowser) WM.nextFrom = h.getBoundingClientRect();
+    if (BR.w && inBrowser) navigate(h.dataset.href); else openBrowser(h.dataset.href);
+    return;
+  }
+  const o = e.target.closest('[data-open]');
+  if (o) { e.preventDefault(); launch(o.dataset.open, o); }
+});
+document.addEventListener('pointerdown', e => {
+  if (openMenu && !openMenu.el.contains(e.target) && !(openMenu.owner && openMenu.owner.contains(e.target))) closeMenu(true);
+  if (!startMenu.hidden && !startMenu.contains(e.target) && !startBtn.contains(e.target) && !e.target.closest('.ctx')) closeStart();
+});
+document.addEventListener('contextmenu', e => { if (!e.target.closest('textarea,input,.site,.code')) e.preventDefault(); });
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Escape') { e.preventDefault(); startMenu.hidden ? openStart() : closeStart(); }
+  else if (e.key === 'Escape') { if (openMenu) closeMenu(); else if (!startMenu.hidden) { closeStart(); startBtn.focus(); } }
+});
+let px = 0;
+addEventListener('pointermove', e => {
+  if (RM.matches || document.body.dataset.wall !== 'hills') return;
+  const nx = (e.clientX / innerWidth - 0.5);
+  if (Math.abs(nx - px) < 0.02) return;
+  px = nx;
+  $('#wall .hill-back').style.transform = `translateX(${nx * -10}px)`;
+  $('#wall .hill-front').style.transform = `translateX(${nx * -22}px)`;
+}, { passive: true });
+addEventListener('resize', () => {
+  const d = deskSize();
+  if (DICONS.some(x => x.y + 80 > d.h || x.x + 70 > d.w)) layoutIcons();
+  WM.wins.forEach(w => { const l = w.el.offsetLeft, t = w.el.offsetTop; if (l > d.w - 90) w.el.style.left = Math.max(0, d.w - w.el.offsetWidth) + 'px'; if (t > d.h - 28) w.el.style.top = Math.max(0, d.h - w.el.offsetHeight) + 'px'; });
+});
+
+/* ================= INIT ================= */
+$$('[data-ico]').forEach(n => { n.innerHTML = ICONS[n.dataset.ico] || ''; n.setAttribute('aria-hidden', 'true'); });
+DICONS.forEach(renderIcon);
+layoutIcons();
+applyTheme(state);
+boot(true);
+})();
+</script>
+</body>
+</html>
