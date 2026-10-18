@@ -195,11 +195,7 @@ final class CommuteTracker: NSObject, CLLocationManagerDelegate {
     }
 
     private func save(_ trip: CompletedTrip) {
-        var backgroundTask = UIBackgroundTaskIdentifier.invalid
-        backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "SaveCommute") {
-            UIApplication.shared.endBackgroundTask(backgroundTask)
-            backgroundTask = .invalid
-        }
+        let backgroundTask = BackgroundTask(name: "SaveCommute")
         let context = Persistence.container.mainContext
         let commute = Commute(
             id: trip.id,
@@ -230,10 +226,7 @@ final class CommuteTracker: NSObject, CLLocationManagerDelegate {
                 commute.mode = mode
                 try? context.save()
             }
-            if backgroundTask != .invalid {
-                UIApplication.shared.endBackgroundTask(backgroundTask)
-                backgroundTask = .invalid
-            }
+            backgroundTask.end()
         }
     }
 
@@ -352,5 +345,23 @@ final class CommuteTracker: NSObject, CLLocationManagerDelegate {
     nonisolated func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         let message = error.localizedDescription
         Task { @MainActor in self.lastMessage = "Geofence error: \(message)" }
+    }
+}
+
+/// Keeps the app alive in the background while a trip is saved and classified; ends itself on expiry.
+@MainActor
+private final class BackgroundTask {
+    private var id = UIBackgroundTaskIdentifier.invalid
+
+    init(name: String) {
+        id = UIApplication.shared.beginBackgroundTask(withName: name) { [weak self] in
+            self?.end()
+        }
+    }
+
+    func end() {
+        guard id != .invalid else { return }
+        UIApplication.shared.endBackgroundTask(id)
+        id = .invalid
     }
 }
