@@ -195,7 +195,11 @@ final class CommuteTracker: NSObject, CLLocationManagerDelegate {
     }
 
     private func save(_ trip: CompletedTrip) {
-        let backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "SaveCommute")
+        var backgroundTask = UIBackgroundTaskIdentifier.invalid
+        backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "SaveCommute") {
+            UIApplication.shared.endBackgroundTask(backgroundTask)
+            backgroundTask = .invalid
+        }
         let context = Persistence.container.mainContext
         let commute = Commute(
             id: trip.id,
@@ -226,7 +230,10 @@ final class CommuteTracker: NSObject, CLLocationManagerDelegate {
                 commute.mode = mode
                 try? context.save()
             }
-            UIApplication.shared.endBackgroundTask(backgroundTask)
+            if backgroundTask != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTask)
+                backgroundTask = .invalid
+            }
         }
     }
 

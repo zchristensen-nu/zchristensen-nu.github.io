@@ -114,7 +114,8 @@ struct SettingsView: View {
             .onChange(of: settings.reliability) { tracker.rescheduleLeaveByReminder() }
             .confirmationDialog("Delete all \(commutes.count) trips?", isPresented: $confirmingDelete, titleVisibility: .visible) {
                 Button("Delete all", role: .destructive) {
-                    try? context.delete(model: Commute.self)
+                    // Delete one by one; a batch delete doesn't refresh @Query on iOS 17.
+                    for commute in commutes { context.delete(commute) }
                     try? context.save()
                 }
             } message: {

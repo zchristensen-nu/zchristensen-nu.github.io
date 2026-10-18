@@ -7,6 +7,7 @@ struct CommuteDetailView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @State private var confirmingDelete = false
+    @State private var deleteOnDisappear = false
 
     var body: some View {
         let route = commute.route
@@ -68,11 +69,14 @@ struct CommuteDetailView: View {
         }
         .navigationTitle(commute.departure.formatted(.dateTime.weekday(.abbreviated).month().day()))
         .navigationBarTitleDisplayMode(.inline)
-        .onDisappear { try? context.save() }
+        .onDisappear {
+            // Delete only after the view is gone, so it never redraws a deleted model.
+            if deleteOnDisappear { context.delete(commute) }
+            try? context.save()
+        }
         .confirmationDialog("Delete this trip?", isPresented: $confirmingDelete, titleVisibility: .visible) {
             Button("Delete", role: .destructive) {
-                context.delete(commute)
-                try? context.save()
+                deleteOnDisappear = true
                 dismiss()
             }
         }
